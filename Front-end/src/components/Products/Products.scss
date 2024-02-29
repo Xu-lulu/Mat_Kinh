@@ -1,0 +1,106 @@
+.product{
+  display: inline;
+  width: 100%;
+  height: 50px;
+}
+.navbarpro{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  text-align: center;
+
+}
+.panigation{
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 5rem;
+  font-size: 1.2rem;
+  gap: 5px;
+    .page-num{
+      padding: 8px 15px;
+      cursor: pointer;
+      border-radius: 3px;
+      font-weight: 400;
+      text-decoration: none;
+    }
+}
+
+.panigation .page-num:hover{
+  background-color: aqua;
+  color: white;
+  text-decoration: none;
+}
+// .products-container{
+//   display: flex;
+//   flex-direction: row;
+//   width: 100%;
+//   flex-wrap: wrap;
+//   justify-content: space-between;
+//   margin-top: 4rem;
+//   text-align: center;
+// }
+// .products {
+//   background-color: #d8e2dc;
+//   padding: 0.5rem;
+//   border-radius: 14px;
+//   width: 350px;
+//   height: 450px;
+//   margin-bottom: 1.5rem;
+//   display: grid;
+//   margin-left: 0.5rem;
+//   align-items: center;
+//   grid-template-areas:
+//     "img Name"
+//     "desc price"
+//     "count btn"
+//     ;
+// }
+// .productsName {
+//   grid-area: Name;
+// }
+// .products-Image-container {
+//   grid-area: img;
+//   width: 150px;
+//   height: 150px;
+//   overflow: hidden;
+// }
+// .productsDescription {
+//   grid-area: desc;
+// }
+// .productsCount{
+//   grid-area: count;
+// }
+// .productsPrice {
+//   font-weight: 700;
+//   margin: 1rem 0 1rem 0;
+//   grid-area: price;
+// }
+// .products-btn {
+//   padding: 0.05rem;
+//   border-radius: 14px;
+//   cursor: pointer;
+//   background-color: black;
+//   grid-area: btn;
+//   border: none;
+//   font-size: 1.25rem;
+//   transition: 100ms ease-in-out;
+//   margin-top: 90px;
+  
+// }
+// .products-btn:hover {
+//   background-color: #0a9396;
+//   color: white;
+// }
+// .products-Image {
+//     width: 100%;
+//     width: 120px;
+//     height: 120px;
+//     object-fit: cover;
+//     border-radius: 50%;
+// }
+
+.product-card{
+  margin-left: -50px;
+}

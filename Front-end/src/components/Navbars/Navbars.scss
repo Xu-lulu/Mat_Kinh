@@ -1,0 +1,23 @@
+.nav-container{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: seagreen;
+  width: 100%;
+}
+.nav-container .navbar{
+  display: flex;
+  justify-content: flex-end;
+  flex-direction: row;
+  padding-right: 100px;
+}
+.nav-container > *{
+  margin-left: 2rem;
+  color: #9c6644;
+  text-decoration: none;
+  transition: 200ms ease-in-out;
+}
+
+.nav-container >*:hover{
+  color: #e76f51;
+}
