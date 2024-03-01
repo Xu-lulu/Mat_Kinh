@@ -3,9 +3,9 @@ import "./Navbars.scss";
 import { useContext, useEffect, useState } from "react";
 import { CartContext } from "../../Contexts/CartContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCartArrowDown } from "@fortawesome/free-solid-svg-icons";
+import { faCartArrowDown, faHeart } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
-
+import logo from "../../assets/Group 11/image 20.png";
 const Navbars = () => {
   const { count, setcount } = useContext(CartContext);
   const [dataCategory, setdataCategory] = useState([]);
@@ -41,22 +41,39 @@ const Navbars = () => {
   return (
     <>
       <div className="nav-container">
-        <a className="logo">Logo</a>
+        <a className="logo">
+          <img src={logo} alt="logo"></img>
+          <h1>Food Love</h1>
+        </a>
+
         <nav className="navbar">
-          <NavLink to="/" active="active" className="btn">
-            Home
+          <div className="cenNavbar">
+            <NavLink to="/" active="active" className="btn">
+              Home
+            </NavLink>
+            <NavLink to="/admin" className="btn">
+              Admin
+            </NavLink>
+            <NavLink to="/products" className="btn" onClick={clickproduct()}>
+              Products
+            </NavLink>
+          </div>
+          <NavLink to="/myCart" className="btn btncart">
+            <FontAwesomeIcon icon={faCartArrowDown} /> 
+            <div className="count">{count}</div>
           </NavLink>
-          <NavLink to="/admin" className="btn">
-            Admin
+          <NavLink to="/like" className="btn">
+            <FontAwesomeIcon icon={faHeart} />
           </NavLink>
-          <NavLink to="/products" className="btn" onClick={clickproduct()}>
-            Products
+          <NavLink to="/Signout" className="btn">
+            Đăng ký
           </NavLink>
-          <NavLink to="/myCart" className="btn">
-            <FontAwesomeIcon icon={faCartArrowDown} /> {count}
+          <NavLink to="/Signin" className="btn">
+            Đăng nhập
           </NavLink>
         </nav>
       </div>
+      
       {/* {show && (
         <nav>
           <NavLink className="btn" to="/products" active="active">

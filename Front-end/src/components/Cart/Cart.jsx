@@ -4,7 +4,7 @@ import "./Cart.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
 const Cart = (props) => {
-  const { myCart, addtoCart, total, setTotal, count, setcount } =
+  const { myCart, addtoCart, total, setTotal, count, setCount } =
     useContext(CartContext);
   // const [data, setdata] = useState(0);
   const handcleclinkIncrement = (id) => {
@@ -13,7 +13,7 @@ const Cart = (props) => {
     cartNewState[index].mount++;
     addtoCart(cartNewState);
     setTotal((totals) => (totals += Number(cartNewState[index].Price)));
-    // setcount((count) => (count += 1));
+    setCount((count) => (count += 1));
   };
   const handcleclinkDecrement = (id) => {
     const index = myCart.findIndex((item) => item._id === id);
@@ -22,7 +22,7 @@ const Cart = (props) => {
       cartNewState[index].mount--;
       addtoCart(cartNewState);
       setTotal((totals) => (totals -= Number(cartNewState[index].Price)));
-      // setcount((count) => (count -= 1));
+      setCount((count) => (count -= 1));
     }
   };
   const isCartEmpty = () => {
@@ -33,8 +33,7 @@ const Cart = (props) => {
     const removemyCart = myCart.find((item) => item._id === id);
     addtoCart(newStatemyCart);
     setTotal((totals) => (totals -= removemyCart.Price * removemyCart.mount));
-    // setcount((count) => count - myCart.mount);
-    useEffect(() => {}, []);
+    setCount((count) => count - removemyCart.mount);
   };
   return (
     <>

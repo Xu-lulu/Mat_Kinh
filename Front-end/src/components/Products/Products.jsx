@@ -5,6 +5,9 @@ import ReactPaginate from "react-paginate";
 // import "../Navbars/Navbars.scss";
 import { Link, NavLink } from "react-router-dom";
 import axios from "axios";
+import Search from "../search/search";
+import BanerProducts from "../baner/banerProducts";
+
 const Products = (props) => {
   const { allProducts, loading } = props;
   const [dataCategory, setdataCategory] = useState([]);
@@ -26,15 +29,7 @@ const Products = (props) => {
     getData().then((res) => setdataCategory(res.data));
     getData().catch((err) => console.log(err));
   }, []);
-  // const rendeclink = () => {
-  //   useEffect(() => {}, []);
-  // };
   const handlePageClick = (event) => {
-    // const newOffset = (event.selected * itemsPerPage) % allProducts.length;
-    // const newOffset = Math.min(
-    //   event.selected * itemsPerPage,
-    //   allProducts.length
-    // );
     const newOffset = event.selected * itemsPerPage;
 
     setitemOffset(newOffset);
@@ -43,6 +38,12 @@ const Products = (props) => {
   console.log(allProducts.length);
   return (
     <>
+      {/* <div>
+        <Search />
+      </div> */}
+      <div>
+        <BanerProducts />
+      </div>
       <div className="product">
         <nav className="navbarpro">
           <NavLink
@@ -61,7 +62,6 @@ const Products = (props) => {
                 key={index}
                 to={`/products/category/${item.Namecategory}`}
                 active="active"
-                // onClick={rendeclink}
               >
                 {item.Namecategory}
               </NavLink>
@@ -69,7 +69,7 @@ const Products = (props) => {
           })}
         </nav>{" "}
         {!loading ? (
-          <div className="row row-cols-5 gy-1 p-5">
+          <div className="alldataproduct row row-cols-5 gy-1">
             {currentItems.map((product, index) => {
               return (
                 <div className="product-card p-1" key={index}>

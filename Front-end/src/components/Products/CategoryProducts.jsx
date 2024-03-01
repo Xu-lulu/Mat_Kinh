@@ -2,7 +2,8 @@ import { useState, useEffect } from "react";
 import { Link, NavLink, useParams } from "react-router-dom";
 import axios from "axios";
 import ProductsCart from "./ProductCard";
-import './Products.scss'
+import "./Products.scss";
+import BanerProducts from "../baner/banerProducts";
 const CategoryProducts = (props) => {
   const { allProducts } = props;
   const { name } = useParams();
@@ -19,20 +20,7 @@ const CategoryProducts = (props) => {
     getData().then((res) => setdata(res.data));
     getData().then((res) => setloading(false));
     getData().catch((err) => console.log(err));
-  }, []);
-  //   useEffect(() => {
-  //     async function getData() {
-  //       const datas = allProducts.find((item) => item.Category === name);
-  //       return datas;
-  //     }
-  //     getData().then((res) => console.log(res.data));
-  //     getData().then((res) => setloading(false));
-  //     getData().catch((err) => console.log(err));
-  //   }, []);
-  //   const datas = allProducts.find((item) => item.Category === name);
-  //   console.log(name);
-  //   console.log("Categ");
-  //   console.log(data);
+  }, [name]);
   useEffect(() => {
     async function getData() {
       const res = await axios.get("http://localhost:3000/allCategory");
@@ -41,12 +29,10 @@ const CategoryProducts = (props) => {
     getData().then((res) => setdataCategory(res.data));
     getData().catch((err) => console.log(err));
   }, []);
-  const rendeclink = () => {
-    useEffect(() => {}, []);
-  };
   return (
     <>
       <div className="product">
+        <BanerProducts></BanerProducts>
         <div>
           <nav className="navbarpro">
             <Link exact={true} className="btn" to="/products" active="active">
@@ -59,7 +45,6 @@ const CategoryProducts = (props) => {
                   className="btn"
                   key={index}
                   to={`/products/category/${item.Namecategory}`}
-                  onClick={rendeclink}
                   active="active"
                 >
                   {item.Namecategory}
@@ -92,7 +77,6 @@ const CategoryProducts = (props) => {
           )}
         </div>
       </div>
-      
     </>
   );
 };

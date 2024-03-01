@@ -68,8 +68,8 @@ function App() {
             />
           </Routes>
         </div>
-        {/* <Footer /> */}
       </Router>
+      <Footer />
     </CartContext.Provider>
   );
 }

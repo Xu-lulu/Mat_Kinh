@@ -29,7 +29,7 @@ const HomeAdmin = (props) => {
   // };
   return (
     <>
-      <div className="container-fluid vh-100 vw-90">
+      <div className="container-admin container-fluid vh-100 vw-90">
         <h3>Admin</h3>
         <div className="d-flex justify-content-end">
           <NavLink className="btn btn-success" to="/createProduct">

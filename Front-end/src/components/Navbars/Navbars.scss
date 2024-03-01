@@ -2,8 +2,10 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: seagreen;
+  background: white;
   width: 100%;
+  position: fixed;
+
 }
 .nav-container .navbar{
   display: flex;
@@ -20,4 +22,15 @@
 
 .nav-container >*:hover{
   color: #e76f51;
+}
+.logo{
+  display: flex;
+  h1{
+    margin-top: 10px;
+    color:  #FF0000;
+    font-size: 40px;
+  }
+}
+.nav-container .navbar .btn.btncart {
+  display: flex;
 }
