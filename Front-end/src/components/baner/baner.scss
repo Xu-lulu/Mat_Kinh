@@ -2,8 +2,25 @@
     width: 100%;
     margin: 0px;
     height: 200px;
+    overflow: hidden;
     img{
-        width: 100%;
     }
 }
 
+.baner-container {
+  overflow: hidden;
+}
+
+@keyframes slideRight {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.slide-right {
+  // animation: slideRight 3s linear inherit;
+  transition: transform 3s linear;
+}

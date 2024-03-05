@@ -55,7 +55,7 @@ const CategoryProducts = (props) => {
         </div>
         <div>
           {!loading ? (
-            <div className="row row-cols-4 gy-1 p-5">
+            <div className="alldataproduct row row-cols-4 gy-1 p-5">
               {data.map((product, index) => {
                 return (
                   <div className="product-card p-1" key={index}>

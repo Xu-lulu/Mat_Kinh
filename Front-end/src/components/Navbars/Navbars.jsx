@@ -32,12 +32,6 @@ const Navbars = () => {
       }
     }, [location.pathname]);
   };
-  // const handleclick = () => {
-  //   navigate("/products");
-  // };
-  const rendeclink = () => {
-    useEffect(() => {}, []);
-  };
   return (
     <>
       <div className="nav-container">

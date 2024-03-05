@@ -5,13 +5,14 @@
   background: white;
   width: 100%;
   position: fixed;
+  z-index: 1;
 
 }
 .nav-container .navbar{
   display: flex;
   justify-content: flex-end;
   flex-direction: row;
-  padding-right: 100px;
+  margin-right: 2rem;
 }
 .nav-container > *{
   margin-left: 2rem;

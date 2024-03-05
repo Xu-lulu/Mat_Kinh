@@ -34,7 +34,7 @@ const Home = () => {
   return (
     <>
       <div className="HomeContainer">
-        <div className="imageContainer">
+        <div className="imageContainer roboto-thin-italic">
           <h1>Thế giới ẩm thực dành cho bạn</h1>
           <h2>
             Nơi cung cấp đa dạng các món đồ ăn ngon, từ đồ ăn nhanh đến món ngon

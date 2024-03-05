@@ -36,7 +36,9 @@ function App() {
       value={{ myCart, addtoCart, total, setTotal, count, setCount }}
     >
       <Router>
-        <Navbars />
+        <div className="Navbar">
+          <Navbars />
+        </div>
         <div className="page-container">
           <Routes>
             <Route path="/" element={<Home />} />
@@ -68,8 +70,10 @@ function App() {
             />
           </Routes>
         </div>
+        <div className="Footer">
+          <Footer />
+        </div>
       </Router>
-      <Footer />
     </CartContext.Provider>
   );
 }

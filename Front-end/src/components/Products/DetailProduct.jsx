@@ -1,16 +1,31 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import "./Products.scss";
 import { CartContext } from "../../Contexts/CartContext";
 import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
+import axios from "axios";
+import ProductsCart from "./ProductCard";
+
 const DetailProduct = (props) => {
   const { id } = useParams();
   const { allProducts } = props;
   const [add, setadd] = useState(0);
-
+  const [data, setdata] = useState([]);
+  const [loading, setloading] = useState(true);
   const { myCart, addtoCart, setTotal, count, setCount } =
     useContext(CartContext);
   const dataDetail = allProducts.find((item) => item._id === id);
+  useEffect(() => {
+    async function getData() {
+      const res = await axios.post(
+        "http://localhost:3000/products/category/" + `${dataDetail.Category}`
+      );
+      return res;
+    }
+    getData().then((res) => setdata(res.data));
+    getData().then((res) => setloading(false));
+    getData().catch((err) => console.log(err));
+  }, [dataDetail.Category]);
   const handleAdd = () => {
     const newItem = {
       _id: dataDetail._id,
@@ -35,13 +50,10 @@ const DetailProduct = (props) => {
       autoClose: 120,
     });
   };
-  console.log(count);
+  // console.log(count);
   return (
     <>
-      <section className="products">
-        <div className="productsName">
-          <p>{dataDetail.Name}</p>
-        </div>
+      <div className="products">
         <div className="products-Image-container">
           <img
             className="products-Image"
@@ -49,19 +61,60 @@ const DetailProduct = (props) => {
             alt={`picture of: ${dataDetail.Name}`}
           />
         </div>
-        <div className="productsPrice">
-          <p>{dataDetail.Price}</p>
-        </div>
-        <div className="productsDescription">
-          <p>{dataDetail.Description}</p>
-        </div>
-        {/* <div className="productsCount">
+        <div className="container">
+          <div className="container-product">
+            <div className="productsCategory">
+              <p>Danh mục/{dataDetail.Category}</p>
+            </div>
+            <div className="productsName">
+              <p>{dataDetail.Name}</p>
+            </div>
+            <div className="productsPrice">
+              <p>Giá: {dataDetail.Price}/1 suất</p>
+            </div>
+            <div className="productsDescription">
+              <p>Chi tiết món ăn: {dataDetail.Description}</p>
+            </div>
+            {/* <div className="productsCount">
           <p>{dataDetail.count} đôi</p>
         </div> */}
-        <button className="products-btn" onClick={handleAdd}>
-          Thêm vào giỏ hàng
-        </button>
-      </section>
+          </div>
+          <div className="add-cart">
+            <button className="products-btn" onClick={handleAdd}>
+              Thêm vào giỏ hàng
+            </button>
+          </div>
+        </div>
+      </div>
+      <div className="AllFoodSame">
+        <div className="FoodSame">
+          <div className="line"></div>
+          <p>Món ăn tương ứng</p>
+        </div>
+        <div className="FoodSame-Product">
+          {!loading ? (
+            <div className="alldataproduct row row-cols-4 gy-1 p-5">
+              {data.map((product, index) => {
+                return (
+                  <div className="product-card p-1" key={index}>
+                    <ProductsCart
+                      _id={product._id}
+                      Name={product.Name}
+                      Price={product.Price}
+                      Description={product.Description}
+                      Image={product.Image}
+                      Count={product.count}
+                      Category={product.Category}
+                    />
+                  </div>
+                );
+              })}
+            </div>
+          ) : (
+            <p>Loading</p>
+          )}
+        </div>
+      </div>
     </>
   );
 };

@@ -14,7 +14,7 @@ const Products = (props) => {
   const [currentItems, setCurrentItems] = useState([]);
   const [pageCount, setPageCount] = useState(0);
   const [itemOffset, setitemOffset] = useState(0);
-  const itemsPerPage = 6;
+  const itemsPerPage = 10;
 
   useEffect(() => {
     const endOffset = itemOffset + itemsPerPage;
@@ -35,7 +35,7 @@ const Products = (props) => {
     setitemOffset(newOffset);
     console.log("even", event.selected);
   };
-  console.log(allProducts.length);
+  // console.log(allProducts.length);
   return (
     <>
       {/* <div>
@@ -49,8 +49,8 @@ const Products = (props) => {
           <NavLink
             className="btn"
             to="/products"
-            exact={true}
-            activeClassName="active"
+            // exact={true}
+            // activeClassName="active"
           >
             {" "}
             All
