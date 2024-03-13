@@ -4,6 +4,9 @@
   height: 50px;
   
 }
+.Product-page{
+  display: inline;
+}
 .product-card {
   /* Đặt chiều rộng của mỗi sản phẩm dựa trên số lượng cột */
   width: calc(20% - 20px);

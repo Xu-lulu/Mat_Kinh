@@ -14,23 +14,13 @@ const Home = () => {
   const [name, setname] = useState([]);
   const [loading, setloading] = useState(false);
   const [data, setdata] = useState([]);
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    await axios
-      .post("http://localhost:3000/search/" + `${name}`)
-      .then((res) => setdata(res.data))
-      .catch((err) => console.log(err));
-  };
-  const checkdata = () => {
-    return data.length === 0;
-  };
-  const handleDelete = async (id) => {
-    await axios
-      .delete("http://localhost:3000/delete/" + `${id}`)
-      .then((res) => toast.success("Xóa thành công!"))
-      .then((res) => navigate("/admin"))
-      .catch((err) => console.log(err));
-  };
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+  //   await axios
+  //     .post("http://localhost:3000/search/" + `${name}`)
+  //     .then((res) => setdata(res.data))
+  //     .catch((err) => console.log(err));
+  // };
   return (
     <>
       <div className="HomeContainer">
@@ -51,74 +41,6 @@ const Home = () => {
           <img src={baner3} alt="baner3"></img>
         </div>
       </div>
-
-      {/* <form onSubmit={handleSubmit} className="form-search">
-        <div className="search">
-          <input
-            type="text"
-            className="form-control"
-            name="name"
-            value={name}
-            onChange={(e) => setname(e.target.value)}
-          />
-          <button
-            type="submit"
-            className="btn btn-primary"
-            onClick={(e) => handleSubmit(e)}
-          >
-            <FontAwesomeIcon icon={faMagnifyingGlass} />
-          </button>
-        </div>
-      </form>
-      <>
-        {!checkdata() && (
-          <div className="container-fluid vh-100 vw-90">
-            <h3>Admin</h3>
-            <div className="d-flex justify-content-end">
-              <NavLink className="btn btn-success" to="/createProduct">
-                Thêm sản phẩm
-              </NavLink>
-            </div>
-            <table>
-              <thead>
-                <tr>
-                  <th>Tên sản phẩm</th>
-                  <th>Giá</th>
-                  <th>Chi tiết</th>
-                  <th>Danh mục</th>
-                </tr>
-              </thead>
-              <tbody>
-                {data.map((item, index) => {
-                  return (
-                    <tr key={item._id}>
-                      <td>{item.Name} </td>
-                      <td>{item.Price} VND </td>
-                      <td>{item.Description} </td>
-                      <td>{item.Category} </td>
-                      <td>{item.count} </td>
-                      <td> */}
-      {/* <Link
-                          className="btn mx-2 btn-success"
-                          to={`/edit/${item._id}`}
-                        >
-                          Edit
-                        </Link>
-                        <button
-                          onClick={() => handleDelete(item._id)}
-                          className="btn mx-2 btn-danger"
-                        >
-                          Delete
-                        </button>
-                      </td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
-          </div>
-        )}
-      </> */}
     </>
   );
 };

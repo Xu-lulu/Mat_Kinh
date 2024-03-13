@@ -1,15 +1,37 @@
 const router = require("express").Router();
 const ProductsControllers = require("../app/Controllers/ProductsCotrollers");
 const upload = require("../middleware/uploadImage");
+const {
+  verifyToken,
+  verifyTokenAndAdmin,
+  verifyTokenAndUser,
+  verifyTokenAndUserAuthorization,
+} = require("../middleware/verifyToken");
 router.post(
   "/uploadProducts",
+  verifyTokenAndAdmin,
   upload.single("Image"),
   ProductsControllers.updataProducts
 );
 router.get("/allproducts", ProductsControllers.allProducts);
-router.delete("/delete/:id", ProductsControllers.delete);
-router.put("/update/:id", upload.single("Image"), ProductsControllers.update);
-router.post("/dataupdate/:id", ProductsControllers.dataupdate);
+router.get(
+  "/productsadmin",
+  verifyTokenAndUserAuthorization,
+  ProductsControllers.allProductsAdmin
+);
+
+router.delete("/delete/:id", verifyTokenAndAdmin, ProductsControllers.delete);
+router.put(
+  "/update/:id",
+  verifyTokenAndAdmin,
+  upload.single("Image"),
+  ProductsControllers.update
+);
+router.post(
+  "/dataupdate/:id",
+  verifyTokenAndAdmin,
+  ProductsControllers.dataupdate
+);
 router.post("/search/:name", ProductsControllers.findProducts);
 router.post("/products/category/:name", ProductsControllers.findCategory);
 

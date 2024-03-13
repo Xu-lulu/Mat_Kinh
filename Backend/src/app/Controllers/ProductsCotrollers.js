@@ -28,6 +28,14 @@ class ProductsControllnes {
       res.status(500).json(error);
     }
   }
+  async allProductsAdmin(req, res, next) {
+    try {
+      const dataproducts = await products.find();
+      res.status(200).json(dataproducts);
+    } catch (error) {
+      res.status(500).json(error);
+    }
+  }
   async dataupdate(req, res, next) {
     try {
       const id = req.params.id;

@@ -21,9 +21,12 @@ const Users = new mongoose.Schema(
       max: 50,
       unique: true,
     },
-    isAdmin: {
-      type: Boolean,
-      default: false,
+    role: {
+      type: String,
+      default: "user",
+    },
+    refreshToken: {
+      type: String,
     },
     deleteAt: { type: String },
   },

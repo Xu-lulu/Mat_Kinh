@@ -1,5 +1,6 @@
 import { useContext, useState, useEffect } from "react";
 import { CartContext } from "../../Contexts/CartContext";
+import {useSelector} from "react-redux"
 import "./Cart.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -12,14 +13,16 @@ import ProductsCart from "../Products/ProductCard";
 const Cart = (props) => {
   const { myCart, addtoCart, total, setTotal, count, setCount } =
     useContext(CartContext);
-  const { allProducts } = props;
+  const alldataProducts = useSelector(
+    (state) => state.products.allproduct.dataProducts
+  );
   const [currentItems, setCurrentItems] = useState([]);
   const [itemOffset, setitemOffset] = useState(0);
   const itemsPerPage = 10;
   useEffect(() => {
     const endOffset = itemOffset + itemsPerPage;
-    setCurrentItems(allProducts.slice(itemOffset, endOffset));
-  }, [itemOffset, itemsPerPage, allProducts]);
+    setCurrentItems(alldataProducts.slice(itemOffset, endOffset));
+  }, [itemOffset, itemsPerPage, alldataProducts]);
 
   const handcleclinkIncrement = (id) => {
     const index = myCart.findIndex((item) => item._id === id);
@@ -94,7 +97,7 @@ const Cart = (props) => {
               <table class="table">
                 <thead>
                   <tr>
-                    <th scope="col"></th>
+                    <th scope="col">Ảnh</th>
                     <th scope="col">Tên sản phẩm</th>
                     <th scope="col">Giá tiền</th>
                     <th scope="col">Số lượng</th>

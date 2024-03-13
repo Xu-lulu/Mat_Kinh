@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { toast } from "react-toastify";
+import { Toaster, toast } from "sonner";
+
 import axios from "axios";
 const Addproducts = async () => {
   const [name, setname] = useState("");
@@ -22,12 +23,14 @@ const Addproducts = async () => {
       count: count,
       Category: category,
     };
-    await axios.post("http://localhost:3000/uploadProducts", addproducts, {
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-    });
-    toast.success("Thêm thành công");
+    await axios
+      .post("http://localhost:3000/uploadProducts", addproducts, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      })
+      .then(toast.success("Thêm thành công"))
+      .catch((err) => toast.error("Thêm không thành công"));
   };
   const handleImageChange = (event) => {
     seturlimg(event.target.files[0]);

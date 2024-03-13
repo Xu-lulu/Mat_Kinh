@@ -4,31 +4,24 @@ import axios from "axios";
 import ProductsCart from "./ProductCard";
 import "./Products.scss";
 import BanerProducts from "../baner/banerProducts";
-const CategoryProducts = (props) => {
-  const { allProducts } = props;
+import { Toaster, toast } from "sonner";
+import { useSelector, useDispatch } from "react-redux";
+import { findCategorys } from "../../redux/api/apiProduct";
+const CategoryProducts = () => {
   const { name } = useParams();
   const [data, setdata] = useState([]);
   const [loading, setloading] = useState(true);
-  const [dataCategory, setdataCategory] = useState([]);
-  useEffect(() => {
-    async function getData() {
-      const res = await axios.post(
-        "http://localhost:3000/products/category/" + `${name}`
-      );
-      return res;
-    }
-    getData().then((res) => setdata(res.data));
-    getData().then((res) => setloading(false));
-    getData().catch((err) => console.log(err));
-  }, [name]);
-  useEffect(() => {
-    async function getData() {
-      const res = await axios.get("http://localhost:3000/allCategory");
-      return res;
-    }
-    getData().then((res) => setdataCategory(res.data));
-    getData().catch((err) => console.log(err));
-  }, []);
+  const dispatch = useDispatch()
+  console.log(name)
+  // useEffect(() => {
+    findCategorys(dispatch, name)
+  // }, [name]);
+  const dataCategory = useSelector(
+    (state) => state.products.categorys.dataCategorys
+  );
+    const datafincategory = useSelector(
+      (state) => state.products.findcategorys.finddataCategorys
+    );
   return (
     <>
       <div className="product">
@@ -54,9 +47,9 @@ const CategoryProducts = (props) => {
           </nav>{" "}
         </div>
         <div>
-          {!loading ? (
+          {datafincategory ? (
             <div className="alldataproduct row row-cols-4 gy-1 p-5">
-              {data.map((product, index) => {
+              {datafincategory.map((product, index) => {
                 return (
                   <div className="product-card p-1" key={index}>
                     <ProductsCart

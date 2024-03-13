@@ -1,0 +1,78 @@
+.Container-Create-Product{
+    background-color: #DADADA;
+    padding:10px 50px;
+    h3{
+        margin-bottom: 5%;
+    }
+    .Form-Create-Product{
+        width: 100%;
+        height: 100vh;
+        .Image-Des{
+            display: flex;
+            justify-content: space-between;
+            .selected-image{
+                width: 200px;
+                height: 200px;
+                border-radius: 10px;
+                cursor: pointer;
+            }
+            .Image-form{
+                display: flex;
+                width: 200px;
+                height: 200px;
+                background-color: white;
+                border-radius: 10px;
+                align-items: center;
+                justify-content: center;
+                padding-top: 2%;
+                text-align: center;
+                .icon-image{
+                    font-size: 50px;
+                    color: rgb(167, 166, 166);
+                    cursor: pointer;
+                    }
+                .form-label{
+                    cursor: pointer;
+                }           
+            }
+            .form-des{
+                width: 900px;
+                // height: 100%;
+                .input-create-description{
+                    height: 200px;
+                }
+            }
+        }
+        .Form-Name-Price{
+            display: flex;
+            justify-content: space-between;
+            .Form-Name{
+                width: 40%;
+            }
+            .Form-Price{
+                width: 40%;
+
+            }
+        }
+        .Form-Count-Category{
+            display: flex;
+            justify-content: space-between;
+            .Form-Count{
+                width: 40%;
+            }
+            .Form-Category{
+                width: 40%;
+
+            }
+        }
+        .Create-submit{
+            float: right;
+            background-color: white;
+            color: black;
+        }
+        .Create-submit:hover{
+            color: white;
+            background-color: red;
+        }
+    }
+}
