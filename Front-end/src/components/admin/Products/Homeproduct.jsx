@@ -33,7 +33,6 @@ const HomeProducts = () => {
   const alldataProducts = useSelector(
     (state) => state.products.allproduct.dataProducts
   );
-
   const handleDelete = async (id) => {
     // event.preventDefault();
 
@@ -107,16 +106,16 @@ const HomeProducts = () => {
                       </div>
                     </td>
                     <td>
-                      <div className="admin-delete-btn">
-                        <Model
-                          className="Create-submit"
-                          handleSubmit={handleDelete}
-                          textheader={textheader}
-                          textbody={text}
-                          textfooter={textfooter}
-                          id={item._id}
-                        />
-                      </div>
+                      {/* <div className="admin-delete-btn"> */}
+                      <Model
+                        className="Create-submit"
+                        handleSubmit={handleDelete}
+                        textheader={textheader}
+                        textbody={text}
+                        textfooter={textfooter}
+                        id={item._id}
+                      />
+                      {/* </div> */}
                     </td>
                   </tr>
                 </tbody>

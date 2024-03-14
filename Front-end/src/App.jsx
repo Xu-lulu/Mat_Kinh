@@ -27,10 +27,10 @@ function App() {
     (state) => state.auth?.login?.currentUser?.accessToken
   );
 
-  // useEffect(() => {
+  useEffect(() => {
   dataProducts(dispatch);
   dataCategorys(dispatch);
-  // }, [dispatch]);
+  }, [dispatch]);
   // const alldataProducts = useSelector(
   //   (state) => state.products.allproduct.dataProducts
   // );

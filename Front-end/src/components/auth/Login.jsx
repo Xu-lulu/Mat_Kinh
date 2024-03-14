@@ -35,6 +35,7 @@ const Login = () => {
                     Tên người dùng
                   </label>
                   <input
+                    autoComplete="username"
                     type="text"
                     className="form-control"
                     id="exampleInputEmail1"
@@ -47,6 +48,7 @@ const Login = () => {
                     Password
                   </label>
                   <input
+                    autoComplete="current-password"
                     type="password"
                     className="form-control"
                     id="exampleInputPassword1"

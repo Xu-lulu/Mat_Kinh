@@ -9,6 +9,7 @@ import {
   productsAdminStart,
   productsAdminSuccess,
 } from "../productAdmin";
+import { dataProducts } from "./apiProduct";
 export const dataProductsAdmin = async (dispatch, token) => {
   dispatch(productsAdminStart());
   try {
@@ -50,7 +51,7 @@ export const deleteProduct = async (dispatch, id, navigate, token) => {
       },
     });
     dispatch(productsAdminSuccess());
-
+    
     navigate("/productadmin");
     toast.success("Xóa thành công");
   } catch (error) {
@@ -58,7 +59,7 @@ export const deleteProduct = async (dispatch, id, navigate, token) => {
     toast.error(error.response.data.mes);
   }
 };
-export const UpdateProduct = async (dispatch, id, token, data, navgigate) => {
+export const UpdateProduct = async (dispatch, id, token, data, navigate) => {
   dispatch(updateProductAdminStart());
   try {
     const res = await axios.put(`http://localhost:3000/update/${id}`, data, {
@@ -69,7 +70,7 @@ export const UpdateProduct = async (dispatch, id, token, data, navgigate) => {
     });
     dispatch(updateProductAdminSuccess());
     toast.success("Sửa thành công");
-    navgigate("/admin");
+    navigate("/productadmin");
   } catch (error) {
     dispatch(updateProductAdminFailed());
     toast.error(error.response.data.mes);

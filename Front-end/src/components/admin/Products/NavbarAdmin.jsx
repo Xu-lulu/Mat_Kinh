@@ -43,7 +43,7 @@ export const NavbarAdmin = (props) => {
             <NavLink to="/productadmin" className="nav-link btn" href="#">
               Sản Phẩm
             </NavLink>
-            <NavLink className="nav-link btn" href="#">
+            <NavLink to="/categoryadmin" className="nav-link btn" href="#">
               Danh mục
             </NavLink>
             <NavLink className="nav-link btn" href="#">

@@ -3,31 +3,51 @@ const categos = require("../Models/Category");
 class CategoryControllnes {
   async updataCategory(req, res, next) {
     try {
+      const newdata = new products({
+        Namecategory: req.body.Namecategory,
+      });
+      newdata.save();
+      return res.status(200).json(newdata);
+    } catch (error) {
+      return res.status(500).json(error);
+    }
+  }
+  async deleteCategory(req, res, next) {
+    try {
+      const id = req.params.id;
+      const data = await categos.findOneAndDelete({ _id: id });
+      return res.status(200).json(data);
+    } catch (error) {
+      return res.status(500).json(error);
+    }
+  }
+
+  async editCategory(req, res, next) {
+    try {
       const newdata = new categos({
         Namecategory: req.body.Namecategory,
       });
       newdata.save();
-      res.status(200).json(newdata);
+      return res.status(200).json(newdata);
     } catch (error) {
-      res.status(500).json(error);
+      return res.status(500).json(error);
     }
   }
   async allCategory(req, res, next) {
     try {
       const newdata = await categos.find();
-      res.status(200).json(newdata);
+      return res.status(200).json(newdata);
     } catch (error) {
-      res.status(500).json(error);
+      return res.status(500).json(error);
     }
   }
   async findCategory(req, res, next) {
     try {
       const nameCate = req.params.name;
       const newdata = await categos.find({ Namecategory: nameCate });
-      res.status(200).json(newdata);
-      console.log(nameCate);
+      return res.status(200).json(newdata);
     } catch (error) {
-      res.status(500).json(error);
+      return res.status(500).json(error);
     }
   }
 }

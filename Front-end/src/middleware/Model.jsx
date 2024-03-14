@@ -4,6 +4,7 @@ import Modal from "react-bootstrap/Modal";
 import "../components/admin/productsAdmin.scss";
 import "./middleware.scss";
 import { CiCircleQuestion } from "react-icons/ci";
+import { Link, NavLink } from "react-router-dom";
 function Model(props) {
   const [show, setShow] = useState(false);
   const { handleSubmit, textheader, textbody, textfooter, id } = props;
@@ -15,13 +16,13 @@ function Model(props) {
       {/* <Button variant="primary" onClick={handleShow}>
         Launch static backdrop modal
       </Button> */}
-      <Button
+      <NavLink
         variant="primary"
-        className="btn btn-primary Create-submit"
+        className="btn-primary Create-submit"
         onClick={handleShow}
       >
         {textheader}
-      </Button>
+      </NavLink>
       <Modal
         className="Modal"
         show={show}
