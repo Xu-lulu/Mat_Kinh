@@ -3,7 +3,7 @@ const categos = require("../Models/Category");
 class CategoryControllnes {
   async updataCategory(req, res, next) {
     try {
-      const newdata = new products({
+      const newdata = new categos({
         Namecategory: req.body.Namecategory,
       });
       newdata.save();
@@ -24,13 +24,16 @@ class CategoryControllnes {
 
   async editCategory(req, res, next) {
     try {
-      const newdata = new categos({
+      const id = req.params.id;
+      const updatedData = {
         Namecategory: req.body.Namecategory,
+      };
+      const data = await categos.findOneAndUpdate({ _id: id }, updatedData, {
+        new: true,
       });
-      newdata.save();
-      return res.status(200).json(newdata);
+      res.status(200).json(data);
     } catch (error) {
-      return res.status(500).json(error);
+      res.status(500).json(error);
     }
   }
   async allCategory(req, res, next) {

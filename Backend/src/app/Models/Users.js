@@ -28,6 +28,7 @@ const Users = new mongoose.Schema(
     refreshToken: {
       type: String,
     },
+    cart: [],
     deleteAt: { type: String },
   },
   {

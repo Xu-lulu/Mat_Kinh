@@ -48,7 +48,10 @@ function Model(props) {
 
           <Button
             variant="primary"
-            onClick={() => handleSubmit(id)}
+            onClick={() => {
+              handleSubmit(id);
+              handleClose();
+            }}
             type="submit"
             className="Footer-Save"
           >

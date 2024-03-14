@@ -13,6 +13,8 @@ import ProductsCart from "../Products/ProductCard";
 const Cart = (props) => {
   const { myCart, addtoCart, total, setTotal, count, setCount } =
     useContext(CartContext);
+  const dataCart = useSelector((state) => state.cart.dataCart.dataCart);
+
   const alldataProducts = useSelector(
     (state) => state.products.allproduct.dataProducts
   );
@@ -43,7 +45,7 @@ const Cart = (props) => {
     }
   };
   const isCartEmpty = () => {
-    return myCart.length === 0;
+    return dataCart.length === 0;
   };
   const handcleclinkRemove = (id) => {
     const newStatemyCart = myCart.filter((item) => item._id != id);
@@ -94,7 +96,7 @@ const Cart = (props) => {
         ) : (
           <>
             <div className="Cart-container">
-              <table class="table">
+              <table className="table">
                 <thead>
                   <tr>
                     <th scope="col">Ảnh</th>
@@ -104,9 +106,9 @@ const Cart = (props) => {
                     <th scope="col"></th>
                   </tr>
                 </thead>
-                {myCart.map((item, index) => {
+                {dataCart.map((item, index) => {
                   return (
-                    <tbody>
+                    <tbody key={index}>
                       <tr>
                         <th scope="row">
                           <img

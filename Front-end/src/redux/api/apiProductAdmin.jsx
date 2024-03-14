@@ -51,7 +51,7 @@ export const deleteProduct = async (dispatch, id, navigate, token) => {
       },
     });
     dispatch(productsAdminSuccess());
-    
+    await dataProducts(dispatch);
     navigate("/productadmin");
     toast.success("Xóa thành công");
   } catch (error) {

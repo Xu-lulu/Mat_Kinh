@@ -185,10 +185,10 @@ const CreateProduct = () => {
           <div className="">
             <button
               type="submit"
-              className="btn btn-primary"
+              className="btn btn-createProduct"
               onClick={handleSubmit}
             >
-              Submit
+              Lưu
             </button>
           </div>
         </form>

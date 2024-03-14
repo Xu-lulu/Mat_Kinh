@@ -11,17 +11,17 @@ const CategoryProducts = () => {
   const { name } = useParams();
   const [data, setdata] = useState([]);
   const [loading, setloading] = useState(true);
-  const dispatch = useDispatch()
-  console.log(name)
+  const dispatch = useDispatch();
+  console.log(name);
   // useEffect(() => {
-    findCategorys(dispatch, name)
+  findCategorys(dispatch, name);
   // }, [name]);
   const dataCategory = useSelector(
     (state) => state.products.categorys.dataCategorys
   );
-    const datafincategory = useSelector(
-      (state) => state.products.findcategorys.finddataCategorys
-    );
+  const datafincategory = useSelector(
+    (state) => state.products.findcategorys.finddataCategorys
+  );
   return (
     <>
       <div className="product">

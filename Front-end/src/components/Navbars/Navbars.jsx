@@ -11,7 +11,7 @@ import { useSelector, useDispatch } from "react-redux";
 // import { logoutUser } from "../../redux/api/apiRequest";
 import { purgeStoredData } from "../../redux/purge";
 const Navbars = () => {
-  const { count, setcount } = useContext(CartContext);
+  // const { count, setcount } = useContext(CartContext);
   // const [dataCategory, setdataCategory] = useState([]);
   // const [show, setshow] = useState(false);
   const navigate = useNavigate();
@@ -27,6 +27,7 @@ const Navbars = () => {
   });
   const role = useSelector((state) => {
     const currentUser = state.auth.login.currentUser;
+
     if (currentUser && currentUser.newUsers.role) {
       return currentUser.newUsers.role;
     }
@@ -55,7 +56,10 @@ const Navbars = () => {
   // };
   // const accessToken = user?.accessToken;
   // const id = user?._id;
-
+  const countCart = useSelector((item) => item.cart.dataCart.dataCart || []);
+  const count = () => {
+    return countCart.reduce((total, item) => total + item.mount, 0);
+  };
   const handleClickLogout = () => {
     // logoutUser(dispatch, id, navigate, accessToken);
     dispatch(purgeStoredData());
@@ -84,7 +88,17 @@ const Navbars = () => {
               </div>
               <NavLink to="/myCart" className="btn btncart">
                 <FontAwesomeIcon icon={faCartArrowDown} />
-                <div className="count">{count}</div>
+                {role === "user" ? (
+                  <>
+                    {" "}
+                    <div className="count">{count()}</div>
+                  </>
+                ) : (
+                  <>
+                    {" "}
+                    <div className="count">0</div>
+                  </>
+                )}
               </NavLink>
               <NavLink to="/like" className="btn">
                 <FontAwesomeIcon icon={faHeart} />

@@ -7,6 +7,12 @@ import axios from "axios";
 import ProductsCart from "./ProductCard";
 import { useSelector, useDispatch } from "react-redux";
 import { findCategorys } from "../../redux/api/apiProduct";
+import {
+  CartFailed,
+  CartStart,
+  CartSuccess,
+  IncreaseMount,
+} from "../../redux/Cart";
 const DetailProduct = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
@@ -20,16 +26,14 @@ const DetailProduct = () => {
   );
   const dataDetail = alldataProducts.find((item) => item._id === id);
   const navigate = useNavigate();
-  console.log(dataDetail.Category)
+  // console.log(dataDetail.Category);
   useEffect(() => {
     findCategorys(dispatch, dataDetail.Category);
   }, [dataDetail.Category]);
   const datafincategory = useSelector(
     (state) => state.products.findcategorys.finddataCategorys
   );
-  // console.log(datafincategory);
   const user = useSelector((state) => {
-    // const currentUsers = state.auth.login.currentUser.newUsers;
     const currentUser = state.auth.login.currentUser;
     if (currentUser && currentUser.newUsers) {
       return currentUser.newUsers;
@@ -47,20 +51,46 @@ const DetailProduct = () => {
         Category: dataDetail.Category,
         mount: 1,
       };
-      const checkid = myCart.find((item) => item._id === newItem._id);
-      if (checkid) {
-        checkid.mount++;
-        setCount((add) => (add += 1));
+      // const checkid = myCart.find((item) => item._id === newItem._id);
+      // if (checkid) {
+      //   checkid.mount++;
+      //   setCount((add) => (add += 1));
+      // } else {
+      // addtoCart((item) => [...item, newItem]);
+      //   setCount((add) => (add += 1));
+      // }
+      // setTotal((total) => (total += Number(dataDetail.Price)));
+      // addtoCart((item) => [...item, newItem]);
+
+      // const checkid = dataCart.find((item) => item._id === newItem._id);
+      // if (checkid) {
+      //   checkid.mount++;
+      //   setCount((add) => (add += 1));
+      // }
+      const existingItemIndex = dataCart.findIndex(
+        (item) => item._id === newItem._id
+      );
+
+      if (existingItemIndex !== -1) {
+        dispatch(IncreaseMount(dataCart[existingItemIndex]._id));
+        // setCount(count + 1);
       } else {
-        addtoCart((item) => [...item, newItem]);
-        setCount((add) => (add += 1));
+        dispatch(CartStart());
+        try {
+          dispatch(CartSuccess(newItem));
+          toast.success("Đã thêm sản phẩm vào giỏ hàng");
+        } catch (error) {
+          dispatch(CartFailed(error));
+        }
       }
-      setTotal((total) => (total += Number(dataDetail.Price)));
-      toast.success("Đã thêm sản phẩm vào giỏ hàng");
+      // setTotal((total) => (total += Number(dataDetail.Price)));
+      // addtoCart((item) => [...item, newItem]);
     } else {
       navigate("/Login");
     }
   };
+  const dataCart = useSelector((state) => state.cart.dataCart.dataCart);
+  console.log("dataCart", dataCart);
   return (
     <>
       <div>
@@ -100,7 +130,7 @@ const DetailProduct = () => {
             <p>Món ăn tương ứng</p>
           </div>
           <div className="FoodSame-Product">
-            {datafincategory? (
+            {datafincategory ? (
               <div className="alldataproduct row row-cols-4 gy-1 p-5">
                 {datafincategory.map((product, index) => {
                   return (

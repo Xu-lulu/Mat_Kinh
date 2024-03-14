@@ -123,46 +123,6 @@ const HomeProducts = () => {
             })}
           </table>
         </div>
-        {/* <table>
-          <thead>
-            <tr>
-              <th scope="col">Ảnh</th>
-              <th scope="col">Tên sản phẩm</th>
-              <th scope="col">Giá</th>
-              <th scope="col">Chi tiết</th>
-              <th scope="col">Danh mục</th> */}
-        {/* <th>Số lượng</th> */}
-        {/* </tr>
-          </thead>
-          <tbody>
-            {alldataProducts.map((item, index) => {
-              return (
-                <tr key={item._id}>
-                  <td scope="row"></td>
-                  <td scope="row">{item.Name} </td>
-                  <td scope="row">{item.Price} VND </td>
-                  <td scope="row">{item.Description} </td>
-                  <td scope="row">{item.Category} </td>
-                  <td scope="row">{item.count} </td>
-                  <td scope="row" className="button">
-                    <Link
-                      className="btn mx-2 btn-success"
-                      to={`/edit/${item._id}`}
-                    >
-                      Edit
-                    </Link>
-                    <button
-                      onClick={() => handleDelete(item._id)}
-                      className="btn mx-2 btn-danger"
-                    >
-                      Delete
-                    </button>
-                  </td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table> */}
       </div>
     </>
   );

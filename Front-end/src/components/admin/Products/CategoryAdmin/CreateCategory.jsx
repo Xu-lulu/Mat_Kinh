@@ -2,19 +2,14 @@ import { useState, useEffect } from "react";
 import { Toaster, toast } from "sonner";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-// import { dataProducts, dataCategorys } from "../../../redux/api/apiProduct";
 import { useSelector, useDispatch } from "react-redux";
 import "../../productsAdmin.scss";
 import { faImage } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Model from "../../../../middleware/Model";
 import { createCategory } from "../../../../redux/api/apiCategoryAdmin";
 
 const CreateCategory = () => {
   const [name, setname] = useState("");
-  const text = "Bạn có chắc chắn muốn lưu không?";
-  const textheader = "Thêm sản phẩm";
-  const textfooter = "Lưu";
 
   const navgigate = useNavigate();
   const dispatch = useDispatch();
@@ -52,10 +47,10 @@ const CreateCategory = () => {
           <div className="">
             <button
               type="submit"
-              className="btn btn-primary"
+              className="btn-createCategory"
               onClick={handleSubmit}
             >
-              Submit
+              Lưu
             </button>
           </div>
         </form>

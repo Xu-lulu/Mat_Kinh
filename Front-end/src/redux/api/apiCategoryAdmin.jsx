@@ -6,6 +6,7 @@ import {
   categoryAdminSuccess,
   categoryAdminFailed,
 } from "../productAdmin";
+import { dataCategorys } from "./apiProduct";
 
 export const createCategory = async (dispatch, navigate, token, data) => {
   dispatch(categoryAdminStart());
@@ -16,6 +17,8 @@ export const createCategory = async (dispatch, navigate, token, data) => {
       },
     });
     dispatch(categoryAdminSuccess());
+    await dataCategorys(dispatch);
+
     toast.success("Thêm thành công");
     navigate("/categoryadmin");
   } catch (error) {
@@ -35,7 +38,7 @@ export const deleteCategory = async (dispatch, id, navigate, token) => {
       }
     );
     dispatch(categoryAdminSuccess());
-
+    await dataCategorys(dispatch);
     navigate("/categoryadmin");
 
     toast.success("Xóa thành công");
@@ -49,14 +52,15 @@ export const editCategory = async (dispatch, id, token, data, navigate) => {
   try {
     const res = await axios.put(
       `http://localhost:3000/editcategory/${id}`,
+      data,
       {
         headers: {
           token: `Bearer ${token}`,
         },
-      },
-      data
+      }
     );
     dispatch(categoryAdminSuccess());
+    await dataCategorys(dispatch);
     toast.success("Sửa thành công");
     navigate("/categoryadmin");
   } catch (error) {

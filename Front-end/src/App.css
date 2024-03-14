@@ -23,6 +23,7 @@ body {
   height: 100%;
   /* padding-top: 100px; */
   display: inline-flex;
+  min-height: 100vh;
 
 }
 .admin{
@@ -38,6 +39,8 @@ body {
 .page-container-admin{
   width: 84%;
   height: 100%;
+  background-color: #DADADA;
+  min-height: 100vh;
 }
 .Navbar{
   width: 100%;
