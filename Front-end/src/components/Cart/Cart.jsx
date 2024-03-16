@@ -1,6 +1,6 @@
 import { useContext, useState, useEffect } from "react";
 import { CartContext } from "../../Contexts/CartContext";
-import {useSelector} from "react-redux"
+import { useSelector } from "react-redux";
 import "./Cart.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -13,8 +13,11 @@ import ProductsCart from "../Products/ProductCard";
 const Cart = (props) => {
   const { myCart, addtoCart, total, setTotal, count, setCount } =
     useContext(CartContext);
-  const dataCart = useSelector((state) => state.cart.dataCart.dataCart);
-
+  // const dataCart = useSelector(
+  //   (state) => state.auth.login.currentUser.newUsers.cart
+  // );
+  // console.log(dataCart);
+  const dataCart = myCart;
   const alldataProducts = useSelector(
     (state) => state.products.allproduct.dataProducts
   );
@@ -149,7 +152,7 @@ const Cart = (props) => {
                         <td>
                           <div className="Cart-right">
                             <button
-                              className="amount-btn"
+                              className="amount-btn delete-item-cart"
                               onClick={() => handcleclinkRemove(item._id)}
                             >
                               <FontAwesomeIcon icon={faTrashCan} />

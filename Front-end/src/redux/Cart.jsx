@@ -5,7 +5,12 @@ const CartSlice = createSlice({
   initialState: {
     dataCart: {
       isFetching: false,
-      dataCart: [],
+      dataCarts: [],
+      error: false,
+    },
+    upmountCart: {
+      isFetching: false,
+      datanewCart: [],
       error: false,
     },
   },
@@ -13,29 +18,54 @@ const CartSlice = createSlice({
     CartStart: (state) => {
       state.dataCart.isFetching = true;
     },
-    // CartSuccess: (state, action) => {
-    //   (state.dataCart.isFetching = false),
-    //     (state.dataCart.dataCart = [action.payload]),
-    //     (state.dataCart.error = false);
-    // },
     CartSuccess: (state, action) => {
-      state.dataCart.isFetching = false;
-      state.dataCart.dataCart.push(action.payload); 
-      state.dataCart.error = false;
+      (state.dataCart.isFetching = false),
+        (state.dataCart.dataCarts = action.payload),
+        (state.dataCart.error = false);
     },
+    // CartSuccess: (state, action) => {
+    //   state.dataCart.isFetching = false;
+    //   state.dataCart.dataCart.push(action.payload);
+    //   state.dataCart.error = false;
+    // },
     CartFailed: (state) => {
       state.dataCart.isFetching = false;
       state.dataCart.error = true;
     },
-    IncreaseMount: (state, action) => {
-      const index = state.dataCart.dataCart.findIndex(
-        (item) => item._id === action.payload
-      );
-      if (index !== -1) {
-        state.dataCart.dataCart[index].mount++; 
-      }
+    upmountCartStart: (state) => {
+      state.upmountCart.isFetching = true;
     },
+    upmountCartSuccess: (state, action) => {
+      (state.upmountCart.isFetching = false),
+        (state.upmountCart.datanewCart = action.payload),
+        (state.upmountCart.error = false);
+    },
+    // CartSuccess: (state, action) => {
+    //   state.dataCart.isFetching = false;
+    //   state.dataCart.dataCart.push(action.payload);
+    //   state.dataCart.error = false;
+    // },
+    upmountCartFailed: (state) => {
+      state.upmountCart.isFetching = false;
+      state.upmountCart.error = true;
+    },
+    // IncreaseMount: (state, action) => {
+    //   const index = state.dataCart.dataCart.findIndex(
+    //     (item) => item._id === action.payload
+    //   );
+    //   if (index !== -1) {
+    //     state.dataCart.dataCart[index].mount++;
+    //   }
+    // },
   },
 });
-export const { CartStart, CartSuccess, CartFailed, IncreaseMount } = CartSlice.actions;
+export const {
+  CartStart,
+  CartSuccess,
+  CartFailed,
+  upmountCartStart,
+  upmountCartSuccess,
+  upmountCartFailed,
+  IncreaseMount,
+} = CartSlice.actions;
 export default CartSlice.reducer;

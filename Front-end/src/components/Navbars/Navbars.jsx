@@ -11,9 +11,9 @@ import { useSelector, useDispatch } from "react-redux";
 // import { logoutUser } from "../../redux/api/apiRequest";
 import { purgeStoredData } from "../../redux/purge";
 const Navbars = () => {
-  // const { count, setcount } = useContext(CartContext);
-  // const [dataCategory, setdataCategory] = useState([]);
-  // const [show, setshow] = useState(false);
+  const { count, setcount } = useContext(CartContext);
+  const [dataCategory, setdataCategory] = useState([]);
+  const [show, setshow] = useState(false);
   const navigate = useNavigate();
   // const location = useLocation();
   const dispatch = useDispatch();
@@ -34,32 +34,12 @@ const Navbars = () => {
     return null;
   });
   dispatch(purgeStoredData);
-  // useEffect(() => {
-  //   async function getData() {
-  //     const res = await axios.get("http://localhost:3000/allCategory");
-  //     return res;
-  //   }
-  //   getData().then((res) => setdataCategory(res.data));
-  //   getData().catch((err) => toast.error(err.response.data.mes));
-  // }, []);
-  // const clickproduct = () => {
-  //   useEffect(() => {
-  //     if (
-  //       location.pathname === "/products" ||
-  //       location.pathname === "/category/"
-  //     ) {
-  //       setshow(true);
-  //     } else {
-  //       setshow(false);
-  //     }
-  //   }, [location.pathname]);
-  // };
   // const accessToken = user?.accessToken;
   // const id = user?._id;
-  const countCart = useSelector((item) => item.cart.dataCart.dataCart || []);
-  const count = () => {
-    return countCart.reduce((total, item) => total + item.mount, 0);
-  };
+  // const countCart = useSelector((item) => item.cart.dataCart.dataCart || []);
+  // const count = () => {
+  //   return countCart.reduce((total, item) => total + item.mount, 0);
+  // };
   const handleClickLogout = () => {
     // logoutUser(dispatch, id, navigate, accessToken);
     dispatch(purgeStoredData());
@@ -87,18 +67,20 @@ const Navbars = () => {
                 </NavLink>
               </div>
               <NavLink to="/myCart" className="btn btncart">
-                <FontAwesomeIcon icon={faCartArrowDown} />
+                  <FontAwesomeIcon icon={faCartArrowDown} />
+                  <div className="count">{count}</div>
+                {/* <FontAwesomeIcon icon={faCartArrowDown} />
                 {role === "user" ? (
                   <>
                     {" "}
-                    <div className="count">{count()}</div>
+                    <div className="count">0</div>
                   </>
                 ) : (
                   <>
                     {" "}
                     <div className="count">0</div>
                   </>
-                )}
+                )} */}
               </NavLink>
               <NavLink to="/like" className="btn">
                 <FontAwesomeIcon icon={faHeart} />

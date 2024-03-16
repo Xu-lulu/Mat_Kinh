@@ -1,29 +1,39 @@
 const products = require("../Models/Products");
-
-class ProductsControllnes {
-  async updataProducts(req, res, next) {
+const Users = require("../Models/Users");
+class CartController {
+  async addCart(req, res, next) {
     try {
-      const newdata = new products({
-        Name: req.body.Name,
-        Price: req.body.Price,
-        Description: req.body.Description,
-        Image: req.body.Image,
-        count: req.body.count,
-        Category: req.body.Category,
-      });
-      if (req.file) {
-        newdata.Image = req.file.path;
+      const userId = req.params.id;
+      const addProducttoCart = req.body;
+      const user = await Users.findById(userId);
+      if (!user) {
+        res.status(404).json({ mes: "Người dùng chưa không tồn tại!" });
+      } else {
+        user.cart.push(addProducttoCart);
+        await user.save();
+        res.status(200).json(user);
       }
-      newdata.save();
-      res.status(200).json(newdata);
     } catch (error) {
       res.status(500).json(error);
     }
   }
-  async allProducts(req, res, next) {
+  async upmountCart(req, res, next) {
     try {
-      const dataproducts = await products.find();
-      res.status(200).json(dataproducts);
+      const userId = req.params.id;
+      const updatedData = req.body;
+      const user = await Users.findById(userId);
+      if (!user) {
+        res.status(404).json({ mes: "Người dùng chưa không tồn tại!" });
+      } else {
+        const data = await Users.cart.findOneAndUpdate(
+          { _id: id },
+          updatedData,
+          {
+            new: true,
+          }
+        );
+        res.status(200).json(data);
+      }
     } catch (error) {
       res.status(500).json(error);
     }
@@ -98,4 +108,4 @@ class ProductsControllnes {
     }
   }
 }
-module.exports = new ProductsControllnes();
+module.exports = new CartController();
