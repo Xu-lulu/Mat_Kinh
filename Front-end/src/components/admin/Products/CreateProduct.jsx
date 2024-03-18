@@ -59,27 +59,29 @@ const CreateProduct = () => {
               </label>
               {selectedImage ? (
                 <>
-                  <label
-                    className="form-label"
-                    name="description"
-                    htmlFor="image"
-                  >
-                    <img
-                      src={selectedImage}
-                      alt="Selected"
-                      className="selected-image"
-                    />
-                  </label>
+                  <div>
+                    <label
+                      className="form-label"
+                      name="description"
+                      htmlFor="image"
+                    >
+                      <img
+                        src={selectedImage}
+                        alt="Selected"
+                        className="selected-image"
+                      />
+                    </label>
 
-                  <input
-                    type="file"
-                    className="form-control"
-                    id="image"
-                    name="image"
-                    accept="image/*"
-                    onChange={handleImageChange}
-                    style={{ display: "none" }}
-                  />
+                    <input
+                      type="file"
+                      className="form-control"
+                      id="image"
+                      name="image"
+                      accept="image/*"
+                      onChange={handleImageChange}
+                      style={{ display: "none" }}
+                    />
+                  </div>
                 </>
               ) : (
                 <>
