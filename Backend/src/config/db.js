@@ -5,12 +5,12 @@ const env = require('dotenv').config();
 async function connect(){
     try{
         await mongoose.connect(
-          "mongodb://localhost:27017/" + process.env.DataName,
-        //   {
-        //     useNewUrlParser: true,
-        //     useCreateIndex: true,
-        //     useUnifiedTopology: true,
-        //   }
+          `mongodb+srv://${process.env.DataName}:${process.env.DataPass}@shop.ckuzmf0.mongodb.net/Shop?retryWrites=true&w=majority&appName=Shop`,
+          {
+            // useNewUrlParser: true,
+            // useCreateIndex: true,
+            // useUnifiedTopology: true,
+          }
         );
         console.log("Kết nối data thành công!");
         
