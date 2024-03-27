@@ -67,8 +67,8 @@ const Navbars = () => {
                 </NavLink>
               </div>
               <NavLink to="/myCart" className="btn btncart">
-                  <FontAwesomeIcon icon={faCartArrowDown} />
-                  <div className="count">{count}</div>
+                <FontAwesomeIcon icon={faCartArrowDown} />
+                <div className="count">{count}</div>
                 {/* <FontAwesomeIcon icon={faCartArrowDown} />
                 {role === "user" ? (
                   <>

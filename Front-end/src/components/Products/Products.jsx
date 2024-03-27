@@ -34,20 +34,15 @@ const Products = (props) => {
 
   return (
     <>
-      {/* <div>
-        <Search />
-      </div> */}
       <div className="Product-page">
-        <div>
-          <BanerProducts />
+        <div className="products-banner">
+          <BanerProducts/>
         </div>
         <div className="product">
           <nav className="navbarpro">
             <NavLink
               className="btn"
               to="/products"
-              // exact={true}
-              // activeClassName="active"
             >
               {" "}
               All

@@ -6,7 +6,7 @@ import DetailProduct from "../components/Products/DetailProduct";
 import Home from "../components/Home";
 import CategoryProducts from "../components/Products/CategoryProducts";
 import Login from "../components/auth/Login";
-import "../App.css";
+import "../App.scss";
 import {
   useLocation,
   BrowserRouter as Router,

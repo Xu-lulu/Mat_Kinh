@@ -3,7 +3,7 @@ import Login from "../components/auth/Login";
 import CreateProduct from "../components/admin/Products/CreateProduct";
 
 import Update from "../components/admin/Products/update";
-import "../App.css";
+import "../App.scss";
 import {
   useLocation,
   BrowserRouter as Router,

@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import "./App.css";
+import "./App.scss";
 import {
   NavbarFood,
   FooterFood,
@@ -23,24 +23,11 @@ function App() {
   const [showlogin, setshowlogin] = useState(false);
   const [datalogin, setdatalogin] = useState([]);
   const dispatch = useDispatch();
-  const token = useSelector(
-    (state) => state.auth?.login?.currentUser?.accessToken
-  );
-
   useEffect(() => {
-  dataProducts(dispatch);
-  dataCategorys(dispatch);
+    dataProducts(dispatch);
+    dataCategorys(dispatch);
   }, [dispatch]);
-  // const alldataProducts = useSelector(
-  //   (state) => state.products.allproduct.dataProducts
-  // );
-  // console.log(alldataProducts);
-  // const dataCategory = useSelector(
-  //   (state) => state.products.categorys.dataCategorys
-  // );
-  // console.log(dataCategory);
   const user = useSelector((state) => {
-    // const currentUsers = state.auth.login.currentUser.newUsers;
     const currentUser = state.auth.login.currentUser;
     if (currentUser && currentUser.newUsers.role) {
       return currentUser.newUsers.role;
@@ -70,22 +57,20 @@ function App() {
               <Admin />
             </div>
           </div>
-
-          {/* <FooterFood /> */}
         </Router>
       ) : (
         <Router>
-          <NavbarFood />
-          {/* <div className="Navbar">
-          <Navbars />
-        </div> */}
-          <div className="page-container-user">
-            <PublicRoute />
-            {/* <div className="Footer">
-            <Footer />
-          </div> */}
+          <div className="User">
+            <div className="Navbar-users">
+              <NavbarFood />
+            </div>
+            <div className="page-container-user">
+              <PublicRoute />
+            </div>
+            <div className="Footer-users">
+              <FooterFood />
+            </div>
           </div>
-          <FooterFood />
         </Router>
       )}
     </CartContext.Provider>

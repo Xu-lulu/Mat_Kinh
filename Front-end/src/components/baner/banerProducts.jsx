@@ -5,6 +5,7 @@ import baner3 from "../../assets/BanerProducts/baner3.png";
 import baner4 from "../../assets/BanerProducts/baner4.jpg";
 import baner5 from "../../assets/BanerProducts/baner5.jpg";
 import "./baner.scss";
+import { Carousel } from "antd";
 const BanerProducts = () => {
   const banners = [baner4, baner5];
   const [currentBannerIndex, setcurrentBannerIndex] = useState(0);
@@ -14,14 +15,35 @@ const BanerProducts = () => {
     }, 5000);
     return () => clearInterval(interValId);
   }, []);
+  const contentStyle = {
+    height: "160px",
+    color: "#fff",
+    lineHeight: "160px",
+    textAlign: "center",
+    background: "#364d79",
+  };
   return (
     <>
       <div className="baner-container">
-        <img
+        {/* <img
           src={banners[currentBannerIndex]}
           alt={`Banner ${currentBannerIndex + 1}`}
           className="slide-right"
-        ></img>
+        ></img> */}
+        <Carousel autoplay className="baner-Carousel">
+        <div>
+          <h3 style={contentStyle}>1</h3>
+        </div>
+        <div>
+          <h3 style={contentStyle}>2</h3>
+        </div>
+        <div>
+          <h3 style={contentStyle}>3</h3>
+        </div>
+        <div>
+          <h3 style={contentStyle}>4</h3>
+        </div>
+      </Carousel>
       </div>
     </>
   );

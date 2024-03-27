@@ -35,7 +35,7 @@ const Home = () => {
             <button>Đặt hàng ngay</button>
           </Link>
         </div>
-        <div className="baner-container">
+        <div className="home-baner-container">
           <img src={baner1} alt="baner1"></img>
           <img src={baner2} alt="baner2"></img>
           <img src={baner3} alt="baner3"></img>

@@ -1,15 +1,15 @@
-.baner-container{
-    width: 100%;
-    margin: 0px;
-    height: 200px;
-    overflow: hidden;
-    img{
-      width: 110%;
-    }
-}
-
 .baner-container {
+  width: 100%;
+  margin: 0px;
+  height: 200px;
   overflow: hidden;
+  position: relative;
+  .baner-Carousel {
+    position: absolute;
+  }
+  // img{
+  //   width: 110%;
+  // }
 }
 
 @keyframes slideRight {
