@@ -13,6 +13,11 @@ router.get(
   verifyTokenAndUserAuthorization,
   HomeController.OneUsers
 );
+router.get(
+  "/allCartOneUser",
+  verifyTokenAndUser,
+  HomeController.datacartOneUser
+);
 router.get("/alluser", verifyTokenAndAdmin, HomeController.allUser);
 router.post("/Logout", HomeController.logOut);
 module.exports = router;

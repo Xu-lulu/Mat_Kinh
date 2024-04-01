@@ -29,13 +29,12 @@ const Admin = () => {
       </div>
       <Routes>
         <Route path="/admin" element={<HomeAdmin />} />
-        <Route path="/productadmin" element={<HomeProducts />}></Route>
-        <Route path="/createProduct" element={<CreateProduct />}></Route>
+        <Route path="/productadmin" element={<HomeProducts />}/>
+        <Route path="/createProduct" element={<CreateProduct />}/>
         <Route path="/edit/:id" element={<Update />} />
         <Route path="/categoryadmin" element={<CategoryAdmin />} />
-        <Route path="/createCategory" element={<CreateCategory />}></Route>
+        <Route path="/createCategory" element={<CreateCategory />}/>
         <Route path="/editcategory/:id" element={<UpdateCategory/>} />
-
         <Route path="/Login" element={<Login />} />
         <Route path="/Register" element={<Register />} />
       </Routes>

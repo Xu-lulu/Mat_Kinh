@@ -14,10 +14,10 @@ router.post(
   upload.single("Image"),
   CartController.addCart
 );
-router.put(
-  "/upmountCart/:id",
+router.put("/upmountCart/:id", verifyTokenAndUser, CartController.upmountCart);
+router.delete(
+  "/deleteOneItem/:id",
   verifyTokenAndUser,
-  upload.single("Image"),
-  CartController.upmountCart
+  CartController.deleteOneItem
 );
 module.exports = router;

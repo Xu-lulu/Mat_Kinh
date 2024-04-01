@@ -2,11 +2,11 @@ import Footer from "../components/Footer/Footer";
 import Navbars from "../components/Navbars/Navbars";
 import Products from "../components/Products/Products";
 import Cart from "../components/Cart/Cart";
-import DetailProduct from "../components/Products/DetailProduct";
+import DetailProduct from "../components/detaiproducts/DetailProduct";
 import Home from "../components/Home";
-import CategoryProducts from "../components/Products/CategoryProducts";
+import CategoryProducts from "../components/categorys/CategoryProducts";
 import Login from "../components/auth/Login";
-import "../App.scss";
+// import "../App.scss";
 import {
   useLocation,
   BrowserRouter as Router,
@@ -18,8 +18,7 @@ import { useState } from "react";
 import Register from "../components/auth/Register";
 
 const PublicRoute = (props) => {
-  const { dataProducts, loading } = props;
-  const location = useLocation();
+  const { dataProducts} = props;
   return (
     <>
       <Routes>
@@ -35,18 +34,9 @@ const PublicRoute = (props) => {
           element={<Update dataProducts={dataProducts} />}
         /> */}
 
-        <Route
-          path="/detail/:id"
-          element={<DetailProduct/>}
-        />
-        <Route
-          path="/products"
-          element={<Products/>}
-        />
-        <Route
-          path="/products/category/:name"
-          element={<CategoryProducts/>}
-        />
+        <Route path="/detail/:id" element={<DetailProduct />} />
+        <Route path="/products" element={<Products />} />
+        <Route path="/products/category/:name" element={<CategoryProducts />} />
         <Route path="/myCart" element={<Cart dataProducts={dataProducts} />} />
         <Route path="/Login" element={<Login />} />
         <Route path="/Register" element={<Register />} />

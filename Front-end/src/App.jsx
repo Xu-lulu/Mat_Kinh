@@ -12,7 +12,8 @@ import { CartContext } from "./Contexts/CartContext";
 import PublicRoute from "./routes/public";
 import Admin from "./routes/admin";
 import { dataCategorys, dataProducts } from "./redux/api/apiProduct";
-
+import { Layout, Flex } from "antd";
+const { Header, Footer, Sider, Content } = Layout;
 //
 function App() {
   // const [allProducts, setallProducts] = useState([]);
@@ -29,8 +30,8 @@ function App() {
   }, [dispatch]);
   const user = useSelector((state) => {
     const currentUser = state.auth.login.currentUser;
-    if (currentUser && currentUser.newUsers.role) {
-      return currentUser.newUsers.role;
+    if (currentUser && currentUser?.newUsers?.role) {
+      return currentUser?.newUsers?.role;
     }
     return null;
   });
@@ -60,7 +61,18 @@ function App() {
         </Router>
       ) : (
         <Router>
-          <div className="User">
+          <Flex gap="middle" wrap="wrap">
+            <Header>
+              <NavbarFood />
+            </Header>
+            <Content>
+              <PublicRoute />
+            </Content>
+            <Footer>
+              <FooterFood />
+            </Footer>
+          </Flex>
+          {/* <div className="User">
             <div className="Navbar-users">
               <NavbarFood />
             </div>
@@ -70,7 +82,7 @@ function App() {
             <div className="Footer-users">
               <FooterFood />
             </div>
-          </div>
+          </div> */}
         </Router>
       )}
     </CartContext.Provider>

@@ -1,17 +1,19 @@
-.baner-container {
-  width: 100%;
-  margin: 0px;
-  height: 200px;
-  overflow: hidden;
-  position: relative;
-  .baner-Carousel {
-    position: absolute;
+.Banner {
+  width: 1380px;
+  justify-content: center;
+  margin-left: 3.5%;
+  .item-image {
+    img {
+      height:300px;
+      width: 100%;
+    }
   }
-  // img{
-  //   width: 110%;
-  // }
+  .ant-carousel {
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
 }
-
 @keyframes slideRight {
   0% {
     transform: translateX(-100%);
@@ -22,6 +24,5 @@
 }
 
 .slide-right {
-  // animation: slideRight 3s linear inherit;
   transition: transform 3s linear;
 }

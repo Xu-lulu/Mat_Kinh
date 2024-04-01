@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 // import DetailProduct from "./detailProduct";
 import { useNavigate } from "react-router-dom";
 import "./Productscard.scss";
@@ -21,10 +21,13 @@ const ProductCard = (props) => {
         <div className="card_info">
           <h2>{Name}</h2>
           <h3>{Price}VND</h3>
-          <div className="productsDetail">
-            <NavLink to={`/detail/${_id}`} className="btn">
+          <div className="productsCard">
+            <Link
+              to={`/detail/${_id}`}
+              className="btn"
+            >
               Xem chi tiết
-            </NavLink>
+            </Link>
           </div>
         </div>
       </div>

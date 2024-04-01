@@ -2,49 +2,64 @@ import ProductsCart from "./ProductCard";
 import { useState, useEffect } from "react";
 import "./Products.scss";
 import ReactPaginate from "react-paginate";
+import { Pagination } from "antd";
 // import "../Navbars/Navbars.scss";
 import { Link, NavLink } from "react-router-dom";
 import axios from "axios";
 import Search from "../search/search";
-import BanerProducts from "../baner/banerProducts";
+// import BanerProducts from "../baner/banerProducts";
+import BanNer from "../baner/baner";
 import { useSelector } from "react-redux";
-const Products = (props) => {
-  const { loading } = props;
+const Products = () => {
+  // const [currentItems, setCurrentItems] = useState([]);
+  // const [pageCount, setPageCount] = useState(0);
+  // const [itemOffset, setitemOffset] = useState(0);
+  // const itemsPerPage = 10;
+  // const alldataProducts = useSelector(
+  //   (state) => state.products.allproduct.dataProducts
+  // );
+  // const dataCategory = useSelector(
+  //   (state) => state.products.categorys.dataCategorys
+  // );
+  // useEffect(() => {
+  //   const endOffset = itemOffset + itemsPerPage;
+  //   setCurrentItems(alldataProducts.slice(itemOffset, endOffset));
+  //   setPageCount(Math.ceil(alldataProducts.length / itemsPerPage));
+  // }, [itemOffset, itemsPerPage, alldataProducts]);
+  // const handlePageClick = (event) => {
+  //   const newOffset = event.selected * itemsPerPage;
+  //   setitemOffset(newOffset);
+  //   console.log("even", event.selected);
+  // };
+
   const [currentItems, setCurrentItems] = useState([]);
-  const [pageCount, setPageCount] = useState(0);
-  const [itemOffset, setitemOffset] = useState(0);
+  const [itemOffset, setItemOffset] = useState(0);
   const itemsPerPage = 10;
   const alldataProducts = useSelector(
     (state) => state.products.allproduct.dataProducts
   );
+  const dataCategory = useSelector(
+    (state) => state.products.categorys.dataCategorys
+  );
+
   useEffect(() => {
     const endOffset = itemOffset + itemsPerPage;
     setCurrentItems(alldataProducts.slice(itemOffset, endOffset));
-    setPageCount(Math.ceil(alldataProducts.length / itemsPerPage));
-  }, [itemOffset, itemsPerPage, alldataProducts]);
-   const dataCategory = useSelector(
-     (state) => state.products.categorys.dataCategorys
-   );
-  const handlePageClick = (event) => {
-    const newOffset = event.selected * itemsPerPage;
+  }, [itemOffset, alldataProducts]);
 
-    setitemOffset(newOffset);
-    console.log("even", event.selected);
+  const handlePageChange = (page) => {
+    const newOffset = (page - 1) * itemsPerPage;
+    setItemOffset(newOffset);
   };
-
   return (
     <>
       <div className="Product-page">
         <div className="products-banner">
-          <BanerProducts/>
+          <BanNer />
         </div>
         <div className="product">
           <nav className="navbarpro">
-            <NavLink
-              className="btn"
-              to="/products"
-            >
-              {" "}
+            <NavLink className="btn" to="/products">
               All
             </NavLink>
             {dataCategory.map((item, index) => {
@@ -53,14 +68,13 @@ const Products = (props) => {
                   className="btn"
                   key={index}
                   to={`/products/category/${item.Namecategory}`}
-                  active="active"
                 >
                   {item.Namecategory}
                 </NavLink>
               );
             })}
           </nav>{" "}
-          {!loading ? (
+          {alldataProducts ? (
             <div className="alldataproduct row row-cols-5 gy-1">
               {currentItems.map((product, index) => {
                 return (
@@ -82,7 +96,7 @@ const Products = (props) => {
             <p>Loading</p>
           )}
         </div>
-        <ReactPaginate
+        {/* <ReactPaginate
           breakLabel="..."
           nextLabel=">"
           onPageChange={handlePageClick}
@@ -95,6 +109,13 @@ const Products = (props) => {
           previousLinkClassName="page-num"
           nextLinkClassName="page-num"
           activeLinkClassName="active"
+        /> */}
+        <Pagination
+          current={Math.floor(itemOffset / itemsPerPage) + 1}
+          pageSize={itemsPerPage}
+          total={alldataProducts.length}
+          onChange={handlePageChange}
+          className="Pagination"
         />
       </div>
     </>

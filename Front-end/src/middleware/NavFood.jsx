@@ -10,11 +10,11 @@ export const NavbarFood = () => {
   return (
     <>
       {location.pathname === "/Login" || location.pathname === "/Register" ? (
-        <div className="Navbar" hidden>
+        <div hidden>
           <Navbars />
         </div>
       ) : (
-        <div className="Navbar">
+        <div>
           <Navbars />
         </div>
       )}{" "}

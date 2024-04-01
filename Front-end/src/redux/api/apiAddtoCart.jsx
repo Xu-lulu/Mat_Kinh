@@ -15,6 +15,20 @@ import {
   upmountCartStart,
   upmountCartSuccess,
 } from "../Cart";
+export const dataCart = async (dispatch, token) => {
+  dispatch(CartStart());
+  try {
+    const res = await axios.get(`http://localhost:3000/auth/allCartOneUser`, {
+      headers: {
+        token: `Bearer ${token}`,
+      },
+    });
+    dispatch(CartSuccess(res.data));
+  } catch (error) {
+    dispatch(CartFailed());
+    toast.error(error.response.data.mes);
+  }
+};
 
 export const addtoCart = async (dispatch, id, token, data) => {
   dispatch(CartStart());
@@ -29,50 +43,49 @@ export const addtoCart = async (dispatch, id, token, data) => {
         },
       }
     );
-    dispatch(CartSuccess());
+    dispatch(CartSuccess(res.data.cart));
+    dataCart(dispatch, token);
     toast.success("Thêm vào giỏ hàng thành công");
   } catch (error) {
     dispatch(CartFailed());
     toast.error(error.response.data.mes);
   }
 };
-export const upmountCart = async (dispatch, id, navigate, token) => {
+export const upmountCart = async (dispatch, id, token, data) => {
   dispatch(upmountCartStart());
   try {
     const res = await axios.put(
-      `http://localhtost:3000/upmountCart/${id}`,
+      `http://localhost:3000/upmountCart/${id}`,
       data,
       {
         headers: {
-          "Content-Type": "multipart/form-data",
           token: `Bearer ${token}`,
         },
       }
     );
-    dispatch(upmountCartSuccess());
+    dispatch(upmountCartSuccess(res.data.cart));
+    dataCart(dispatch, token);
   } catch (error) {
     dispatch(upmountCartFailed());
-    toast.error(error.response.data.mes);
+    console.log(error);
   }
 };
-export const editCategory = async (dispatch, id, token, data, navigate) => {
-  dispatch(categoryAdminStart());
+export const deleteOneCartItem = async (dispatch, id, token) => {
+  dispatch(upmountCartStart());
   try {
-    const res = await axios.put(
-      `http://localhost:3000/editcategory/${id}`,
-      data,
+    const res = await axios.delete(
+      `http://localhost:3000/deleteOneItem/${id}`,
       {
         headers: {
           token: `Bearer ${token}`,
         },
       }
     );
-    dispatch(categoryAdminSuccess());
-    await dataCategorys(dispatch);
-    toast.success("Sửa thành công");
-    navigate("/categoryadmin");
+    dispatch(upmountCartSuccess(res.data));
+    dataCart(dispatch, token);
+    toast.success("xóa thành công");
   } catch (error) {
-    dispatch(categoryAdminFailed());
+    dispatch(upmountCartFailed());
     toast.error(error.response.data.mes);
   }
 };

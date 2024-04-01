@@ -30,20 +30,20 @@ const BanerProducts = () => {
           alt={`Banner ${currentBannerIndex + 1}`}
           className="slide-right"
         ></img> */}
-        <Carousel autoplay className="baner-Carousel">
-        <div>
-          <h3 style={contentStyle}>1</h3>
-        </div>
-        <div>
-          <h3 style={contentStyle}>2</h3>
-        </div>
-        <div>
-          <h3 style={contentStyle}>3</h3>
-        </div>
-        <div>
-          <h3 style={contentStyle}>4</h3>
-        </div>
-      </Carousel>
+        <Carousel autoplay autoplaySpeed={3000} speed={500} className="baner-Carousel">
+          <div>
+            <img src={baner1} alt={baner1} style={contentStyle}></img>
+          </div>
+          <div>
+            <img src={baner2} alt={baner2} style={contentStyle}></img>
+          </div>
+          <div>
+            <img src={baner3} alt={baner3} style={contentStyle}></img>
+          </div>
+          <div>
+            <img src={baner4} alt={baner4} style={contentStyle}></img>
+          </div>
+        </Carousel>
       </div>
     </>
   );

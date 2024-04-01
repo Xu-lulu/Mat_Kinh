@@ -7,7 +7,7 @@
     align-items: center;
     justify-content: center;
     width: 100%;
-    height: 100%;
+    // height: 100%;
     margin: 100px 0 100px 0;
     .iconNocart{
       font-size: 30px;
@@ -16,6 +16,9 @@
     p{
       font-weight: 600;
     }
+  }
+  .allproduct-cart{
+    padding: 0 20px;
   }
   .Nocart-container{
     display: flex;

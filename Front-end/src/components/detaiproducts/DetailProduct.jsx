@@ -1,29 +1,31 @@
 import { useState, useContext, useEffect } from "react";
-import "./Products.scss";
+import "./detail.scss";
 import { CartContext } from "../../Contexts/CartContext";
 import { useParams, useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
+import { Toaster, toast } from "sonner";
 import axios from "axios";
-import ProductsCart from "./ProductCard";
+import ProductsCart from "../Products/ProductCard";
 import { useSelector, useDispatch } from "react-redux";
 import { findCategorys } from "../../redux/api/apiProduct";
-import { addtoCart, upmountCart } from "../../redux/api/apiAddtoCart";
+import { addtoCart, dataCart, upmountCart } from "../../redux/api/apiAddtoCart";
 const DetailProduct = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
   const [add, setadd] = useState(0);
   const [data, setdata] = useState([]);
   const [loading, setloading] = useState(true);
-  const { myCart, addtoCart, setTotal, count, setCount, datalogin } =
-    useContext(CartContext);
+  const navigate = useNavigate();
+
+  // const { myCart, addtoCart, setTotal, count, setCount, datalogin } =
+  //   useContext(CartContext);
   const alldataProducts = useSelector(
-    (state) => state.products.allproduct.dataProducts
+    (state) => state?.products?.allproduct?.dataProducts
   );
   const token = useSelector(
-    (state) => state.auth.login.currentUser.accessToken
+    (state) => state?.auth?.login?.currentUser?.accessToken
   );
+
   const dataDetail = alldataProducts.find((item) => item._id === id);
-  const navigate = useNavigate();
   useEffect(() => {
     findCategorys(dispatch, dataDetail.Category);
   }, [dataDetail.Category]);
@@ -44,7 +46,19 @@ const DetailProduct = () => {
   //   }
   //   return null;
   // });
-  // const checkid = dataCart.find((item) => item._id === newItem._id);
+  
+  useEffect(() => {
+    if (token) {
+      dataCart(dispatch, token);
+    }
+  }, [dispatch, token]);
+  const dataCartUser = useSelector((state) => {
+    const data = state.cartUser.dataCart.dataCarts.datacart;
+    if (data && data.cart) {
+      return data.cart;
+    }
+    return null;
+  });
   const handleAdd = async () => {
     if (user) {
       const newItem = {
@@ -56,63 +70,61 @@ const DetailProduct = () => {
         Category: dataDetail.Category,
         mount: 1,
       };
-      const checkid = myCart.find((item) => item._id === newItem._id);
+
+      // const checkid = myCart.find((item) => item._id === newItem._id);
+      //   if (checkid) {
+      //     checkid.mount++;
+      //     setCount((add) => (add += 1));
+      //   } else {
+      //     addtoCart((item) => [...item, newItem]);
+      //     setCount((add) => (add += 1));
+      //   }
+      //   setTotal((total) => (total += Number(dataDetail.Price)));
+      //   toast.success("Đã thêm sản phẩm vào giỏ hàng");
+      // } else {
+      //   navigate("/Login");
+      // }
+      const checkid = dataCartUser.find((item) => item._id === newItem._id);
       if (checkid) {
-        checkid.mount++;
-        setCount((add) => (add += 1));
+        const updatedMount = Number(checkid.mount) + 1;
+        const updatedItem = { ...checkid, mount: updatedMount };
+        // const updatedataCart = { ...dataCartUser, updatedItem };
+        // console.log("updata", updatedItem);
+        upmountCart(dispatch, id, token, updatedItem);
       } else {
-        addtoCart((item) => [...item, newItem]);
-        setCount((add) => (add += 1));
+        addtoCart(dispatch, user._id, token, newItem);
       }
-      setTotal((total) => (total += Number(dataDetail.Price)));
-      toast.success("Đã thêm sản phẩm vào giỏ hàng");
+      console.log(dataCartUser);
+      // const checkid = dataCart.find((item) => item._id === newItem._id);
+      // if (checkid) {
+      //   checkid.mount++;
+      //   setCount((add) => (add += 1));
+      // }
+
+      // const existingItemIndex = dataCart.findIndex(
+      //   (item) => item._id === newItem._id
+      // );
+
+      // if (existingItemIndex !== -1) {
+      //   dispatch(IncreaseMount(dataCart[existingItemIndex]._id));
+      // setCount(count + 1);
+      // }
+      // else {
+      //   dispatch(CartStart());
+      //   try {
+      //     dispatch(CartSuccess(newItem));
+      //     toast.success("Đã thêm sản phẩm vào giỏ hàng");
+      //   } catch (error) {
+      //     dispatch(CartFailed(error));
+      //   }
+      // }
+
+      // setTotal((total) => (total += Number(dataDetail.Price)));
+      // addtoCart((item) => [...item, newItem]);
     } else {
       navigate("/Login");
+      toast.success("Bạn cần đăng nhập để có thể mua hàng!");
     }
-
-    // if (checkid) {
-    //   const dataup = Number(checkid.mount++);
-    //   const upnewItem = {
-    //     _id: dataDetail._id,
-    //     Name: dataDetail.Name,
-    //     Price: dataDetail.Price,
-    //     Image: dataDetail.Image,
-    //     count: dataDetail.count,
-    //     Category: dataDetail.Category,
-    //     mount: dataup,
-    //   };
-    //   upmountCart(dispatch, user._id, token, upnewItem);
-    // } else {
-    //   addtoCart(dispatch, user._id, token, newItem);
-    // }
-
-    // const checkid = dataCart.find((item) => item._id === newItem._id);
-    // if (checkid) {
-    //   checkid.mount++;
-    //   setCount((add) => (add += 1));
-    // }
-
-    //
-    // const existingItemIndex = dataCart.findIndex(
-    //   (item) => item._id === newItem._id
-    // );
-
-    // if (existingItemIndex !== -1) {
-    //   dispatch(IncreaseMount(dataCart[existingItemIndex]._id));
-    //   // setCount(count + 1);
-    // } else {
-    //   dispatch(CartStart());
-    //   try {
-    //     dispatch(CartSuccess(newItem));
-    //     toast.success("Đã thêm sản phẩm vào giỏ hàng");
-    //   } catch (error) {
-    //     dispatch(CartFailed(error));
-    //   }
-    // }
-
-    //
-    // setTotal((total) => (total += Number(dataDetail.Price)));
-    // addtoCart((item) => [...item, newItem]);
   };
   // const dataCart = useSelector((state) => state.cart.dataCart.dataCart);
   // console.log("dataCart", dataCart);

@@ -19,31 +19,45 @@ class CartController {
   }
   async upmountCart(req, res, next) {
     try {
-      const userId = req.params.id;
+      const { _id } = req.user;
+      const productId = req.params.id;
       const updatedData = req.body;
-      const user = await Users.findById(userId);
+      const user = await Users.findById(_id);
       if (!user) {
-        res.status(404).json({ mes: "Người dùng chưa không tồn tại!" });
+        res.status(404).json({ mes: "Người dùng không tồn tại!" });
       } else {
-        const data = await Users.cart.findOneAndUpdate(
-          { _id: id },
-          updatedData,
-          {
-            new: true,
-          }
+        const data = await Users.findOneAndUpdate(
+          { _id: _id, "cart._id": productId },
+          { $set: { "cart.$": updatedData } },
+          { new: true }
         );
         res.status(200).json(data);
       }
     } catch (error) {
       res.status(500).json(error);
+      console.log(error);
     }
   }
-  async allProductsAdmin(req, res, next) {
+
+  async deleteOneItem(req, res, next) {
     try {
-      const dataproducts = await products.find();
-      res.status(200).json(dataproducts);
+      const { _id } = req.user;
+      const productId = req.params.id;
+      const user = await Users.findById(_id);
+      if (!user) {
+        res.status(404).json({ mes: "Người dùng không tồn tại!" });
+      } else {
+        const data = await Users.findByIdAndUpdate(
+          _id,
+          { $pull: { cart: { _id: productId } } },
+          { new: true }
+        );
+        console.log("data", data);
+        res.status(200).json(data);
+      }
     } catch (error) {
       res.status(500).json(error);
+      console.log(error);
     }
   }
   async dataupdate(req, res, next) {

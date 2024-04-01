@@ -1,6 +1,6 @@
 import { useContext, useState, useEffect } from "react";
 import { CartContext } from "../../Contexts/CartContext";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import "./Cart.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -10,17 +10,56 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { NavLink } from "react-router-dom";
 import ProductsCart from "../Products/ProductCard";
+import { deleteOneCartItem, upmountCart } from "../../redux/api/apiAddtoCart";
+
 const Cart = (props) => {
+  const dispatch = useDispatch();
   const { myCart, addtoCart, total, setTotal, count, setCount } =
     useContext(CartContext);
+  const [totalPrice, settotalPrice] = useState(0);
+  const [totalCount, settotalCount] = useState(0);
+
   // const dataCart = useSelector(
   //   (state) => state.auth.login.currentUser.newUsers.cart
   // );
   // console.log(dataCart);
-  const dataCart = myCart;
+  const dataCart = useSelector((state) => {
+    const data = state.cartUser.dataCart.dataCarts.datacart;
+    if (data && data.cart) {
+      return data.cart;
+    }
+    return null;
+  });
   const alldataProducts = useSelector(
     (state) => state.products.allproduct.dataProducts
   );
+  const user = useSelector((state) => {
+    // const currentUsers = state.auth.login.currentUser.newUsers;
+    const currentUser = state.auth.login.currentUser;
+    if (currentUser && currentUser.newUsers) {
+      return currentUser.newUsers;
+    }
+    return null;
+  });
+  useEffect(() => {
+    if (user && dataCart) {
+      const sumPrice = dataCart.reduce(
+        (acc, currentItem) =>
+          acc + Number(currentItem.Price) * currentItem.mount,
+        0
+      );
+      const sumCount = dataCart.reduce(
+        (acc, currentItem) => acc + currentItem.mount,
+        0
+      );
+      settotalPrice(sumPrice);
+      settotalCount(sumCount);
+    } else {
+      settotalPrice(0);
+      settotalCount(0);
+    }
+  }, [dataCart]);
+
   const [currentItems, setCurrentItems] = useState([]);
   const [itemOffset, setitemOffset] = useState(0);
   const itemsPerPage = 10;
@@ -28,34 +67,49 @@ const Cart = (props) => {
     const endOffset = itemOffset + itemsPerPage;
     setCurrentItems(alldataProducts.slice(itemOffset, endOffset));
   }, [itemOffset, itemsPerPage, alldataProducts]);
+  const token = useSelector(
+    (state) => state?.auth?.login?.currentUser?.accessToken
+  );
 
   const handcleclinkIncrement = (id) => {
-    const index = myCart.findIndex((item) => item._id === id);
-    const cartNewState = [...myCart];
-    cartNewState[index].mount++;
-    addtoCart(cartNewState);
-    setTotal((totals) => (totals += Number(cartNewState[index].Price)));
-    setCount((count) => (count += 1));
+    const checkid = dataCart.find((item) => item._id === id);
+    console.log(checkid);
+    const updatedMount = Number(checkid.mount) + 1;
+    const updatedItem = { ...checkid, mount: updatedMount };
+    upmountCart(dispatch, id, token, updatedItem);
+    // const index = myCart.findIndex((item) => item._id === id);
+    // const cartNewState = [...myCart];
+    // cartNewState[index].mount++;
+    // addtoCart(cartNewState);
+    // setTotal((totals) => (totals += Number(cartNewState[index].Price)));
+    // setCount((count) => (count += 1));
+    // upmountCart(dispatch,,token,)
   };
   const handcleclinkDecrement = (id) => {
-    const index = myCart.findIndex((item) => item._id === id);
-    if (myCart[index].mount > 1) {
-      const cartNewState = [...myCart];
-      cartNewState[index].mount--;
-      addtoCart(cartNewState);
-      setTotal((totals) => (totals -= Number(cartNewState[index].Price)));
-      setCount((count) => (count -= 1));
-    }
+    // const index = myCart.findIndex((item) => item._id === id);
+    // if (myCart[index].mount > 1) {
+    //   const cartNewState = [...myCart];
+    //   cartNewState[index].mount--;
+    //   addtoCart(cartNewState);
+    //   setTotal((totals) => (totals -= Number(cartNewState[index].Price)));
+    //   setCount((count) => (count -= 1));
+    // }
+    const checkid = dataCart.find((item) => item._id === id);
+    console.log(checkid);
+    const updatedMount = Number(checkid.mount) - 1;
+    const updatedItem = { ...checkid, mount: updatedMount };
+    upmountCart(dispatch, id, token, updatedItem);
   };
   const isCartEmpty = () => {
     return dataCart.length === 0;
   };
   const handcleclinkRemove = (id) => {
-    const newStatemyCart = myCart.filter((item) => item._id != id);
-    const removemyCart = myCart.find((item) => item._id === id);
-    addtoCart(newStatemyCart);
-    setTotal((totals) => (totals -= removemyCart.Price * removemyCart.mount));
-    setCount((count) => count - removemyCart.mount);
+    deleteOneCartItem(dispatch, id, token);
+    // const newStatemyCart = myCart.filter((item) => item._id != id);
+    // const removemyCart = myCart.find((item) => item._id === id);
+    // addtoCart(newStatemyCart);
+    // setTotal((totals) => (totals -= removemyCart.Price * removemyCart.mount));
+    // setCount((count) => count - removemyCart.mount);
   };
   return (
     <>
@@ -167,11 +221,11 @@ const Cart = (props) => {
               <div className="pay">
                 <div className="pay1">
                   <p>Số sản phẩm: </p>
-                  <p>{count}</p>
+                  <p>{totalCount}</p>
                 </div>
                 <div className="pay2">
                   <p>Tổng tiền: </p>
-                  <p>{total} VNĐ</p>
+                  <p>{totalPrice} VNĐ</p>
                 </div>
               </div>
             </div>

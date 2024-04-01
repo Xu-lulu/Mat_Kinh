@@ -13,6 +13,7 @@ const CartSlice = createSlice({
       datanewCart: [],
       error: false,
     },
+
   },
   reducers: {
     CartStart: (state) => {
@@ -23,11 +24,6 @@ const CartSlice = createSlice({
         (state.dataCart.dataCarts = action.payload),
         (state.dataCart.error = false);
     },
-    // CartSuccess: (state, action) => {
-    //   state.dataCart.isFetching = false;
-    //   state.dataCart.dataCart.push(action.payload);
-    //   state.dataCart.error = false;
-    // },
     CartFailed: (state) => {
       state.dataCart.isFetching = false;
       state.dataCart.error = true;
@@ -40,11 +36,6 @@ const CartSlice = createSlice({
         (state.upmountCart.datanewCart = action.payload),
         (state.upmountCart.error = false);
     },
-    // CartSuccess: (state, action) => {
-    //   state.dataCart.isFetching = false;
-    //   state.dataCart.dataCart.push(action.payload);
-    //   state.dataCart.error = false;
-    // },
     upmountCartFailed: (state) => {
       state.upmountCart.isFetching = false;
       state.upmountCart.error = true;

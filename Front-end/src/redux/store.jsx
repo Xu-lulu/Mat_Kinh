@@ -23,7 +23,7 @@ const rootReducer = combineReducers({
   products: productReducer,
   auth: authReducer,
   admin: adminReducer,
-  cart: cartReducer,
+  cartUser: cartReducer,
 });
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 

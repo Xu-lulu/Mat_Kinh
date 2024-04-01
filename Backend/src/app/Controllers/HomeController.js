@@ -125,6 +125,13 @@ const allUser = asyncHandle(async (req, res) => {
     rs: user ? user : "kshd",
   });
 });
+const datacartOneUser = asyncHandle(async (req, res) => {
+  const { _id } = req.user;
+  const datacart = await Users.findById({ _id }).select("cart");
+  return res.status(200).json({
+    datacart,
+  });
+});
 const logOut = asyncHandle(async (req, res, next) => {
   const refreshTokens = refreshTokens.filter(
     (token) => token !== req.body.token
@@ -136,4 +143,11 @@ const logOut = asyncHandle(async (req, res, next) => {
     throw new Error("Lỗi đăng xuất");
   }
 });
-module.exports = { Register, Login, logOut, OneUsers, allUser };
+module.exports = {
+  Register,
+  Login,
+  logOut,
+  OneUsers,
+  allUser,
+  datacartOneUser,
+};

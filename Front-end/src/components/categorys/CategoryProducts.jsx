@@ -1,21 +1,22 @@
 import { useState, useEffect } from "react";
 import { Link, NavLink, useParams } from "react-router-dom";
 import axios from "axios";
-import ProductsCart from "./ProductCard";
-import "./Products.scss";
-import BanerProducts from "../baner/banerProducts";
+import ProductsCart from "../Products/ProductCard";
+import "../Products/Productscard.scss";
 import { Toaster, toast } from "sonner";
 import { useSelector, useDispatch } from "react-redux";
 import { findCategorys } from "../../redux/api/apiProduct";
+import BanNer from "../baner/baner";
+
 const CategoryProducts = () => {
   const { name } = useParams();
   const [data, setdata] = useState([]);
   const [loading, setloading] = useState(true);
   const dispatch = useDispatch();
   console.log(name);
-  // useEffect(() => {
-  findCategorys(dispatch, name);
-  // }, [name]);
+  useEffect(() => {
+    findCategorys(dispatch, name);
+  }, [dispatch]);
   const dataCategory = useSelector(
     (state) => state.products.categorys.dataCategorys
   );
@@ -25,7 +26,8 @@ const CategoryProducts = () => {
   return (
     <>
       <div className="product">
-        <BanerProducts></BanerProducts>
+        {/* <BanerProducts></BanerProducts> */}
+        <BanNer className="category-banner"/>
         <div>
           <nav className="navbarpro">
             <Link exact={true} className="btn" to="/products" active="active">
@@ -38,7 +40,7 @@ const CategoryProducts = () => {
                   className="btn"
                   key={index}
                   to={`/products/category/${item.Namecategory}`}
-                  active="active"
+                  // active="active"
                 >
                   {item.Namecategory}
                 </NavLink>

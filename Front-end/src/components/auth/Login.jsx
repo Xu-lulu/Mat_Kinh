@@ -6,20 +6,37 @@ import { useDispatch } from "react-redux";
 import { Toaster, toast } from "sonner";
 import { CartContext } from "../../Contexts/CartContext";
 import { loginUser } from "../../redux/api/apiRequest";
+import { SpinLoad } from "../../middleware/loading";
 
 const Login = () => {
   const [username, setusername] = useState("");
   const [password, setpassword] = useState("");
   const { datalogin, setdatalogin } = useContext(CartContext);
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const handleOnclickLogin = async (e) => {
     e.preventDefault();
+    // setloading(true)
+    // const data = {
+    //   username: username,
+    //   password: password,
+    // };
+    // loginUser(dispatch, data, navigate);
+    setLoading(true); // Khi nhấn nút Đăng nhập, hiển thị SpinLoad
+
     const data = {
       username: username,
       password: password,
     };
-    loginUser(dispatch, data, navigate);
+
+    try {
+      await loginUser(dispatch, data, navigate);
+    } catch (error) {
+      // Xử lý lỗi nếu cần
+    } finally {
+      setLoading(false); // Sau khi xử lý hoàn tất, ẩn SpinLoad
+    }
   };
   return (
     <>
@@ -77,6 +94,7 @@ const Login = () => {
         </div>
         <div className="Background-Right"></div>
       </div>
+      {loading && <SpinLoad />}
     </>
   );
 };
