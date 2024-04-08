@@ -19,6 +19,7 @@ const HomeProducts = () => {
   const text = "Bạn có chắc chắn muốn xóa không?";
   const textheader = "Delete";
   const textfooter = "Xóa";
+  const apiUrl = import.meta.env.VITE_REACT_APP_API_URL;
   const token = useSelector(
     (state) => state.auth.login.currentUser.accessToken
   );
@@ -75,7 +76,7 @@ const HomeProducts = () => {
                     <th scope="row">
                       <img
                         className="admin-item-img"
-                        src={`http://localhost:3000/` + item.Image}
+                        src={`${apiUrl}/${item.Image}`}
                         alt=""
                       ></img>
                     </th>

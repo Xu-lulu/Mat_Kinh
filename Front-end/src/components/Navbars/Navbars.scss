@@ -1,4 +1,4 @@
-.nav-container{
+.nav-container {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -6,31 +6,37 @@
   width: 100%;
   position: fixed;
   z-index: 1;
-  margin-right: 100px;
+  border-bottom: 3px solid rgb(252, 145, 84);
+  .logo {
+    display: flex;
+    h1 {
+      margin-top: 10px;
+      color: #ff0000;
+      font-size: 40px;
+    }
+  }
+  .navbar {
+    display: flex;
+    justify-content: flex-end;
+    flex-direction: row;
+    margin-right: 2rem;
+    .btncart {
+      .ant-badge {
+        font-size: 24px;
+        
+      }
+    }
+  }
 }
-.nav-container .navbar{
-  display: flex;
-  justify-content: flex-end;
-  flex-direction: row;
-  margin-right: 2rem;
-}
-.nav-container > *{
+.nav-container > * {
   margin-left: 2rem;
   color: #9c6644;
   text-decoration: none;
   transition: 200ms ease-in-out;
 }
 
-.nav-container >*:hover{
+.nav-container > *:hover {
   color: #e76f51;
-}
-.logo{
-  display: flex;
-  h1{
-    margin-top: 10px;
-    color:  #FF0000;
-    font-size: 40px;
-  }
 }
 .nav-container .navbar .btn.btncart {
   display: flex;

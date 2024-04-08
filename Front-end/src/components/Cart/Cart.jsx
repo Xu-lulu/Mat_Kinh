@@ -1,5 +1,5 @@
 import { useContext, useState, useEffect } from "react";
-import { CartContext } from "../../Contexts/CartContext";
+// import { CartContext } from "../../Contexts/CartContext";
 import { useSelector, useDispatch } from "react-redux";
 import "./Cart.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -8,39 +8,20 @@ import {
   faCartShopping,
   faAnglesRight,
 } from "@fortawesome/free-solid-svg-icons";
-import { NavLink } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 import ProductsCart from "../Products/ProductCard";
 import { deleteOneCartItem, upmountCart } from "../../redux/api/apiAddtoCart";
+import { usedataCart, datauser, dataproduct } from "../../middleware/dataReux";
 
-const Cart = (props) => {
+const Cart = () => {
   const dispatch = useDispatch();
-  const { myCart, addtoCart, total, setTotal, count, setCount } =
-    useContext(CartContext);
+  // const { myCart, addtoCart, total, setTotal, count, setCount } =
+  //   useContext(CartContext);
   const [totalPrice, settotalPrice] = useState(0);
   const [totalCount, settotalCount] = useState(0);
-
-  // const dataCart = useSelector(
-  //   (state) => state.auth.login.currentUser.newUsers.cart
-  // );
-  // console.log(dataCart);
-  const dataCart = useSelector((state) => {
-    const data = state.cartUser.dataCart.dataCarts.datacart;
-    if (data && data.cart) {
-      return data.cart;
-    }
-    return null;
-  });
-  const alldataProducts = useSelector(
-    (state) => state.products.allproduct.dataProducts
-  );
-  const user = useSelector((state) => {
-    // const currentUsers = state.auth.login.currentUser.newUsers;
-    const currentUser = state.auth.login.currentUser;
-    if (currentUser && currentUser.newUsers) {
-      return currentUser.newUsers;
-    }
-    return null;
-  });
+  const dataCart = usedataCart();
+  const alldataProducts = dataproduct();
+  const user = datauser();
   useEffect(() => {
     if (user && dataCart) {
       const sumPrice = dataCart.reduce(
@@ -49,7 +30,7 @@ const Cart = (props) => {
         0
       );
       const sumCount = dataCart.reduce(
-        (acc, currentItem) => acc + currentItem.mount,
+        (acc, currentItem) => acc + Number(currentItem.mount),
         0
       );
       settotalPrice(sumPrice);
@@ -101,20 +82,20 @@ const Cart = (props) => {
     upmountCart(dispatch, id, token, updatedItem);
   };
   const isCartEmpty = () => {
-    return dataCart.length === 0;
+    if (dataCart) {
+      return true;
+    } else {
+      return false;
+    }
+    // return dataCart.length === 0;
   };
   const handcleclinkRemove = (id) => {
     deleteOneCartItem(dispatch, id, token);
-    // const newStatemyCart = myCart.filter((item) => item._id != id);
-    // const removemyCart = myCart.find((item) => item._id === id);
-    // addtoCart(newStatemyCart);
-    // setTotal((totals) => (totals -= removemyCart.Price * removemyCart.mount));
-    // setCount((count) => count - removemyCart.mount);
   };
   return (
     <>
       <div className="Cart">
-        {isCartEmpty() ? (
+        {!isCartEmpty() ? (
           <>
             <div className="No-cart">
               <FontAwesomeIcon icon={faCartShopping} className="iconNocart" />
@@ -226,6 +207,14 @@ const Cart = (props) => {
                 <div className="pay2">
                   <p>Tổng tiền: </p>
                   <p>{totalPrice} VNĐ</p>
+                </div>
+                <div className="delete-pay">
+                  <div className="pay3">
+                    <Link>Xóa tất cả</Link>
+                  </div>
+                  <div className="pay4">
+                    <Link to={`/pay`}>Thanh Toán</Link>
+                  </div>
                 </div>
               </div>
             </div>

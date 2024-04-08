@@ -13,6 +13,7 @@ import PublicRoute from "./routes/public";
 import Admin from "./routes/admin";
 import { dataCategorys, dataProducts } from "./redux/api/apiProduct";
 import { Layout, Flex } from "antd";
+import { datauser } from "./middleware/dataReux";
 const { Header, Footer, Sider, Content } = Layout;
 //
 function App() {
@@ -28,13 +29,14 @@ function App() {
     dataProducts(dispatch);
     dataCategorys(dispatch);
   }, [dispatch]);
-  const user = useSelector((state) => {
-    const currentUser = state.auth.login.currentUser;
-    if (currentUser && currentUser?.newUsers?.role) {
-      return currentUser?.newUsers?.role;
-    }
-    return null;
-  });
+  const user = datauser();
+  // const decodeuser = useSelector((state) => state.auth.login.currentUser.accessToken);
+  // const axiosJwt = axios.create();
+  // axiosJwt.interceptors.request.use(
+  //   async(config) =>{
+  //     const decode = jwt_decode()
+  //   }
+  // )
   return (
     <CartContext.Provider
       value={{

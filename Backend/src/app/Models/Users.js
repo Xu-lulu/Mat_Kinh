@@ -29,6 +29,7 @@ const Users = new mongoose.Schema(
       type: String,
     },
     cart: [],
+    orders: [],
     deleteAt: { type: String },
   },
   {

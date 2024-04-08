@@ -10,6 +10,7 @@ import Search from "../search/search";
 // import BanerProducts from "../baner/banerProducts";
 import BanNer from "../baner/baner";
 import { useSelector } from "react-redux";
+import { datacategory, dataproduct } from "../../middleware/dataReux";
 const Products = () => {
   // const [currentItems, setCurrentItems] = useState([]);
   // const [pageCount, setPageCount] = useState(0);
@@ -35,12 +36,8 @@ const Products = () => {
   const [currentItems, setCurrentItems] = useState([]);
   const [itemOffset, setItemOffset] = useState(0);
   const itemsPerPage = 10;
-  const alldataProducts = useSelector(
-    (state) => state.products.allproduct.dataProducts
-  );
-  const dataCategory = useSelector(
-    (state) => state.products.categorys.dataCategorys
-  );
+  const alldataProducts = dataproduct();
+  const dataCategory = datacategory();
 
   useEffect(() => {
     const endOffset = itemOffset + itemsPerPage;

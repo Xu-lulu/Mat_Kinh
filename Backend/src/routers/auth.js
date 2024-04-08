@@ -19,5 +19,5 @@ router.get(
   HomeController.datacartOneUser
 );
 router.get("/alluser", verifyTokenAndAdmin, HomeController.allUser);
-router.post("/Logout", HomeController.logOut);
+router.post("/Logout", verifyTokenAndUserAuthorization, HomeController.logOut);
 module.exports = router;

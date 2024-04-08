@@ -17,13 +17,7 @@ const Login = () => {
   const dispatch = useDispatch();
   const handleOnclickLogin = async (e) => {
     e.preventDefault();
-    // setloading(true)
-    // const data = {
-    //   username: username,
-    //   password: password,
-    // };
-    // loginUser(dispatch, data, navigate);
-    setLoading(true); // Khi nhấn nút Đăng nhập, hiển thị SpinLoad
+    setLoading(true);
 
     const data = {
       username: username,
@@ -33,9 +27,8 @@ const Login = () => {
     try {
       await loginUser(dispatch, data, navigate);
     } catch (error) {
-      // Xử lý lỗi nếu cần
     } finally {
-      setLoading(false); // Sau khi xử lý hoàn tất, ẩn SpinLoad
+      setLoading(false);
     }
   };
   return (

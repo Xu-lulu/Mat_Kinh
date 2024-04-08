@@ -27,7 +27,7 @@ export const loginUser = async (dispatch, user, navigate) => {
     toast.error(error.response.data.mes);
   }
 };
-export const registerUser = async (dispatch,user, navigate) => {
+export const registerUser = async (dispatch, user, navigate) => {
   dispatch(registerStart());
   try {
     const res = await axios.post(
@@ -43,11 +43,11 @@ export const registerUser = async (dispatch,user, navigate) => {
     toast.error(error.response.data.mes);
   }
 };
-export const logoutUser = async (dispatch, id, navigate, accessToken) => {
+export const logoutUser = async (dispatch, id, navigate, token) => {
   dispatch(logoutStart());
   try {
     const res = await axios.post("http://localhost:3000/auth/Logout", id, {
-      headers: { token: `Bearer ${accessToken}` },
+      headers: { token: `Bearer ${token}` },
     });
     dispatch(logoutSuccess());
     navigate("/Login");

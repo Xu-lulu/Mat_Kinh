@@ -8,6 +8,7 @@ import ProductsCart from "../Products/ProductCard";
 import { useSelector, useDispatch } from "react-redux";
 import { findCategorys } from "../../redux/api/apiProduct";
 import { addtoCart, dataCart, upmountCart } from "../../redux/api/apiAddtoCart";
+import { datafindcategory, dataproduct, tokenuser, usedataCart } from "../../middleware/dataReux";
 const DetailProduct = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
@@ -18,20 +19,14 @@ const DetailProduct = () => {
 
   // const { myCart, addtoCart, setTotal, count, setCount, datalogin } =
   //   useContext(CartContext);
-  const alldataProducts = useSelector(
-    (state) => state?.products?.allproduct?.dataProducts
-  );
-  const token = useSelector(
-    (state) => state?.auth?.login?.currentUser?.accessToken
-  );
+  const alldataProducts = dataproduct();
+  const token = tokenuser();
 
   const dataDetail = alldataProducts.find((item) => item._id === id);
   useEffect(() => {
     findCategorys(dispatch, dataDetail.Category);
   }, [dataDetail.Category]);
-  const datafincategory = useSelector(
-    (state) => state.products.findcategorys.finddataCategorys
-  );
+  const datafincategory = datafindcategory()
   const user = useSelector((state) => {
     const currentUser = state.auth.login.currentUser;
     if (currentUser && currentUser.newUsers) {
@@ -46,19 +41,13 @@ const DetailProduct = () => {
   //   }
   //   return null;
   // });
-  
+
   useEffect(() => {
     if (token) {
       dataCart(dispatch, token);
     }
   }, [dispatch, token]);
-  const dataCartUser = useSelector((state) => {
-    const data = state.cartUser.dataCart.dataCarts.datacart;
-    if (data && data.cart) {
-      return data.cart;
-    }
-    return null;
-  });
+  const dataCartUser = usedataCart();
   const handleAdd = async () => {
     if (user) {
       const newItem = {
@@ -94,7 +83,6 @@ const DetailProduct = () => {
       } else {
         addtoCart(dispatch, user._id, token, newItem);
       }
-      console.log(dataCartUser);
       // const checkid = dataCart.find((item) => item._id === newItem._id);
       // if (checkid) {
       //   checkid.mount++;

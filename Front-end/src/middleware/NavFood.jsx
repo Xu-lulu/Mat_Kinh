@@ -14,9 +14,7 @@ export const NavbarFood = () => {
           <Navbars />
         </div>
       ) : (
-        <div>
           <Navbars />
-        </div>
       )}{" "}
     </>
   );

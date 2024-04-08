@@ -1,47 +1,45 @@
-.Cart{
+.Cart {
   width: 100%;
   height: 80%;
   margin-top: 10%;
-  .No-cart{
+  .No-cart {
     text-align: center;
     align-items: center;
     justify-content: center;
     width: 100%;
     // height: 100%;
     margin: 100px 0 100px 0;
-    .iconNocart{
+    .iconNocart {
       font-size: 30px;
       color: silver;
     }
-    p{
+    p {
       font-weight: 600;
     }
   }
-  .allproduct-cart{
+  .allproduct-cart {
     padding: 0 20px;
   }
-  .Nocart-container{
+  .Nocart-container {
     display: flex;
     justify-content: space-between;
     margin-left: 4rem;
     margin-right: 4rem;
     text-decoration: none;
     width: 100%;
-    .allproduct{
-    text-decoration: none;
-    margin-right: 100px;
-    display: flex;
-      .icon-faAngles{
+    .allproduct {
+      text-decoration: none;
+      margin-right: 100px;
+      display: flex;
+      .icon-faAngles {
         padding-top: 5px;
         padding-left: 5px;
       }
     }
   }
-
 }
 
-
-.Cart-container{
+.Cart-container {
   margin-left: 150px;
   width: 80%;
   align-items: center;
@@ -55,20 +53,51 @@
   color: black;
   text-align: center;
 }
-.pay{
-    float: right;
-    width: 250px;
-    .pay1{
+.pay {
+  float: right;
+  width: 250px;
+  .pay1 {
     display: flex;
     justify-content: space-between;
-
+  }
+  .pay2 {
+    display: flex;
+    justify-content: space-between;
+  }
+  .delete-pay {
+    display: flex;
+    justify-content: space-between;
+    .pay3,
+    .pay4 {
+      a {
+        text-decoration: none;
+      }
     }
-    .pay2{
-    display: flex;
-    justify-content: space-between;
-
+    .pay3 {
+      a {
+        border-radius: 5px;
+        padding: 5px;
+        border: 1px solid black;
+        background-color: white;
+        color: black;
+      }
+    }
+    .pay3:hover{
+      a{
+        background-color: red;
+      }
+    }
+    .pay4 {
+      a {
+        border-radius: 5px;
+        padding: 5px;
+        // border: 1px solid black;
+        background-color: #ff7f5f;
+        color: white;
+      }
     }
   }
+}
 .cart-items {
   text-align: center;
   margin-top: 3.9rem;
@@ -79,16 +108,14 @@
   font-size: 1.5rem;
   padding: 2rem;
   padding-bottom: 20px;
-    .ContainerCart{
-      display: flex;
-      .CartName{
-      
+  .ContainerCart {
+    display: flex;
+    .CartName {
     }
-    .CartPrice{
-
-    }
+    .CartPrice {
     }
   }
+}
 .cart-item {
   display: flex;
   align-items: center;
@@ -99,7 +126,6 @@
   font-size: 2rem;
   font-weight: 800;
   margin-top: 100px;
-
 }
 .cart-item-img {
   border-radius: 10%;
@@ -113,38 +139,37 @@
   font-weight: 800;
 }
 
-.cart-item h1{
+.cart-item h1 {
   color: black;
   font-size: 1.6rem;
   padding-top: 5px;
 }
-.Cart-right{
+.Cart-right {
   display: flex;
   padding-top: 30px;
-  .amount-de{
+  .amount-de {
     margin-right: 15px;
   }
-  .amount-in{
-      margin-left: 15px;
+  .amount-in {
+    margin-left: 15px;
   }
-  .amount-btn{
-  width: 25px;
-  height: 25px;
-  background-color: white;
-  color: black;
-  text-align: center;
-  display: flex;
-  justify-content: center; 
-  align-items: center; 
-  border: solid 1px black;
-  border-radius: 3px;
-  
+  .amount-btn {
+    width: 25px;
+    height: 25px;
+    background-color: white;
+    color: black;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: solid 1px black;
+    border-radius: 3px;
+  }
+  .delete-item-cart {
+    border: 1px solid white;
+  }
 }
-.delete-item-cart{
-  border: 1px solid white;
-}
-}
-.Cart-left{
+.Cart-left {
   float: left;
   display: flex;
 }
