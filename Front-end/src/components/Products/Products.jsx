@@ -10,7 +10,7 @@ import Search from "../search/search";
 // import BanerProducts from "../baner/banerProducts";
 import BanNer from "../baner/baner";
 import { useSelector } from "react-redux";
-import { datacategory, dataproduct } from "../../middleware/dataReux";
+import { datacategory, dataproduct } from "../../common/dataReux";
 const Products = () => {
   // const [currentItems, setCurrentItems] = useState([]);
   // const [pageCount, setPageCount] = useState(0);

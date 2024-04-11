@@ -8,7 +8,7 @@ import HomeAdmin from "./HomeAdmin";
 import "../productsAdmin.scss";
 import { faImage } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Model from "../../../middleware/Model";
+import Model from "../../../common/Model";
 import { createProduct } from "../../../redux/api/apiProductAdmin";
 
 const CreateProduct = () => {

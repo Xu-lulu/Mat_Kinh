@@ -6,14 +6,14 @@ import {
   NavbarFood,
   FooterFood,
   NavbarAdminHidden,
-} from "./middleware/NavFood";
+} from "./common/NavFood";
 import axios from "axios";
 import { CartContext } from "./Contexts/CartContext";
 import PublicRoute from "./routes/public";
 import Admin from "./routes/admin";
 import { dataCategorys, dataProducts } from "./redux/api/apiProduct";
 import { Layout, Flex } from "antd";
-import { datauser } from "./middleware/dataReux";
+import { datauser } from "./common/dataReux";
 const { Header, Footer, Sider, Content } = Layout;
 //
 function App() {

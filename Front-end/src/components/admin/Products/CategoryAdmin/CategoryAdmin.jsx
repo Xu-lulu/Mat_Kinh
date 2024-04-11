@@ -7,7 +7,7 @@ import "../../productsAdmin.scss";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useState } from "react";
-import Model from "../../../../middleware/Model";
+import Model from "../../../../common/Model";
 import { deleteCategory } from "../../../../redux/api/apiCategoryAdmin";
 
 const CategoryAdmin = () => {

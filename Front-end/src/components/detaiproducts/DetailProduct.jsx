@@ -8,7 +8,7 @@ import ProductsCart from "../Products/ProductCard";
 import { useSelector, useDispatch } from "react-redux";
 import { findCategorys } from "../../redux/api/apiProduct";
 import { addtoCart, dataCart, upmountCart } from "../../redux/api/apiAddtoCart";
-import { datafindcategory, dataproduct, tokenuser, usedataCart } from "../../middleware/dataReux";
+import { datafindcategory, dataproduct, tokenuser, usedataCart } from "../../common/dataReux";
 const DetailProduct = () => {
   const { id } = useParams();
   const dispatch = useDispatch();

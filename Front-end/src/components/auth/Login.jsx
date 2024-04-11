@@ -6,7 +6,7 @@ import { useDispatch } from "react-redux";
 import { Toaster, toast } from "sonner";
 import { CartContext } from "../../Contexts/CartContext";
 import { loginUser } from "../../redux/api/apiRequest";
-import { SpinLoad } from "../../middleware/loading";
+import { SpinLoad } from "../../common/loading";
 
 const Login = () => {
   const [username, setusername] = useState("");

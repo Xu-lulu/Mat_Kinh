@@ -7,7 +7,7 @@ import { Toaster, toast } from "sonner";
 import { useSelector, useDispatch } from "react-redux";
 import { findCategorys } from "../../redux/api/apiProduct";
 import BanNer from "../baner/baner";
-import { datacategory, datafindcategory } from "../../middleware/dataReux";
+import { datacategory, datafindcategory } from "../../common/dataReux";
 
 const CategoryProducts = () => {
   const { name } = useParams();

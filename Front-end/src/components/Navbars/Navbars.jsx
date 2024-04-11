@@ -10,7 +10,7 @@ import { purgeStoredData } from "../../redux/purge";
 import { dataCart } from "../../redux/api/apiAddtoCart";
 import { Badge, Avatar } from "antd";
 import { ShoppingCartOutlined } from "@ant-design/icons";
-import { datarole, datauser, usedataCart } from "../../middleware/dataReux";
+import { datarole, datauser, usedataCart } from "../../common/dataReux";
 const Navbars = () => {
   const [dataCategory, setdataCategory] = useState([]);
   const [show, setshow] = useState(false);

@@ -1,15 +1,23 @@
 import TextArea from "antd/es/input/TextArea";
 import "./pay.scss";
 import { Button, Form, Input, Select, Table } from "antd";
-import { datauser, usedataCart } from "../../middleware/dataReux";
+import { datauser, usedataCart } from "../../common/dataReux";
 import { useEffect, useState } from "react";
-import { PayPalButton } from "react-paypal-button-v2";
+import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
+import { Radio } from "antd";
+import { formatMoney } from "../../common/common";
+import PayLayout from "./PayLayout";
 const Pay = () => {
   const [totalPrice, settotalPrice] = useState(0);
   const [totalCount, settotalCount] = useState(0);
+  const [value, setValue] = useState(1);
+  const [paypal, setpayPal] = useState(false);
+  const [vietQr, setvietQr] = useState(false);
+
   const [form] = Form.useForm();
   const user = datauser();
   const dataCart = usedataCart();
+
   useEffect(() => {
     if (user && dataCart) {
       const sumPrice = dataCart.reduce(
@@ -38,26 +46,31 @@ const Pay = () => {
         <img
           src={`${apiUrl}/${item.Image}`}
           alt=""
-          style={{ width: 50, borderRadius: 10 }}
+          style={{ width: 50, height: 40, borderRadius: 10 }}
         />
       ),
     },
     {
-      title: "Name",
+      title: "Tên",
       dataIndex: "Name",
       key: "Name",
+      class: "styleTable",
     },
     {
-      title: "Mount",
+      title: "Số lượng",
       dataIndex: "mount",
       key: "mount",
+      class: "styleTable",
     },
     {
-      title: "Price",
+      title: "Giá",
       dataIndex: "Price",
       key: "Price",
+      render: (text, record) => formatMoney(record.Price) + " VNĐ",
+      class: "styleTable",
     },
   ];
+
   const handleSubmit = async () => {
     try {
       const values = await form.validateFields();
@@ -67,6 +80,22 @@ const Pay = () => {
       console.error("Validation failed:", error);
     }
   };
+  const onChange = (e) => {
+    setValue(e.target.value);
+    if (e.target.value === 1) {
+      setpayPal(false);
+      setvietQr(false);
+    }
+    if (e.target.value === 2) {
+      setpayPal(true);
+      setvietQr(false);
+    }
+    if (e.target.value === 3) {
+      setvietQr(true);
+      setpayPal(false);
+    }
+  };
+  const handlesubmitPaypal = () => {};
   return (
     <>
       <div className="Pay">
@@ -125,13 +154,11 @@ const Pay = () => {
             <Form.Item
               label="Ghi chú"
               name="note"
-              rules={[
-                { required: true, message: "Please enter your full name" },
-              ]}
+              rules={[{ required: false }]}
             >
               <TextArea />
             </Form.Item>
-            <PayPalButton
+            {/* <PayPalButton
               amount="0.01"
               // shippingPreference="NO_SHIPPING" // default is "GET_FROM_FILE"
               onSuccess={(details, data) => {
@@ -147,8 +174,29 @@ const Pay = () => {
                   }),
                 });
               }}
-            />
+            /> */}
+            {/* <PayPalButtons /> */}
             {/* Thêm các trường dữ liệu khác của phần 1 của form ở đây */}
+            <Form.Item
+              label="Phương thức thanh toán"
+              name="paypal"
+              rules={[
+                {
+                  required: true,
+                  message: "Vui lòng chọn phương thức thanh toán",
+                },
+              ]}
+            >
+              <div>
+                <Radio.Group onChange={onChange} value={value}>
+                  <Radio value={1}>Thanh toán tiền mặt</Radio>
+                  <Radio value={2}>Thanh toán Paypal</Radio>
+                  {/* <FontAwesomeIcon icon={faCcPaypal} /> */}
+                  <Radio value={3}>Thanh toán VietQR</Radio>
+                  {/* <Radio value={4}>D</Radio> */}
+                </Radio.Group>
+              </div>
+            </Form.Item>
           </Form>
         </div>
 
@@ -181,14 +229,44 @@ const Pay = () => {
               </div>
               <div className="pay2">
                 <p>Tổng tiền: </p>
-                <p>{totalPrice} VNĐ</p>
+                <p>{formatMoney(totalPrice)} VNĐ</p>
               </div>
+              {/* {paypal ? (
+                <div style={{ marginTop: "5%" }}>
+                  <PayPalScriptProvider>
+                    <PayPalButtons />
+                  </PayPalScriptProvider>
+                </div>
+              ) : (
+                <Button
+                  className="Pay__Right__submitpay"
+                  onClick={handleSubmit}
+                >
+                  Thanh toán
+                </Button>
+              )} */}
             </div>
-            <Form.Item>
-              <Button type="primary" onClick={handleSubmit}>
-                Submit
-              </Button>
-            </Form.Item>
+            <div className="Pay__Right__paypal">
+              {paypal && !vietQr ? (
+                <div style={{ marginTop: "5%" }}>
+                  <PayLayout total={totalPrice} />
+                </div>
+              ) : vietQr ? (
+                <>
+                  <img
+                    className="Pay__Right__paypal__vietqr"
+                    src={`https://img.vietqr.io/image/mb-113366668888-compact2.jpg?amount=${totalPrice}&addInfo=dong%20qop%20quy%20vac%20xin&accountName=Quy%20Vac%20Xin%20Covid`}
+                  ></img>
+                </>
+              ) : (
+                <Button
+                  className="Pay__Right__paypal__submitpay"
+                  onClick={handleSubmit}
+                >
+                  Thanh toán
+                </Button>
+              )}
+            </div>
           </Form>
         </div>
       </div>

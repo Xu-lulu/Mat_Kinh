@@ -10,7 +10,7 @@ import axios from "axios";
 import { Toaster, toast } from "sonner";
 import { deleteProduct } from "../../../redux/api/apiProductAdmin";
 import { useEffect, useState } from "react";
-import Model from "../../../middleware/Model";
+import Model from "../../../common/Model";
 // import { dataProductsAdmin } from "../../../redux/api/apiProductAdmin";
 
 const HomeProducts = () => {

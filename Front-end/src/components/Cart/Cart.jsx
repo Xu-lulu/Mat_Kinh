@@ -11,7 +11,8 @@ import {
 import { NavLink, Link } from "react-router-dom";
 import ProductsCart from "../Products/ProductCard";
 import { deleteOneCartItem, upmountCart } from "../../redux/api/apiAddtoCart";
-import { usedataCart, datauser, dataproduct } from "../../middleware/dataReux";
+import { usedataCart, datauser, dataproduct } from "../../common/dataReux";
+import { formatMoney } from "../../common/common";
 
 const Cart = () => {
   const dispatch = useDispatch();
@@ -54,7 +55,6 @@ const Cart = () => {
 
   const handcleclinkIncrement = (id) => {
     const checkid = dataCart.find((item) => item._id === id);
-    console.log(checkid);
     const updatedMount = Number(checkid.mount) + 1;
     const updatedItem = { ...checkid, mount: updatedMount };
     upmountCart(dispatch, id, token, updatedItem);
@@ -159,7 +159,7 @@ const Cart = () => {
                           <p className="Cart-right">{item.Name}</p>
                         </td>
                         <td>
-                          <p className="Cart-right">{item.Price} VNĐ</p>
+                          <p className="Cart-right">{formatMoney(item.Price)} VNĐ</p>
                         </td>
                         <td>
                           <div className="Cart-right">
@@ -206,7 +206,7 @@ const Cart = () => {
                 </div>
                 <div className="pay2">
                   <p>Tổng tiền: </p>
-                  <p>{totalPrice} VNĐ</p>
+                  <p>{formatMoney(totalPrice)} VNĐ</p>
                 </div>
                 <div className="delete-pay">
                   <div className="pay3">

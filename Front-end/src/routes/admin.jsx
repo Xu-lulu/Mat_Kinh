@@ -12,7 +12,7 @@ import {
 import Register from "../components/auth/Register";
 import HomeProducts from "../components/admin/Products/Homeproduct";
 import { NavbarAdminLogout } from "../components/admin/Products/NavbarAdmin";
-import { NavbarAdminLogoutHidden } from "../middleware/NavFood";
+import { NavbarAdminLogoutHidden } from "../common/NavFood";
 import CategoryAdmin from "../components/admin/Products/CategoryAdmin/CategoryAdmin";
 import CreateCategory from "../components/admin/Products/CategoryAdmin/CreateCategory";
 import UpdateCategory from "../components/admin/Products/CategoryAdmin/updateCategory";
