@@ -1,23 +1,38 @@
 import TextArea from "antd/es/input/TextArea";
 import "./pay.scss";
 import { Button, Form, Input, Select, Table } from "antd";
-import { datauser, usedataCart } from "../../common/dataReux";
+import { datauser, tokenuser, usedataCart } from "../../common/dataReux";
 import { useEffect, useState } from "react";
 import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
 import { Radio } from "antd";
 import { formatMoney } from "../../common/common";
-import PayLayout from "./PayLayout";
+import PayLayout from "./PayPalLayout";
+import VietQrLayout from "./VietqrLayout";
+import axios from "axios";
+
 const Pay = () => {
   const [totalPrice, settotalPrice] = useState(0);
   const [totalCount, settotalCount] = useState(0);
   const [value, setValue] = useState(1);
   const [paypal, setpayPal] = useState(false);
   const [vietQr, setvietQr] = useState(false);
+  const [valueQR, setvalueQR] = useState(false);
 
   const [form] = Form.useForm();
   const user = datauser();
   const dataCart = usedataCart();
+  const token = tokenuser();
+  const [dataBank, setdataBank] = useState([]);
+  const [bankNumbers, setbankNumber] = useState([]);
 
+  useEffect(async () => {
+    const res = await axios.get("http://localhost:3000/bank/allBank", {
+      headers: {
+        token: `Bearer ${token}`,
+      },
+    });
+    setdataBank(res.data);
+  }, []);
   useEffect(() => {
     if (user && dataCart) {
       const sumPrice = dataCart.reduce(
@@ -85,16 +100,28 @@ const Pay = () => {
     if (e.target.value === 1) {
       setpayPal(false);
       setvietQr(false);
+      setvalueQR(false);
     }
     if (e.target.value === 2) {
       setpayPal(true);
       setvietQr(false);
+      setvalueQR(false);
     }
     if (e.target.value === 3) {
       setvietQr(true);
       setpayPal(false);
     }
   };
+  const onChangeQR = (e) => {
+    setvalueQR(true);
+  };
+  const bankNames = dataBank.map((item) => item.Bankname);
+  const bankaccounts = dataBank.map((item) => item.Bankaccounts);
+  const bankNumber = dataBank.map((item) => item.Banknumber);
+  console.log(bankaccounts);
+
+  console.log(bankNumber);
+  console.log(bankNames);
   const handlesubmitPaypal = () => {};
   return (
     <>
@@ -130,7 +157,7 @@ const Pay = () => {
               <Input placeholder="Nhập số điện thoại" />
             </Form.Item>
             <Form.Item
-              label="Select"
+              label="Địa chỉ"
               name="Select"
               rules={[
                 {
@@ -158,24 +185,6 @@ const Pay = () => {
             >
               <TextArea />
             </Form.Item>
-            {/* <PayPalButton
-              amount="0.01"
-              // shippingPreference="NO_SHIPPING" // default is "GET_FROM_FILE"
-              onSuccess={(details, data) => {
-                alert(
-                  "Transaction completed by " + details.payer.name.given_name
-                );
-
-                // OPTIONAL: Call your server to save the transaction
-                return fetch("/paypal-transaction-complete", {
-                  method: "post",
-                  body: JSON.stringify({
-                    orderID: data.orderID,
-                  }),
-                });
-              }}
-            /> */}
-            {/* <PayPalButtons /> */}
             {/* Thêm các trường dữ liệu khác của phần 1 của form ở đây */}
             <Form.Item
               label="Phương thức thanh toán"
@@ -197,6 +206,41 @@ const Pay = () => {
                 </Radio.Group>
               </div>
             </Form.Item>
+            {vietQr && (
+              <Form.Item
+                label="Phương thức thanh toán QR"
+                name="paypal"
+                rules={[
+                  {
+                    required: true,
+                    message: "Vui lòng chọn phương thức thanh toán",
+                  },
+                ]}
+              >
+                <div>
+                  {/* <Radio.Group onChange={onChangeQR} value={valueQR}>
+                    {dataBank.map((item, index) => {
+                      return (
+                        <>
+                          <Radio key={index} value={item._id}>
+                            {item.Bankname}
+                          </Radio>
+                          ;
+                        </>
+                      );
+                    })}
+                  </Radio.Group> */}
+
+                  <Select
+                    options={bankNames.map((name) => ({
+                      value: name,
+                      label: name,
+                    }))}
+                    onChange={onChangeQR}
+                  />
+                </div>
+              </Form.Item>
+            )}
           </Form>
         </div>
 
@@ -231,40 +275,25 @@ const Pay = () => {
                 <p>Tổng tiền: </p>
                 <p>{formatMoney(totalPrice)} VNĐ</p>
               </div>
-              {/* {paypal ? (
-                <div style={{ marginTop: "5%" }}>
-                  <PayPalScriptProvider>
-                    <PayPalButtons />
-                  </PayPalScriptProvider>
-                </div>
-              ) : (
-                <Button
-                  className="Pay__Right__submitpay"
-                  onClick={handleSubmit}
-                >
-                  Thanh toán
-                </Button>
-              )} */}
             </div>
             <div className="Pay__Right__paypal">
-              {paypal && !vietQr ? (
+              {paypal && !vietQr && !valueQR ? (
                 <div style={{ marginTop: "5%" }}>
                   <PayLayout total={totalPrice} />
                 </div>
-              ) : vietQr ? (
+              ) : valueQR && vietQr && !paypal ? (
                 <>
-                  <img
-                    className="Pay__Right__paypal__vietqr"
-                    src={`https://img.vietqr.io/image/mb-113366668888-compact2.jpg?amount=${totalPrice}&addInfo=dong%20qop%20quy%20vac%20xin&accountName=Quy%20Vac%20Xin%20Covid`}
-                  ></img>
+                  <VietQrLayout totalPrice={totalPrice} dataBank={dataBank} />
                 </>
-              ) : (
+              ) : !paypal && !vietQr && !valueQR ? (
                 <Button
                   className="Pay__Right__paypal__submitpay"
                   onClick={handleSubmit}
                 >
                   Thanh toán
                 </Button>
+              ) : (
+                <></>
               )}
             </div>
           </Form>
