@@ -21,19 +21,19 @@ const verifyTokenAndUserAuthorization = (req, res, next) => {
   verifyToken(req, res, () => {
     if (req.user.id === req.params.id || req.user.role) {
       next();
-      console.log('adminanduser')
+      console.log("adminanduser");
     } else {
-      res.status(403).json("You're not allowed to do that!");
+      return res.status(403).json("You're not allowed to do that!");
     }
   });
 };
 const verifyTokenAndUser = (req, res, next) => {
   verifyToken(req, res, () => {
-    if (req.user.role === 'user') {
+    if (req.user.role === "user") {
       console.log("user");
       next();
     } else {
-      res.status(403).json("You're not allowed to do that!");
+      return res.status(403).json("You're not allowed to do that!");
     }
   });
 };
@@ -43,7 +43,7 @@ const verifyTokenAndAdmin = (req, res, next) => {
       console.log("admin");
       next();
     } else {
-      res.status(403).json("You're not allowed to do that!");
+      return res.status(403).json("You're not allowed to do that!");
     }
   });
 };

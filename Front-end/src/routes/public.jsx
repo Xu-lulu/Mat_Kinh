@@ -12,31 +12,20 @@ import {
 } from "react-router-dom";
 import Register from "../components/auth/Register";
 import Pay from "../components/Pay/pay";
-
+import NotFound from "../components/NotFound/NotFound";
 const PublicRoute = () => {
   return (
     <>
       <Routes>
-        {/* <Route path="/"  */}
         <Route path="/" element={<Home />} />
-        {/* <Route
-          path="/admin"
-          element={<HomeAdmin allProducts={allProducts} />}
-        /> */}
-        {/* <Route path="/createProduct" element={<CreateProduct />}></Route>
-        <Route
-          path="/edit/:id"
-          element={<Update dataProducts={dataProducts} />}
-        /> */}
-
         <Route path="/detail/:id" element={<DetailProduct />} />
         <Route path="/products" element={<Products />} />
         <Route path="/products/category/:name" element={<CategoryProducts />} />
         <Route path="/myCart" element={<Cart />} />
         <Route path="/pay" element={<Pay />} />
-
         <Route path="/Login" element={<Login />} />
         <Route path="/Register" element={<Register />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </>
   );

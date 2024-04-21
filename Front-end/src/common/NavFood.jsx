@@ -3,8 +3,7 @@ import Footer from "../components/Footer/Footer";
 import Navbars from "../components/Navbars/Navbars";
 import {
   NavbarAdmin,
-  NavbarAdminLogout,
-} from "../components/admin/Products/NavbarAdmin";
+} from "../components/Navbars/NavbarAdmin";
 export const NavbarFood = () => {
   const location = useLocation();
   return (
@@ -14,7 +13,7 @@ export const NavbarFood = () => {
           <Navbars />
         </div>
       ) : (
-          <Navbars />
+        <Navbars />
       )}{" "}
     </>
   );
@@ -58,13 +57,28 @@ export const NavbarAdminLogoutHidden = () => {
     <>
       {location.pathname === "/Login" || location.pathname === "/Register" ? (
         <div hidden>
-          <NavbarAdminLogout />
+          <NavbarAdmin />
         </div>
       ) : (
         <div>
-          <NavbarAdminLogout />
+          <NavbarAdmin />
         </div>
       )}{" "}
     </>
+  );
+};
+export const NotFoundNavBar = () => {
+  return (
+    <div hidden>
+      <Navbars />
+    </div>
+  );
+};
+
+export const NotFoundFooter = () => {
+  return (
+    <div className="Footer" hidden>
+      <Footer />
+    </div>
   );
 };

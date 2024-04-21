@@ -18,13 +18,17 @@ const Products = new mongoose.Schema(
       type: String,
       require: true,
     },
-    count:{
+    count: {
       type: String,
       require: true,
     },
-    Category:{
+    Category: {
       type: String,
       require: true,
+    },
+    seller: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
     },
     deleteAt: { type: String },
   },

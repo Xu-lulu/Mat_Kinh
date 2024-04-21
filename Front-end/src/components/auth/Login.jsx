@@ -1,12 +1,13 @@
 import { useContext, useState } from "react";
 import "./auth.scss";
 import { useNavigate, NavLink } from "react-router-dom";
-import axios from "axios";
+import login from "../../assets/animation/Hello.json";
 import { useDispatch } from "react-redux";
 import { Toaster, toast } from "sonner";
 import { CartContext } from "../../Contexts/CartContext";
 import { loginUser } from "../../redux/api/apiRequest";
 import { SpinLoad } from "../../common/loading";
+import Lottie from "lottie-react";
 
 const Login = () => {
   const [username, setusername] = useState("");
@@ -36,8 +37,13 @@ const Login = () => {
       <div className="Login">
         <div className="Background-Left">
           <div className="Login-left-form">
-            <h1>Food Love</h1>
-            <p>Đăng nhập</p>
+            {/* <h1>Food Love</h1>
+            <p>Đăng nhập</p> */}
+            <Lottie
+              className="Login-left-form__animation"
+              animationData={login}
+              loop={true}
+            />
             <div className="Login-left-form-input">
               <form onSubmit={handleOnclickLogin}>
                 <div className="mb-3">

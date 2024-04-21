@@ -13,29 +13,28 @@
 .HomePage-admin{
   height: 100%;
   width: 100%;
-  justify-content: space-between;
   display: flex;
-  .Navbar-admin{
-    width: 20%;
-    height: 100vh;
-    background-color: white;
-    float: left;
-  }
+  // .Navbar-admin{
+  //   width: 20%;
+  //   height: 100vh;
+  //   background-color: white;
+  //   float: left;
+  // }
   .Container-admin{
-    width: 100%;
-    height: 100vh;
-    background-color: #DADADA;
-    justify-content: center;
-    align-items: center;
-    
+    // width: 100%;
+    // height: 100%;
+    // background-color: #DADADA;
+    // justify-content: center;
+    // align-items: center;
   }
 }
 .Container-Admin-product{
-  // margin-top: 5%;
+  margin: 3% 0 0 20%;
   background-color: #DADADA;
   height: 100%;
+  align-items: center;
   h3{
-    margin-left: 4.5%;
+    padding: 2% 0 0 5%;
     
   }
   .admin-container-table{
@@ -76,10 +75,10 @@
     }
     .admin-edit{
       text-decoration: none;
-      color: black;
+      color: red;
     }
     .admin-edit:hover{
-      color: red;
+      color: black;
       border-radius: 5px;
       border: 1px solid white;
     }

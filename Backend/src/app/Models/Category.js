@@ -1,10 +1,14 @@
 const mongoose = require("mongoose");
 
-const Catego = new mongoose.Schema(
+const Category = new mongoose.Schema(
   {
     Namecategory: {
       type: String,
       require: true,
+    },
+    seller: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
     },
     deleteAt: { type: String },
   },
@@ -12,4 +16,4 @@ const Catego = new mongoose.Schema(
     timestamps: true,
   }
 );
-module.exports = mongoose.model("Catego", Catego);
+module.exports = mongoose.model("Catego", Category);

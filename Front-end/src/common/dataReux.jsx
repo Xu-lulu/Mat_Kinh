@@ -37,19 +37,18 @@ export const tokenuser = () => {
 };
 export const datauser = () => {
   return useSelector((state) => {
-    const currentUser = state.auth.login.currentUser;
-    if (currentUser && currentUser.newUsers) {
-      return currentUser.newUsers;
+    const currentUser = state?.auth?.login?.currentUser;
+    if (currentUser && currentUser?.newUsers) {
+      return currentUser?.newUsers;
     }
     return null;
   });
 };
 export const datarole = () => {
   return useSelector((state) => {
-    const currentUser = state.auth.login.currentUser;
-
-    if (currentUser && currentUser.newUsers.role) {
-      return currentUser.newUsers.role;
+    const currentUser = state?.auth?.login?.currentUser;
+    if (currentUser && currentUser?.newUsers?.role) {
+      return currentUser?.newUsers?.role;
     }
     return null;
   });

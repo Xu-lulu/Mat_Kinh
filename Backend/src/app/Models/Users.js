@@ -30,6 +30,8 @@ const Users = new mongoose.Schema(
     },
     cart: [],
     orders: [],
+    
+    bankCards: [{ type: mongoose.Schema.Types.ObjectId, ref: "BankCard" }],
     deleteAt: { type: String },
   },
   {

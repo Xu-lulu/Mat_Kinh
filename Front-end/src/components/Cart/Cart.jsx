@@ -1,5 +1,4 @@
 import { useContext, useState, useEffect } from "react";
-// import { CartContext } from "../../Contexts/CartContext";
 import { useSelector, useDispatch } from "react-redux";
 import "./Cart.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -13,7 +12,6 @@ import ProductsCart from "../Products/ProductCard";
 import { deleteOneCartItem, upmountCart } from "../../redux/api/apiAddtoCart";
 import { usedataCart, datauser, dataproduct } from "../../common/dataReux";
 import { formatMoney } from "../../common/common";
-
 const Cart = () => {
   const dispatch = useDispatch();
   // const { myCart, addtoCart, total, setTotal, count, setCount } =
@@ -159,7 +157,9 @@ const Cart = () => {
                           <p className="Cart-right">{item.Name}</p>
                         </td>
                         <td>
-                          <p className="Cart-right">{formatMoney(item.Price)} VNĐ</p>
+                          <p className="Cart-right">
+                            {formatMoney(item.Price)} VNĐ
+                          </p>
                         </td>
                         <td>
                           <div className="Cart-right">

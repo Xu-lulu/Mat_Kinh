@@ -43,7 +43,7 @@ const HomeProducts = () => {
   return (
     <>
       <div className="Container-Admin-product">
-        <h3>Admin</h3>
+        <h3>Quản lý sản phẩm</h3>
         <div className="d-flex justify-content-end">
           <NavLink
             className="btn btn-success create-product-button"

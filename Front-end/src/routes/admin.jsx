@@ -11,19 +11,15 @@ import {
 } from "react-router-dom";
 import Register from "../components/auth/Register";
 import HomeProducts from "../components/admin/Products/Homeproduct";
-import { NavbarAdminLogout } from "../components/admin/Products/NavbarAdmin";
-import { NavbarAdminLogoutHidden } from "../common/NavFood";
 import CategoryAdmin from "../components/admin/Products/CategoryAdmin/CategoryAdmin";
 import CreateCategory from "../components/admin/Products/CategoryAdmin/CreateCategory";
 import UpdateCategory from "../components/admin/Products/CategoryAdmin/updateCategory";
+import NotFound from "../components/NotFound/NotFound";
 
 const Admin = () => {
   const location = useLocation();
   return (
     <>
-      <div className="NavbarAdminLogout">
-        <NavbarAdminLogoutHidden />
-      </div>
       <Routes>
         <Route path="/admin" element={<HomeAdmin />} />
         <Route path="/productadmin" element={<HomeProducts />} />
@@ -34,6 +30,7 @@ const Admin = () => {
         <Route path="/editcategory/:id" element={<UpdateCategory />} />
         <Route path="/Login" element={<Login />} />
         <Route path="/Register" element={<Register />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </>
   );

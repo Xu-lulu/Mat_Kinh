@@ -22,6 +22,7 @@
     "bootstrap": "^5.3.3",
     "dotenv": "^16.4.5",
     "jwt-decode": "^4.0.0",
+    "lottie-react": "^2.4.0",
     "react": "^18.2.0",
     "react-bootstrap": "^2.10.1",
     "react-dom": "^18.2.0",
@@ -33,6 +34,7 @@
     "redux-persist": "^6.0.0",
     "sass": "^1.71.1",
     "sonner": "^1.4.3",
+    "vanilla-tilt": "^1.8.1",
     "vietqr": "^1.1.9"
   },
   "devDependencies": {

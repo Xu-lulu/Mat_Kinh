@@ -116,11 +116,11 @@ const Pay = () => {
     setvalueQR(true);
   };
   const bankNames = dataBank.map((item) => item.Bankname);
-  const bankaccounts = dataBank.map((item) => item.Bankaccounts);
-  const bankNumber = dataBank.map((item) => item.Banknumber);
-  console.log(bankaccounts);
+  // const bankaccounts = dataBank.map((item) => item.Bankaccounts);
+  // const bankNumber = dataBank.map((item) => item.Banknumber);
+  // console.log(bankaccounts);
 
-  console.log(bankNumber);
+  console.log(dataBank);
   console.log(bankNames);
   const handlesubmitPaypal = () => {};
   return (

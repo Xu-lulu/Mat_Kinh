@@ -29,7 +29,7 @@ const CategoryAdmin = () => {
   return (
     <>
       <div className="Container-Admin-product">
-        <h3>Admin</h3>
+        <h3>Quản lý danh mục</h3>
         <div className="d-flex justify-content-end">
           <NavLink
             className="btn btn-success create-product-button"

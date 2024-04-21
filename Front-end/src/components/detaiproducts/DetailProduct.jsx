@@ -7,7 +7,7 @@ import axios from "axios";
 import ProductsCart from "../Products/ProductCard";
 import { useSelector, useDispatch } from "react-redux";
 import { findCategorys } from "../../redux/api/apiProduct";
-import { addtoCart, dataCart, upmountCart } from "../../redux/api/apiAddtoCart";
+import { addtoCart, upmountCart } from "../../redux/api/apiAddtoCart";
 import { datafindcategory, dataproduct, tokenuser, usedataCart } from "../../common/dataReux";
 const DetailProduct = () => {
   const { id } = useParams();
@@ -34,19 +34,11 @@ const DetailProduct = () => {
     }
     return null;
   });
-  // const dataCart = useSelector((state) => {
-  //   const data = state.auth.login.currentUser.newUsers;
-  //   if (data && data.cart) {
-  //     return data.cart;
+  // useEffect(() => {
+  //   if (token) {
+  //     dataCart(dispatch, token);
   //   }
-  //   return null;
-  // });
-
-  useEffect(() => {
-    if (token) {
-      dataCart(dispatch, token);
-    }
-  }, [dispatch, token]);
+  // }, [dispatch, token]);
   const dataCartUser = usedataCart();
   const handleAdd = async () => {
     if (user) {
