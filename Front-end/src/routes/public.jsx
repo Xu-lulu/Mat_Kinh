@@ -2,7 +2,7 @@ import Products from "../components/Products/Products";
 import Cart from "../components/Cart/Cart";
 import DetailProduct from "../components/detaiproducts/DetailProduct";
 import Home from "../components/Home";
-import CategoryProducts from "../components/categorys/CategoryProducts";
+// import CategoryProducts from "../components/categorys/CategoryProducts";
 import Login from "../components/auth/Login";
 import {
   useLocation,
@@ -13,6 +13,7 @@ import {
 import Register from "../components/auth/Register";
 import Pay from "../components/Pay/pay";
 import NotFound from "../components/NotFound/NotFound";
+import Seller from "../components/seller/seller";
 const PublicRoute = () => {
   return (
     <>
@@ -20,7 +21,8 @@ const PublicRoute = () => {
         <Route path="/" element={<Home />} />
         <Route path="/detail/:id" element={<DetailProduct />} />
         <Route path="/products" element={<Products />} />
-        <Route path="/products/category/:name" element={<CategoryProducts />} />
+        {/* <Route path="/products/category/:name" element={<CategoryProducts />} /> */}
+        <Route path="/seller" element={<Seller />} />
         <Route path="/myCart" element={<Cart />} />
         <Route path="/pay" element={<Pay />} />
         <Route path="/Login" element={<Login />} />

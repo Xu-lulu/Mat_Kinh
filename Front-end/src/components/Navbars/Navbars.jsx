@@ -2,7 +2,11 @@ import { NavLink, useNavigate } from "react-router-dom";
 import "./Navbars.scss";
 import { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCartArrowDown, faHeart } from "@fortawesome/free-solid-svg-icons";
+import {
+  faBell,
+  faCartArrowDown,
+  faHeart,
+} from "@fortawesome/free-solid-svg-icons";
 import logo from "../../assets/Group 11/image 20.png";
 import { Toaster, toast } from "sonner";
 import { useSelector, useDispatch } from "react-redux";
@@ -89,7 +93,7 @@ const Navbars = () => {
         // >
         //   Cấp quyền lên người bán hàng
         // </a>
-        <NavLink to="/Login" className="btn" onClick={handleClickLogout}>
+        <NavLink to="/seller" className="btn" onClick={handleClickLogout}>
           Cấp quyền lên người bán
         </NavLink>
       ),
@@ -140,7 +144,37 @@ const Navbars = () => {
                   Blog
                 </NavLink>
               </div>
-              <div className="Navbar__Cart-like-account">
+              <div className="Navbar__Bell-cart-like-account">
+                <NavLink to="/" className="btn">
+                  {role === "user" ? (
+                    <>
+                      {" "}
+                      <Badge count={1}>
+                        <FontAwesomeIcon
+                          style={{ fontSize: "20px" }}
+                          icon={faBell}
+                        />
+                      </Badge>
+                    </>
+                  ) : (
+                    <>
+                      {" "}
+                      {/* <div className="count">{totalMount}</div> */}
+                      <Badge count={totalMount} showZero>
+                        <FontAwesomeIcon
+                          style={{ fontSize: "20px" }}
+                          icon={faBell}
+                        />
+                      </Badge>
+                    </>
+                  )}
+                  {/* <Badge count={0}>
+                    <FontAwesomeIcon
+                      style={{ fontSize: "20px" }}
+                      icon={faBell}
+                    />
+                  </Badge> */}
+                </NavLink>
                 <NavLink to="/myCart" className="btn btncart">
                   {/* <FontAwesomeIcon icon={faCartArrowDown} /> */}
                   {role === "user" ? (
@@ -174,20 +208,22 @@ const Navbars = () => {
                 </NavLink>
                 {user ? (
                   <>
-                    <Dropdown
-                      // overlayClassName="header-account"
-                      trigger={["click"]}
-                      placement="bottomRight"
-                      menu={{ items }}
-                      className="Dropdown"
-                      overlayClassName="DropdowAccount"
-                    >
-                      <UserOutlined
-                        className="LogoAccount"
-                        style={{ fontSize: "30px" }}
-                      />
-                    </Dropdown>
-                    <h5 className="text">Tài khoản</h5>
+                    <div>
+                      <Dropdown
+                        // overlayClassName="header-account"
+                        trigger={["click"]}
+                        placement="bottomRight"
+                        menu={{ items }}
+                        className="Dropdown"
+                        overlayClassName="DropdowAccount"
+                      >
+                        <UserOutlined
+                          className="LogoAccount"
+                          style={{ fontSize: "30px" }}
+                        />
+                      </Dropdown>
+                      <h5 className="text">Tài khoản</h5>
+                    </div>
                     {/* <Dropdown.Button
                 className="btn"
                 // menu={user.username}

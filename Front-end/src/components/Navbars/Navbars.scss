@@ -1,12 +1,12 @@
 .nav-container {
   display: flex;
-  // justify-content: center;
-  // align-items: center;
+  justify-content: space-between;
+  align-items: center;
   background: white;
   width: 100%;
   position: fixed;
   z-index: 1;
-  padding: 0px 100px;
+  padding: 0px 130px;
   // margin: 0px 30px;
   border-bottom: 3px solid rgb(252, 145, 84);
   .logo {
@@ -48,32 +48,33 @@
     }
   }
   .Navbar {
-    margin-left: 70px;
+    width: 60%;
     display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
+    justify-content: space-between;
+    // align-items: center;
+    // text-align: center;
     // margin: 0 100px;
     &__Menu {
-      display: flex;
-      justify-content: space-between;
-      flex-direction: row;
-      padding-right: 300px;
+      // display: flex;
+      // justify-content: space-between;
+      // flex-direction: row;
+      // padding-right: 150px;
     }
-    .btncart {
-      display: flex;
-      .ant-badge {
-        font-size: 24px;
-      }
-    }
-    .ant-space-compact-block {
-      width: unset;
-    }
-    &__Cart-like-account {
+    &__Bell-cart-like-account {
       display: flex;
       justify-content: center;
       align-items: center;
       text-align: center;
+
+      .btncart {
+        display: flex;
+        .ant-badge {
+          font-size: 24px;
+        }
+      }
+      .ant-space-compact-block {
+        width: unset;
+      }
     }
   }
 }
@@ -89,25 +90,25 @@
 }
 .text {
   display: none;
-  // display: flex;
-  // height: 40%;
   position: absolute;
-  top: 76%;
+  top: 86%;
   margin-bottom: 60px !important;
-  // transform: translate(-50%, -50%);
-  background-color: rgba(0, 0, 0, 0.9);
+  transform: translate(-55%, -50%);
+  background-color: rgba(0, 0, 0, 0.5);
   color: white;
-  font-size: 17px;
-  padding: 0 5px;
+  font-size: 13px;
+  padding: 4px;
   border-radius: 5px;
   z-index: 2;
 }
 .LogoAccount:hover + .text {
   display: block;
+  transition-duration: 5s;
+  transition-delay: 2s;
 }
 
 .nav-container > * {
-  margin-left: 2rem;
+  // margin-left: 2rem;
   color: #9c6644;
   text-decoration: none;
   transition: 200ms ease-in-out;
