@@ -12,10 +12,12 @@ import {
   productsStart,
   productsSuccess,
 } from "../productSlice";
+const axiosJWT = axios.create();
+
 export const dataProducts = async (dispatch) => {
   dispatch(productsStart());
   try {
-    const res = await axios.get("http://localhost:3000/allproducts");
+    const res = await axiosJWT.get("http://localhost:3000/allproducts");
     dispatch(productsSuccess(res.data));
   } catch (error) {
     dispatch(productsFailed());
@@ -24,7 +26,7 @@ export const dataProducts = async (dispatch) => {
 export const dataCategorys = async (dispatch) => {
   dispatch(categoryStart());
   try {
-    const res = await axios.get("http://localhost:3000/allCategory");
+    const res = await axiosJWT.get("http://localhost:3000/allCategory");
     dispatch(categorySuccess(res.data));
   } catch (error) {
     dispatch(categoryFailed());
@@ -33,8 +35,8 @@ export const dataCategorys = async (dispatch) => {
 export const findCategorys = async (dispatch, id) => {
   dispatch(findcategoryStart());
   try {
-    const res = await axios.post(
-      "http://localhost:3000/products/category/" + `${id}`,
+    const res = await axiosJWT.post(
+      "http://localhost:3000/products/category/" + `${id}`
     );
     dispatch(findcategorySuccess(res.data));
   } catch (error) {

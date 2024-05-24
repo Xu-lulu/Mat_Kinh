@@ -44,6 +44,15 @@ export const datauser = () => {
     return null;
   });
 };
+export const dataCurrentuser = () => {
+  return useSelector((state) => {
+    const currentUser = state?.auth?.login;
+    if (currentUser && currentUser?.currentUser) {
+      return currentUser?.currentUser;
+    }
+    return null;
+  });
+};
 export const datarole = () => {
   return useSelector((state) => {
     const currentUser = state?.auth?.login?.currentUser;

@@ -7,15 +7,20 @@ import {
   categoryAdminFailed,
 } from "../productAdmin";
 import { dataCategorys } from "./apiProduct";
+const axiosJWT = axios.create();
 
 export const createCategory = async (dispatch, navigate, token, data) => {
   dispatch(categoryAdminStart());
   try {
-    const res = await axios.post("http://localhost:3000/updatacategory", data, {
-      headers: {
-        token: `Bearer ${token}`,
-      },
-    });
+    const res = await axiosJWT.post(
+      "http://localhost:3000/updatacategory",
+      data,
+      {
+        headers: {
+          token: `Bearer ${token}`,
+        },
+      }
+    );
     dispatch(categoryAdminSuccess());
     await dataCategorys(dispatch);
 
@@ -29,7 +34,7 @@ export const createCategory = async (dispatch, navigate, token, data) => {
 export const deleteCategory = async (dispatch, id, navigate, token) => {
   dispatch(categoryAdminStart());
   try {
-    const res = await axios.delete(
+    const res = await axiosJWT.delete(
       `http://localhost:3000/deletecategory/${id}`,
       {
         headers: {
@@ -50,7 +55,7 @@ export const deleteCategory = async (dispatch, id, navigate, token) => {
 export const editCategory = async (dispatch, id, token, data, navigate) => {
   dispatch(categoryAdminStart());
   try {
-    const res = await axios.put(
+    const res = await axiosJWT.put(
       `http://localhost:3000/editcategory/${id}`,
       data,
       {

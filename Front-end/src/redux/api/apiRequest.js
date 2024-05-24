@@ -10,6 +10,7 @@ import {
   registerStart,
   registerSuccess,
 } from "../authSlice";
+
 import { Toaster, toast } from "sonner";
 export const loginUser = async (dispatch, user, navigate) => {
   dispatch(loginStart());
@@ -45,15 +46,18 @@ export const registerUser = async (dispatch, user, navigate) => {
 };
 export const logoutUser = async (dispatch, id, navigate, token) => {
   dispatch(logoutStart());
+  console.log("Function Logout");
   try {
     const res = await axios.post("http://localhost:3000/auth/Logout", id, {
       headers: { token: `Bearer ${token}` },
     });
-    dispatch(logoutSuccess());
+    dispatch(loginSuccess());
     navigate("/Login");
     toast.success("Đăng xuất thành công!");
+    console.log(token)
   } catch (error) {
     console.log(error);
     dispatch(logoutFailed());
+    toast.error(error.response.data.mes);
   }
 };

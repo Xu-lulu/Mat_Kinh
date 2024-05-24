@@ -15,14 +15,17 @@ import {
   upmountCartStart,
   upmountCartSuccess,
 } from "../Cart";
-export const dataCart = async (dispatch, token) => {
+export const dataCart = async (dispatch, token, axiosJWT) => {
   dispatch(CartStart());
   try {
-    const res = await axios.get(`http://localhost:3000/auth/allCartOneUser`, {
-      headers: {
-        token: `Bearer ${token}`,
-      },
-    });
+    const res = await axiosJWT.post(
+      `http://localhost:3000/auth/allCartOneUser`,
+      {
+        headers: {
+          token: `Bearer ${token}`,
+        },
+      }
+    );
     dispatch(CartSuccess(res.data));
   } catch (error) {
     dispatch(CartFailed());
@@ -51,10 +54,10 @@ export const addtoCart = async (dispatch, id, token, data) => {
     toast.error(error.response.data.mes);
   }
 };
-export const upmountCart = async (dispatch, id, token, data) => {
+export const upmountCart = async (dispatch, id, token, data, axiosJWT) => {
   dispatch(upmountCartStart());
   try {
-    const res = await axios.put(
+    const res = await axiosJWT.put(
       `http://localhost:3000/upmountCart/${id}`,
       data,
       {
@@ -70,10 +73,10 @@ export const upmountCart = async (dispatch, id, token, data) => {
     console.log(error);
   }
 };
-export const deleteOneCartItem = async (dispatch, id, token) => {
+export const deleteOneCartItem = async (dispatch, id, token, axiosJWT) => {
   dispatch(upmountCartStart());
   try {
-    const res = await axios.delete(
+    const res = await axiosJWT.delete(
       `http://localhost:3000/deleteOneItem/${id}`,
       {
         headers: {

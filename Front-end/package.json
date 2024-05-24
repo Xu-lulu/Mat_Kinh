@@ -35,7 +35,8 @@
     "sass": "^1.71.1",
     "sonner": "^1.4.3",
     "vanilla-tilt": "^1.8.1",
-    "vietqr": "^1.1.9"
+    "vietqr": "^1.1.9",
+    "web-vitals": "^3.5.2"
   },
   "devDependencies": {
     "@types/react": "^18.2.43",

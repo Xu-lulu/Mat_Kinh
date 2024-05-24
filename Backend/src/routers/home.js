@@ -1,4 +1,4 @@
-const HomeController = require("../app/Controllers/HomeController");
+const HomeController = require("../app/Controllers/HomeController").default;
 
 const router = require("express").Router();
 

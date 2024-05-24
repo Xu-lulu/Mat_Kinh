@@ -5,6 +5,7 @@ const {
   verifyToken,
   verifyTokenAndAdmin,
   verifyTokenAndUser,
+  verifyTokenAndSeller,
   verifyTokenAndUserAuthorization,
 } = require("../middleware/verifyToken");
 router.post(

@@ -1,4 +1,4 @@
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink, useNavigate, useParams } from "react-router-dom";
 import "./Navbars.scss";
 import { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -14,13 +14,17 @@ import { purgeStoredData } from "../../redux/purge";
 import { dataCart } from "../../redux/api/apiAddtoCart";
 import { Badge, Avatar } from "antd";
 import { ShoppingCartOutlined } from "@ant-design/icons";
-import { datarole, datauser, usedataCart } from "../../common/dataReux";
+import { dataCurrentuser, datarole, datauser, usedataCart } from "../../common/dataReux";
 import Bank from "../../assets/animation/Bank.json";
 import account from "../../assets/animation/account.json";
 import Lottie from "lottie-react";
 import { UserOutlined } from "@ant-design/icons";
 import { Dropdown } from "antd";
+import { logoutUser } from "../../redux/api/apiRequest";
+import { loginSuccess } from "../../redux/authSlice";
+import { createAxios } from "../../common/createInstane";
 const Navbars = () => {
+  const { id } = useParams();
   const [dataCategory, setdataCategory] = useState([]);
   const [show, setshow] = useState(false);
   const navigate = useNavigate();
@@ -29,20 +33,23 @@ const Navbars = () => {
   const user = datauser();
   const role = datarole();
   // dispatch(purgeStoredData);
-  const handleClickLogout = () => {
-    // logoutUser(dispatch, id, navigate, accessToken);
-    dispatch(purgeStoredData());
-    navigate("/Login");
-  };
   const token = useSelector(
     (state) => state?.auth?.login?.currentUser?.accessToken
   );
+  const handleClickLogout = () => {
+    logoutUser(dispatch, id, navigate, token);
+    // dispatch(purgeStoredData());
+    // navigate("/Login");
+  };
+  const dataCurrent = dataCurrentuser();
+  let axiosJWT = createAxios(dataCurrent, dispatch, loginSuccess);
+
+ useEffect(() => {
+   if (token && user === "user") {
+     dataCart(dispatch, token, axiosJWT);
+   }
+ }, [dispatch, token]);
   const dataCartUser = usedataCart();
-  useEffect(() => {
-    if (token && role === "user") {
-      dataCart(dispatch, token);
-    }
-  }, [dispatch, token]);
   useEffect(() => {
     if (user && dataCartUser) {
       const sumMount = dataCartUser.reduce((acc, currentItem) => acc + 1, 0);
@@ -93,7 +100,7 @@ const Navbars = () => {
         // >
         //   Cấp quyền lên người bán hàng
         // </a>
-        <NavLink to="/seller" className="btn" onClick={handleClickLogout}>
+        <NavLink to="/seller" className="btn">
           Cấp quyền lên người bán
         </NavLink>
       ),

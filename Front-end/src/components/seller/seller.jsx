@@ -1,7 +1,56 @@
-import { Button, Checkbox, Form, Input } from "antd";
+import {
+  UploadOutlined,
+  LoadingOutlined,
+  SmileOutlined,
+  SolutionOutlined,
+  UserOutlined,
+} from "@ant-design/icons";
+import { Button, Upload, Checkbox, Form, Input, Steps } from "antd";
+import { useState } from "react";
+
 const Seller = () => {
+  const [img, setImg] = useState([]);
+  const [nameOwner, setNameowner] = useState([]);
+  const [nameStore, setNamestore] = useState([]);
+  const [addressStore, setAdressstore] = useState([]);
+  const [phoneStore, setPhonestore] = useState([]);
+  const [payStore, setPaystore] = useState([]);
+  const [agreement, setAgreement] = useState(false);
+  const handleSubmit = () => {
+    console.log("age", agreement);
+    if (!agreement) {
+      console.log("vui lòng đồng ý với các điều khoản của trang web!");
+      return;
+    }
+    console.log("gửi thành công");
+  };
+
   return (
     <>
+      {/* <Steps className="Step"
+        items={[
+          {
+            title: "Login",
+            status: "finish",
+            icon: <UserOutlined />,
+          },
+          {
+            title: "Verification",
+            status: "finish",
+            icon: <SolutionOutlined />,
+          },
+          {
+            title: "Pay",
+            status: "process",
+            icon: <LoadingOutlined />,
+          },
+          {
+            title: "Done",
+            status: "wait",
+            icon: <SmileOutlined />,
+          },
+        ]}
+      /> */}
       <Form
         name="basic"
         labelCol={{
@@ -24,9 +73,16 @@ const Seller = () => {
         autoComplete="off"
       >
         <h1 style={{ paddingBottom: "5%" }}>Đăng ký quyền bán hàng</h1>
+        {/* <Upload
+          action="https://660d2bd96ddfa2943b33731c.mockapi.io/api/upload"
+          listType="picture"
+          maxCount={1}
+        >
+          <Button icon={<UploadOutlined />}>Upload (Max: 1)</Button>
+        </Upload> */}
         <Form.Item
           label="Tên chủ cửa hàng"
-          name="username"
+          name="userowner"
           rules={[
             {
               required: true,
@@ -34,7 +90,11 @@ const Seller = () => {
             },
           ]}
         >
-          <Input />
+          <Input
+            onChange={(e) => {
+              setNameowner(e.target.value);
+            }}
+          />
         </Form.Item>
 
         <Form.Item
@@ -47,7 +107,11 @@ const Seller = () => {
             },
           ]}
         >
-          <Input />
+          <Input
+            onChange={(e) => {
+              setNamestore(e.target.value);
+            }}
+          />
         </Form.Item>
         <Form.Item
           label="Địa chỉ cửa hàng"
@@ -59,7 +123,11 @@ const Seller = () => {
             },
           ]}
         >
-          <Input />
+          <Input
+            onChange={(e) => {
+              setAdressstore(e.target.value);
+            }}
+          />
         </Form.Item>
         <Form.Item
           label="Số điện thoại cửa hàng"
@@ -71,11 +139,15 @@ const Seller = () => {
             },
           ]}
         >
-          <Input />
+          <Input
+            onChange={(e) => {
+              setPhonestore(e.target.value);
+            }}
+          />
         </Form.Item>
         <Form.Item
           label="Phương thức thanh toán"
-          name="namestore"
+          name="paystore"
           rules={[
             {
               required: true,
@@ -83,7 +155,11 @@ const Seller = () => {
             },
           ]}
         >
-          <Input />
+          <Input
+            onChange={(e) => {
+              setPaystore(e.target.value);
+            }}
+          />
         </Form.Item>
         <Form.Item
           name="remember"
@@ -92,8 +168,23 @@ const Seller = () => {
             offset: 8,
             span: 16,
           }}
+          rules={[
+            {
+              validator: (_, value) =>
+                value
+                  ? Promise.resolve()
+                  : Promise.reject(
+                      "Vui lòng đọc điều khoản và đồng ý với mọi điều khoản!"
+                    ),
+            },
+          ]}
         >
-          <Checkbox>
+          <Checkbox
+            checked={!agreement}
+            onChange={(e) => {
+              setAgreement(e.target.checked);
+            }}
+          >
             Tôi đồng ý rằng tôi đã trên 18 tuổi và đồng ý với các điều khoản và
             điều kiện của trang web.
           </Checkbox>
@@ -104,7 +195,7 @@ const Seller = () => {
             span: 16,
           }}
         >
-          <Button type="primary" htmlType="submit">
+          <Button type="primary" htmlType="submit" onClick={handleSubmit}>
             Submit
           </Button>
         </Form.Item>

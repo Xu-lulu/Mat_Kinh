@@ -9,9 +9,11 @@ import PublicRoute from "./routes/public";
 import Admin from "./routes/admin";
 import { dataCategorys, dataProducts } from "./redux/api/apiProduct";
 import { Layout, Flex } from "antd";
-import { datarole, datauser} from "./common/dataReux";
+import { datarole, datauser } from "./common/dataReux";
+import reportWebVitals from "../reportWebVitals";
 const { Header, Footer, Sider, Content } = Layout;
-//
+import { loginSuccess } from "./redux/authSlice";
+import { dataCart } from "./redux/api/apiAddtoCart";
 function App() {
   // const [allProducts, setallProducts] = useState([]);
   const [myCart, addtoCart] = useState([]);
@@ -22,17 +24,18 @@ function App() {
   const [datalogin, setdatalogin] = useState([]);
   const dispatch = useDispatch();
   useEffect(() => {
+    const handlePerfEntry = (metric) => {
+      // console.log("Web Vitals metric:", metric);
+      // Xử lý các chỉ số hiệu suất ở đây, ví dụ: gửi đến một dịch vụ bên ngoài
+    };
+
+    reportWebVitals(handlePerfEntry);
+  }, []);
+  useEffect(() => {
     dataProducts(dispatch);
     dataCategorys(dispatch);
   }, [dispatch]);
   const user = datarole();
-  // const decodeuser = useSelector((state) => state.auth.login.currentUser.accessToken);
-  // const axiosJwt = axios.create();
-  // axiosJwt.interceptors.request.use(
-  //   async(config) =>{
-  //     const decode = jwt_decode()
-  //   }
-  // )
   return (
     <CartContext.Provider
       value={{

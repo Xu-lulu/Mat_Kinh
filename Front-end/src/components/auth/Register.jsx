@@ -37,7 +37,7 @@ const Register = () => {
                     type="text"
                     className="form-control"
                     id="exampleInputEmail1"
-                    autocomplete="username"
+                    autoComplete="username"
                     onChange={(e) => setusername(e.target.value)}
                   />
                 </div>
@@ -49,7 +49,7 @@ const Register = () => {
                     type="password"
                     className="form-control"
                     id="exampleInputPassword1"
-                    autocomplete="current-password"
+                    autoComplete="current-password"
                     onChange={(e) => setpassword(e.target.value)}
                   />
                 </div>
@@ -62,6 +62,7 @@ const Register = () => {
                     className="form-control"
                     id="exampleInputEmail1"
                     aria-describedby="emailHelp"
+                    autoComplete="email"
                     onChange={(e) => setemail(e.target.value)}
                   />
                 </div>
@@ -69,7 +70,7 @@ const Register = () => {
                   <button
                     type="submit"
                     className="btn btn-primary"
-                    onClick={handleOnclickRegister}
+                    // onClick={handleOnclickRegister}
                   >
                     Đăng ký
                   </button>

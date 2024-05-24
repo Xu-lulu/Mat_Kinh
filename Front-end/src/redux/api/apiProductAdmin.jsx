@@ -10,10 +10,12 @@ import {
   productsAdminSuccess,
 } from "../productAdmin";
 import { dataProducts } from "./apiProduct";
+const axiosJWT = axios.create();
+
 export const dataProductsAdmin = async (dispatch, token) => {
   dispatch(productsAdminStart());
   try {
-    const res = await axios.get("http://localhost:3000/productsadmin", {
+    const res = await axiosJWT.get("http://localhost:3000/productsadmin", {
       headers: {
         token: `Bearer ${token}`,
       },
@@ -27,12 +29,16 @@ export const dataProductsAdmin = async (dispatch, token) => {
 export const createProduct = async (dispatch, navigate, token, data) => {
   dispatch(productsAdminStart());
   try {
-    const res = await axios.post("http://localhost:3000/uploadProducts", data, {
-      headers: {
-        "Content-Type": "multipart/form-data",
-        token: `Bearer ${token}`,
-      },
-    });
+    const res = await axiosJWT.post(
+      "http://localhost:3000/uploadProducts",
+      data,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          token: `Bearer ${token}`,
+        },
+      }
+    );
     dispatch(productsAdminSuccess());
     dataProductsAdmin(dispatch, token);
     toast.success("Thêm thành công");
@@ -45,7 +51,7 @@ export const createProduct = async (dispatch, navigate, token, data) => {
 export const deleteProduct = async (dispatch, id, navigate, token) => {
   dispatch(productsAdminStart());
   try {
-    const res = await axios.delete(`http://localhost:3000/delete/${id}`, {
+    const res = await axiosJWT.delete(`http://localhost:3000/delete/${id}`, {
       headers: {
         token: `Bearer ${token}`,
       },
@@ -62,7 +68,7 @@ export const deleteProduct = async (dispatch, id, navigate, token) => {
 export const UpdateProduct = async (dispatch, id, token, data, navigate) => {
   dispatch(updateProductAdminStart());
   try {
-    const res = await axios.put(`http://localhost:3000/update/${id}`, data, {
+    const res = await axiosJWT.put(`http://localhost:3000/update/${id}`, data, {
       headers: {
         "Content-Type": "multipart/form-data",
         token: `Bearer ${token}`,
@@ -79,7 +85,7 @@ export const UpdateProduct = async (dispatch, id, token, data, navigate) => {
 // export const dataCategorys = async (dispatch) => {
 //   dispatch(categoryStart());
 //   try {
-//     const res = await axios.get("http://localhost:3000/allCategory");
+//     const res = await axiosJWT.get("http://localhost:3000/allCategory");
 //     dispatch(categorySuccess(res.data));
 //   } catch (error) {
 //     dispatch(categoryFailed());
@@ -88,7 +94,7 @@ export const UpdateProduct = async (dispatch, id, token, data, navigate) => {
 // export const findCategorys = async (dispatch, id) => {
 //   dispatch(findcategoryStart());
 //   try {
-//     const res = await axios.post(
+//     const res = await axiosJWT.post(
 //       "http://localhost:3000/products/category/" + `${id}`
 //     );
 //     dispatch(findcategorySuccess(res.data));

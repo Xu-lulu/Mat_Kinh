@@ -10,8 +10,16 @@ import {
 import { NavLink, Link } from "react-router-dom";
 import ProductsCart from "../Products/ProductCard";
 import { deleteOneCartItem, upmountCart } from "../../redux/api/apiAddtoCart";
-import { usedataCart, datauser, dataproduct } from "../../common/dataReux";
+import {
+  usedataCart,
+  datauser,
+  dataproduct,
+  tokenuser,
+  dataCurrentuser,
+} from "../../common/dataReux";
 import { formatMoney } from "../../common/common";
+import { createAxios } from "../../common/createInstane";
+import { loginSuccess } from "../../redux/authSlice";
 const Cart = () => {
   const dispatch = useDispatch();
   // const { myCart, addtoCart, total, setTotal, count, setCount } =
@@ -21,6 +29,10 @@ const Cart = () => {
   const dataCart = usedataCart();
   const alldataProducts = dataproduct();
   const user = datauser();
+  const token = tokenuser();
+  const dataCurrent = dataCurrentuser();
+  console.log(dataCurrent);
+  let axiosJWT = createAxios(dataCurrent, dispatch, loginSuccess);
   useEffect(() => {
     if (user && dataCart) {
       const sumPrice = dataCart.reduce(
@@ -47,15 +59,12 @@ const Cart = () => {
     const endOffset = itemOffset + itemsPerPage;
     setCurrentItems(alldataProducts.slice(itemOffset, endOffset));
   }, [itemOffset, itemsPerPage, alldataProducts]);
-  const token = useSelector(
-    (state) => state?.auth?.login?.currentUser?.accessToken
-  );
 
   const handcleclinkIncrement = (id) => {
     const checkid = dataCart.find((item) => item._id === id);
     const updatedMount = Number(checkid.mount) + 1;
     const updatedItem = { ...checkid, mount: updatedMount };
-    upmountCart(dispatch, id, token, updatedItem);
+    upmountCart(dispatch, id, token, updatedItem, axiosJWT);
     // const index = myCart.findIndex((item) => item._id === id);
     // const cartNewState = [...myCart];
     // cartNewState[index].mount++;
@@ -74,10 +83,9 @@ const Cart = () => {
     //   setCount((count) => (count -= 1));
     // }
     const checkid = dataCart.find((item) => item._id === id);
-    console.log(checkid);
     const updatedMount = Number(checkid.mount) - 1;
     const updatedItem = { ...checkid, mount: updatedMount };
-    upmountCart(dispatch, id, token, updatedItem);
+    upmountCart(dispatch, id, token, updatedItem, axiosJWT);
   };
   const isCartEmpty = () => {
     if (dataCart) {
@@ -88,7 +96,7 @@ const Cart = () => {
     // return dataCart.length === 0;
   };
   const handcleclinkRemove = (id) => {
-    deleteOneCartItem(dispatch, id, token);
+    deleteOneCartItem(dispatch, id, token, axiosJWT);
   };
   return (
     <>

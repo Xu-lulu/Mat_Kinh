@@ -108,6 +108,46 @@ const Login = asyncHandle(async (req, res, next) => {
   }
 });
 
+const requestRefereshToken = asyncHandle(async (req, res, next) => {
+  //Take refresh token from user
+  console.log(req.cookies);
+
+  const refreshToken = req.cookies.refreshToken;
+  //Send error if token is not valid
+  if (!refreshToken) return res.status(401).json("You're not authenticated");
+  const storedToken = await Users.findOne({ refreshToken: refreshToken });
+  if (!storedToken) {
+    return res.status(403).json("Refresh token is not valid");
+  }
+  jwt.verify(refreshToken, process.env.JWT_ACCESS_KEY, async (err, user) => {
+    if (err) {
+      console.log(err);
+      return res.status(403).json("Xác thực token thất bại");
+    }
+    // refreshToken = refreshToken.filter((token) => token !== storedToken);
+    //create new access token, refresh token and send to user
+    // const newAccessToken = generateAccessToken();
+    // const newRefreshToken = generateRefreshToken();
+    // res.cookie("refreshToken", newRefreshToken, {
+    //   httpOnly: true,
+    //   secure: false,
+    //   path: "/",
+    //   sameSite: "strict",
+    // });
+    const response = await Users.findOne({
+      // _id: _id,
+      refreshToken: refreshToken,
+    });
+    const newAccessToken = generateAccessToken(response);
+
+    return res.status(200).json({
+      success: response ? user : false,
+      accessToken: newAccessToken,
+      // refreshToken: newRefreshToken,
+    });
+  });
+});
+
 const OneUsers = asyncHandle(async (req, res) => {
   const { _id } = req.user;
   const user = await Users.findById({ _id }).select(
@@ -133,15 +173,22 @@ const datacartOneUser = asyncHandle(async (req, res) => {
   });
 });
 const logOut = asyncHandle(async (req, res, next) => {
-  const refreshTokens = refreshTokens.filter(
-    (token) => token !== req.body.token
-  );
-  if (refreshTokens) {
-    res.clearCookie("refreshToken");
-    return res.status(200).json("Logged out successfully!");
-  } else {
-    throw new Error("Lỗi đăng xuất");
+  const cookie = req.cookies.refreshToken;
+  if (!cookie) return res.status(401).json("You're not authenticated");
+  const storedToken = await Users.findOne({ refreshToken: cookie });
+  if (!storedToken) {
+    return res.status(403).json("Refresh token is not valid");
   }
+  // await Users.findOneAndDelete(
+  //   { refreshToken: cookie },
+  //   { $unset: { refreshToken: "" } },
+  //   { new: true }
+  // );
+  res.clearCookie("refreshToken", {
+    httpOnly: true,
+    secure: true,
+  });
+  return res.status(200).json("Logged out successfully!");
 });
 module.exports = {
   Register,
@@ -150,4 +197,5 @@ module.exports = {
   OneUsers,
   allUser,
   datacartOneUser,
+  requestRefereshToken,
 };
