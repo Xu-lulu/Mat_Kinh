@@ -25,24 +25,6 @@ const Home = () => {
   const token = useSelector(
     (state) => state?.auth?.login?.currentUser?.accessToken
   );
-  let axiosJWT = axios.create();
-  // const refreshToken = async () =>{
-  //   try {
-  //     const res =  await axios.post("http://localhost:3000/",{
-  //       withCredentials: true;
-  //     })
-  //     return res.data;
-  //   } catch (error) {
-  //     console.log(err)
-  //   }
-  // }
-  // axiosJWT.interceptors.request.use(async (config) => {
-  //   let date = new Date();
-  //   const decodeToken = jwt_decode(token);
-  //   if(decodeToken.exp < date.getTime()/1000){
-  //     const data =
-  //   }
-  // });
   return (
     <>
       <div className="HomeContainer">

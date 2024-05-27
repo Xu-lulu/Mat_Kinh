@@ -27,12 +27,13 @@ const Cart = () => {
   const [totalPrice, settotalPrice] = useState(0);
   const [totalCount, settotalCount] = useState(0);
   const dataCart = usedataCart();
+  console.log(dataCart)
   const alldataProducts = dataproduct();
   const user = datauser();
   const token = tokenuser();
   const dataCurrent = dataCurrentuser();
-  console.log(dataCurrent);
   let axiosJWT = createAxios(dataCurrent, dispatch, loginSuccess);
+  
   useEffect(() => {
     if (user && dataCart) {
       const sumPrice = dataCart.reduce(

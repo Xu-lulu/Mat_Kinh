@@ -64,10 +64,19 @@ export const datarole = () => {
 };
 export const usedataCart = () => {
   return useSelector((state) => {
-    const data = state.cartUser.dataCart.dataCarts.datacart;
-    if (data && data.cart) {
-      return data.cart;
+    const data = state?.cartUser?.dataCart?.dataCarts?.datacart;
+    if (data && data?.cart) {
+      return data?.cart;
     }
     return null;
   });
 };
+// export const usedataCart = () => {
+//   return useSelector((state) => {
+//     const data = state?.cartUser?.dataCart;
+//     if (data && data?.dataCarts) {
+//       return data?.dataCarts;
+//     }
+//     return null;
+//   });
+// };

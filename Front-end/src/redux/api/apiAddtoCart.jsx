@@ -18,7 +18,7 @@ import {
 export const dataCart = async (dispatch, token, axiosJWT) => {
   dispatch(CartStart());
   try {
-    const res = await axiosJWT.post(
+    const res = await axiosJWT.get(
       `http://localhost:3000/auth/allCartOneUser`,
       {
         headers: {
@@ -33,10 +33,10 @@ export const dataCart = async (dispatch, token, axiosJWT) => {
   }
 };
 
-export const addtoCart = async (dispatch, id, token, data) => {
+export const addtoCart = async (dispatch, id, token, data,axiosJWT) => {
   dispatch(CartStart());
   try {
-    const res = await axios.post(
+    const res = await axiosJWT.post(
       `http://localhost:3000/addtoCart/${id}`,
       data,
       {
@@ -46,12 +46,12 @@ export const addtoCart = async (dispatch, id, token, data) => {
         },
       }
     );
-    dispatch(CartSuccess(res.data.cart));
-    dataCart(dispatch, token);
+    dispatch(CartSuccess());
+    dataCart(dispatch, token,axiosJWT);
     toast.success("Thêm vào giỏ hàng thành công");
   } catch (error) {
     dispatch(CartFailed());
-    toast.error(error.response.data.mes);
+    toast.error(error);
   }
 };
 export const upmountCart = async (dispatch, id, token, data, axiosJWT) => {
@@ -66,8 +66,8 @@ export const upmountCart = async (dispatch, id, token, data, axiosJWT) => {
         },
       }
     );
-    dispatch(upmountCartSuccess(res.data.cart));
-    dataCart(dispatch, token);
+    dispatch(upmountCartSuccess());
+    dataCart(dispatch, token, axiosJWT);
   } catch (error) {
     dispatch(upmountCartFailed());
     console.log(error);
@@ -84,11 +84,11 @@ export const deleteOneCartItem = async (dispatch, id, token, axiosJWT) => {
         },
       }
     );
-    dispatch(upmountCartSuccess(res.data));
-    dataCart(dispatch, token);
+    dispatch(upmountCartSuccess());
+    dataCart(dispatch, token,axiosJWT);
     toast.success("xóa thành công");
   } catch (error) {
     dispatch(upmountCartFailed());
-    toast.error(error.response.data.mes);
+    toast.error(error);
   }
 };

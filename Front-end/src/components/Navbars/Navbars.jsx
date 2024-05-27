@@ -14,14 +14,19 @@ import { purgeStoredData } from "../../redux/purge";
 import { dataCart } from "../../redux/api/apiAddtoCart";
 import { Badge, Avatar } from "antd";
 import { ShoppingCartOutlined } from "@ant-design/icons";
-import { dataCurrentuser, datarole, datauser, usedataCart } from "../../common/dataReux";
+import {
+  dataCurrentuser,
+  datarole,
+  datauser,
+  usedataCart,
+} from "../../common/dataReux";
 import Bank from "../../assets/animation/Bank.json";
 import account from "../../assets/animation/account.json";
 import Lottie from "lottie-react";
 import { UserOutlined } from "@ant-design/icons";
 import { Dropdown } from "antd";
 import { logoutUser } from "../../redux/api/apiRequest";
-import { loginSuccess } from "../../redux/authSlice";
+import { loginSuccess, logoutSuccess } from "../../redux/authSlice";
 import { createAxios } from "../../common/createInstane";
 const Navbars = () => {
   const { id } = useParams();
@@ -32,24 +37,26 @@ const Navbars = () => {
   const dispatch = useDispatch();
   const user = datauser();
   const role = datarole();
-  // dispatch(purgeStoredData);
   const token = useSelector(
     (state) => state?.auth?.login?.currentUser?.accessToken
   );
   const handleClickLogout = () => {
-    logoutUser(dispatch, id, navigate, token);
+    logoutUser(dispatch, id, navigate, token, axiosJWTlogout);
     // dispatch(purgeStoredData());
     // navigate("/Login");
   };
   const dataCurrent = dataCurrentuser();
   let axiosJWT = createAxios(dataCurrent, dispatch, loginSuccess);
+  let axiosJWTlogout = createAxios(dataCurrent, dispatch, logoutSuccess);
 
- useEffect(() => {
-   if (token && user === "user") {
-     dataCart(dispatch, token, axiosJWT);
-   }
- }, [dispatch, token]);
+  useEffect(() => {
+    if (token && user === "user") {
+      dataCart(dispatch, token, axiosJWT);
+    }
+  }, [dispatch, token, axiosJWT]);
+
   const dataCartUser = usedataCart();
+  console.log(dataCartUser)
   useEffect(() => {
     if (user && dataCartUser) {
       const sumMount = dataCartUser.reduce((acc, currentItem) => acc + 1, 0);
@@ -92,14 +99,6 @@ const Navbars = () => {
     {
       key: "2",
       label: (
-        // <a
-        //   target="_blank"
-        //   rel="noopener noreferrer"
-        //   href="https://www.antgroup.com"
-        //   style={{ textDecoration: "none" }}
-        // >
-        //   Cấp quyền lên người bán hàng
-        // </a>
         <NavLink to="/seller" className="btn">
           Cấp quyền lên người bán
         </NavLink>
@@ -108,13 +107,6 @@ const Navbars = () => {
     {
       key: "3",
       label: (
-        // <a
-        //   target="_blank"
-        //   rel="noopener noreferrer"
-        //   href="https://www.antgroup.com"
-        // >
-        //   Đăng xuất
-        // </a>
         <NavLink to="/Login" className="btn" onClick={handleClickLogout}>
           Đăng Xuất
         </NavLink>

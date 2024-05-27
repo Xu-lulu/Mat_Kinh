@@ -12,6 +12,11 @@ import {
 } from "../authSlice";
 
 import { Toaster, toast } from "sonner";
+import { CartSuccess } from "../Cart";
+import { dataCart, upmountCart } from "./apiAddtoCart";
+import { dataCurrentuser } from "../../common/dataReux";
+import { createAxios } from "../../common/createInstane";
+
 export const loginUser = async (dispatch, user, navigate) => {
   dispatch(loginStart());
   try {
@@ -19,6 +24,15 @@ export const loginUser = async (dispatch, user, navigate) => {
     dispatch(loginSuccess(res.data));
     if (res.data.newUsers.role === "user") {
       navigate("/");
+      // const dataCurrent = dataCurrentuser();
+      // let axiosJWT = createAxios(res.data.newUsers, dispatch, loginSuccess);
+      // dispatch(dataCart(dispatch, res.data.accessToken, axiosJWT));
+      const ress = await axios.get(`http://localhost:3000/auth/allCartOneUser`, {
+        headers: {
+          token: `Bearer ${res.data.accessToken}`,
+        },
+      });
+      dispatch(CartSuccess(ress.data));
     } else {
       navigate("/admin");
     }
@@ -44,20 +58,20 @@ export const registerUser = async (dispatch, user, navigate) => {
     toast.error(error.response.data.mes);
   }
 };
-export const logoutUser = async (dispatch, id, navigate, token) => {
+export const logoutUser = async (dispatch, id, navigate, token, axiosJWT) => {
   dispatch(logoutStart());
-  console.log("Function Logout");
   try {
-    const res = await axios.post("http://localhost:3000/auth/Logout", id, {
+    const res = await axiosJWT.post("http://localhost:3000/auth/Logout", id, {
       headers: { token: `Bearer ${token}` },
     });
     dispatch(loginSuccess());
+    dispatch(CartSuccess([]));
+    // dispatch(upmountCart([]))
     navigate("/Login");
     toast.success("Đăng xuất thành công!");
-    console.log(token)
   } catch (error) {
     console.log(error);
     dispatch(logoutFailed());
-    toast.error(error.response.data.mes);
+    toast.error(error.response);
   }
 };

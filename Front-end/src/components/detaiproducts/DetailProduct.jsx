@@ -8,7 +8,15 @@ import ProductsCart from "../Products/ProductCard";
 import { useSelector, useDispatch } from "react-redux";
 import { findCategorys } from "../../redux/api/apiProduct";
 import { addtoCart, upmountCart } from "../../redux/api/apiAddtoCart";
-import { datafindcategory, dataproduct, tokenuser, usedataCart } from "../../common/dataReux";
+import {
+  dataCurrentuser,
+  datafindcategory,
+  dataproduct,
+  tokenuser,
+  usedataCart,
+} from "../../common/dataReux";
+import { createAxios } from "../../common/createInstane";
+import { loginSuccess } from "../../redux/authSlice";
 const DetailProduct = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
@@ -21,12 +29,13 @@ const DetailProduct = () => {
   //   useContext(CartContext);
   const alldataProducts = dataproduct();
   const token = tokenuser();
-
+  const dataCurrent = dataCurrentuser();
+  let axiosJWT = createAxios(dataCurrent, dispatch, loginSuccess);
   const dataDetail = alldataProducts.find((item) => item._id === id);
   useEffect(() => {
-    findCategorys(dispatch, dataDetail.Category);
+    findCategorys(dispatch, dataDetail.Category, axiosJWT);
   }, [dataDetail.Category]);
-  const datafincategory = datafindcategory()
+  const datafincategory = datafindcategory();
   const user = useSelector((state) => {
     const currentUser = state.auth.login.currentUser;
     if (currentUser && currentUser.newUsers) {
@@ -34,11 +43,6 @@ const DetailProduct = () => {
     }
     return null;
   });
-  // useEffect(() => {
-  //   if (token) {
-  //     dataCart(dispatch, token);
-  //   }
-  // }, [dispatch, token]);
   const dataCartUser = usedataCart();
   const handleAdd = async () => {
     if (user) {
@@ -51,61 +55,78 @@ const DetailProduct = () => {
         Category: dataDetail.Category,
         mount: 1,
       };
-
-      // const checkid = myCart.find((item) => item._id === newItem._id);
-      //   if (checkid) {
-      //     checkid.mount++;
-      //     setCount((add) => (add += 1));
-      //   } else {
-      //     addtoCart((item) => [...item, newItem]);
-      //     setCount((add) => (add += 1));
-      //   }
-      //   setTotal((total) => (total += Number(dataDetail.Price)));
-      //   toast.success("Đã thêm sản phẩm vào giỏ hàng");
-      // } else {
-      //   navigate("/Login");
-      // }
-      const checkid = dataCartUser.find((item) => item._id === newItem._id);
-      if (checkid) {
-        const updatedMount = Number(checkid.mount) + 1;
-        const updatedItem = { ...checkid, mount: updatedMount };
-        // const updatedataCart = { ...dataCartUser, updatedItem };
-        // console.log("updata", updatedItem);
-        upmountCart(dispatch, id, token, updatedItem);
+      if (dataCartUser) {
+        const checkid = dataCartUser.find((item) => item._id === newItem._id);
+        if (checkid) {
+          const updatedMount = Number(checkid.mount) + 1;
+          const updatedItem = { ...checkid, mount: updatedMount };
+          upmountCart(dispatch, id, token, updatedItem, axiosJWT);
+        } else {
+          addtoCart(dispatch, user._id, token, newItem, axiosJWT);
+        }
       } else {
-        addtoCart(dispatch, user._id, token, newItem);
+        // Xử lý trường hợp dataCartUser là null hoặc trống
+        addtoCart(dispatch, user._id, token, newItem, axiosJWT);
       }
-      // const checkid = dataCart.find((item) => item._id === newItem._id);
-      // if (checkid) {
-      //   checkid.mount++;
-      //   setCount((add) => (add += 1));
-      // }
-
-      // const existingItemIndex = dataCart.findIndex(
-      //   (item) => item._id === newItem._id
-      // );
-
-      // if (existingItemIndex !== -1) {
-      //   dispatch(IncreaseMount(dataCart[existingItemIndex]._id));
-      // setCount(count + 1);
-      // }
-      // else {
-      //   dispatch(CartStart());
-      //   try {
-      //     dispatch(CartSuccess(newItem));
-      //     toast.success("Đã thêm sản phẩm vào giỏ hàng");
-      //   } catch (error) {
-      //     dispatch(CartFailed(error));
-      //   }
-      // }
-
-      // setTotal((total) => (total += Number(dataDetail.Price)));
-      // addtoCart((item) => [...item, newItem]);
     } else {
       navigate("/Login");
       toast.success("Bạn cần đăng nhập để có thể mua hàng!");
     }
   };
+  // const checkid = myCart.find((item) => item._id === newItem._id);
+  //   if (checkid) {
+  //     checkid.mount++;
+  //     setCount((add) => (add += 1));
+  //   } else {
+  //     addtoCart((item) => [...item, newItem]);
+  //     setCount((add) => (add += 1));
+  //   }
+  //   setTotal((total) => (total += Number(dataDetail.Price)));
+  //   toast.success("Đã thêm sản phẩm vào giỏ hàng");
+  // } else {
+  //   navigate("/Login");
+  // }
+  // const checkid = dataCartUser.find((item) => item._id === newItem._id);
+  // if (checkid) {
+  //   const updatedMount = Number(checkid.mount) + 1;
+  //   const updatedItem = { ...checkid, mount: updatedMount };
+  //   // const updatedataCart = { ...dataCartUser, updatedItem };
+  //   // console.log("updata", updatedItem);
+  //   upmountCart(dispatch, id, token, updatedItem, axiosJWT);
+  // } else {
+  //   addtoCart(dispatch, user._id, token, newItem, axiosJWT);
+  // }
+  // const checkid = dataCart.find((item) => item._id === newItem._id);
+  // if (checkid) {
+  //   checkid.mount++;
+  //   setCount((add) => (add += 1));
+  // }
+
+  // const existingItemIndex = dataCart.findIndex(
+  //   (item) => item._id === newItem._id
+  // );
+
+  // if (existingItemIndex !== -1) {
+  //   dispatch(IncreaseMount(dataCart[existingItemIndex]._id));
+  // setCount(count + 1);
+  // }
+  // else {
+  //   dispatch(CartStart());
+  //   try {
+  //     dispatch(CartSuccess(newItem));
+  //     toast.success("Đã thêm sản phẩm vào giỏ hàng");
+  //   } catch (error) {
+  //     dispatch(CartFailed(error));
+  //   }
+  // }
+
+  // setTotal((total) => (total += Number(dataDetail.Price)));
+  // addtoCart((item) => [...item, newItem]);
+  //   } else {
+  //     navigate("/Login");
+  //     toast.success("Bạn cần đăng nhập để có thể mua hàng!");
+  //   }
+  // };
   // const dataCart = useSelector((state) => state.cart.dataCart.dataCart);
   // console.log("dataCart", dataCart);
   return (

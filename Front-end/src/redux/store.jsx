@@ -3,6 +3,7 @@ import authReducer from "./authSlice.js";
 import productReducer from "./productSlice.jsx";
 import adminReducer from "./productAdmin.jsx";
 import cartReducer from "./Cart.jsx";
+import { thunk } from "redux-thunk";
 import {
   persistStore,
   persistReducer,
@@ -34,7 +35,7 @@ export const store = configureStore({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
-    }),
+    }).concat(thunk),
 });
 export const persistor = persistStore(store);
 // export default configureStore({

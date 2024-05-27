@@ -15,7 +15,7 @@ router.get(
   HomeController.OneUsers
 );
 
-router.post(
+router.get(
   "/allCartOneUser",
   verifyTokenAndUser,
   HomeController.datacartOneUser
