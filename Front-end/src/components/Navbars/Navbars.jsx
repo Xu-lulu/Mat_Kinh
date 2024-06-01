@@ -15,10 +15,11 @@ import { dataCart } from "../../redux/api/apiAddtoCart";
 import { Badge, Avatar } from "antd";
 import { ShoppingCartOutlined } from "@ant-design/icons";
 import {
-  dataCurrentuser,
-  datarole,
-  datauser,
-  usedataCart,
+  useDataCurrentUser,
+  useDataRole,
+  useDataUser,
+  useDataCart,
+  useAccessToken,
 } from "../../common/dataReux";
 import Bank from "../../assets/animation/Bank.json";
 import account from "../../assets/animation/account.json";
@@ -35,17 +36,15 @@ const Navbars = () => {
   const navigate = useNavigate();
   const [totalMount, settotalMount] = useState(0);
   const dispatch = useDispatch();
-  const user = datauser();
-  const role = datarole();
-  const token = useSelector(
-    (state) => state?.auth?.login?.currentUser?.accessToken
-  );
+  const user = useDataUser();
+  const role = useDataRole();
+  const token = useAccessToken();
   const handleClickLogout = () => {
     logoutUser(dispatch, id, navigate, token, axiosJWTlogout);
     // dispatch(purgeStoredData());
     // navigate("/Login");
   };
-  const dataCurrent = dataCurrentuser();
+  const dataCurrent = useDataCurrentUser();
   let axiosJWT = createAxios(dataCurrent, dispatch, loginSuccess);
   let axiosJWTlogout = createAxios(dataCurrent, dispatch, logoutSuccess);
 
@@ -55,7 +54,7 @@ const Navbars = () => {
     }
   }, [dispatch, token, axiosJWT]);
 
-  const dataCartUser = usedataCart();
+  const dataCartUser = useDataCart();
   console.log(dataCartUser)
   useEffect(() => {
     if (user && dataCartUser) {

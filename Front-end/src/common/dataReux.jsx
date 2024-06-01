@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from "react-redux";
-export const dataproduct = () => {
+export const useDataProduct = () => {
   return useSelector((state) => {
     const dataproductuser = state?.products?.allproduct;
     if (dataproductuser && dataproductuser?.dataProducts) {
@@ -8,7 +8,7 @@ export const dataproduct = () => {
     return null;
   });
 };
-export const datacategory = () => {
+export const useDataCategory = () => {
   return useSelector((state) => {
     const datacategoryuser = state?.products.categorys;
     if (datacategoryuser && datacategoryuser?.dataCategorys) {
@@ -17,7 +17,7 @@ export const datacategory = () => {
     return null;
   });
 };
-export const datafindcategory = () => {
+export const useDataFindCategory = () => {
   return useSelector((state) => {
     const data = state?.products.findcategorys;
     if (data && data?.finddataCategorys) {
@@ -26,7 +26,7 @@ export const datafindcategory = () => {
     return null;
   });
 };
-export const tokenuser = () => {
+export const useAccessToken = () => {
   return useSelector((state) => {
     const currentUser = state.auth.login.currentUser;
     if (currentUser && currentUser?.accessToken) {
@@ -35,7 +35,7 @@ export const tokenuser = () => {
     return null;
   });
 };
-export const datauser = () => {
+export const useDataUser = () => {
   return useSelector((state) => {
     const currentUser = state?.auth?.login?.currentUser;
     if (currentUser && currentUser?.newUsers) {
@@ -44,7 +44,7 @@ export const datauser = () => {
     return null;
   });
 };
-export const dataCurrentuser = () => {
+export const useDataCurrentUser = () => {
   return useSelector((state) => {
     const currentUser = state?.auth?.login;
     if (currentUser && currentUser?.currentUser) {
@@ -53,7 +53,7 @@ export const dataCurrentuser = () => {
     return null;
   });
 };
-export const datarole = () => {
+export const useDataRole = () => {
   return useSelector((state) => {
     const currentUser = state?.auth?.login?.currentUser;
     if (currentUser && currentUser?.newUsers?.role) {
@@ -62,7 +62,7 @@ export const datarole = () => {
     return null;
   });
 };
-export const usedataCart = () => {
+export const useDataCart = () => {
   return useSelector((state) => {
     const data = state?.cartUser?.dataCart?.dataCarts?.datacart;
     if (data && data?.cart) {

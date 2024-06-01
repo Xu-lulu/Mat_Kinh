@@ -10,12 +10,11 @@ import {
   productsAdminSuccess,
 } from "../productAdmin";
 import { dataProducts } from "./apiProduct";
-const axiosJWT = axios.create();
 
 export const dataProductsAdmin = async (dispatch, token) => {
   dispatch(productsAdminStart());
   try {
-    const res = await axiosJWT.get("http://localhost:3000/productsadmin", {
+    const res = await axios.get("http://localhost:3000/productsadmin", {
       headers: {
         token: `Bearer ${token}`,
       },
@@ -26,10 +25,16 @@ export const dataProductsAdmin = async (dispatch, token) => {
     toast.error(error.response.data.mes);
   }
 };
-export const createProduct = async (dispatch, navigate, token, data) => {
+export const createProduct = async (
+  dispatch,
+  navigate,
+  token,
+  data,
+  
+) => {
   dispatch(productsAdminStart());
   try {
-    const res = await axiosJWT.post(
+    const res = await axios.post(
       "http://localhost:3000/uploadProducts",
       data,
       {
@@ -39,19 +44,21 @@ export const createProduct = async (dispatch, navigate, token, data) => {
         },
       }
     );
+    
     dispatch(productsAdminSuccess());
     dataProductsAdmin(dispatch, token);
     toast.success("Thêm thành công");
     navigate("/productadmin");
   } catch (error) {
+    console.log(error)
     dispatch(productsAdminFailed());
-    toast.error(error.response.data.mes);
+    toast.error(error.response.data);
   }
 };
 export const deleteProduct = async (dispatch, id, navigate, token) => {
   dispatch(productsAdminStart());
   try {
-    const res = await axiosJWT.delete(`http://localhost:3000/delete/${id}`, {
+    const res = await axios.delete(`http://localhost:3000/delete/${id}`, {
       headers: {
         token: `Bearer ${token}`,
       },
@@ -68,7 +75,7 @@ export const deleteProduct = async (dispatch, id, navigate, token) => {
 export const UpdateProduct = async (dispatch, id, token, data, navigate) => {
   dispatch(updateProductAdminStart());
   try {
-    const res = await axiosJWT.put(`http://localhost:3000/update/${id}`, data, {
+    const res = await axios.put(`http://localhost:3000/update/${id}`, data, {
       headers: {
         "Content-Type": "multipart/form-data",
         token: `Bearer ${token}`,

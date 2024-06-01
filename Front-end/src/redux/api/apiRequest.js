@@ -13,9 +13,6 @@ import {
 
 import { Toaster, toast } from "sonner";
 import { CartSuccess } from "../Cart";
-import { dataCart, upmountCart } from "./apiAddtoCart";
-import { dataCurrentuser } from "../../common/dataReux";
-import { createAxios } from "../../common/createInstane";
 
 export const loginUser = async (dispatch, user, navigate) => {
   dispatch(loginStart());
@@ -24,9 +21,6 @@ export const loginUser = async (dispatch, user, navigate) => {
     dispatch(loginSuccess(res.data));
     if (res.data.newUsers.role === "user") {
       navigate("/");
-      // const dataCurrent = dataCurrentuser();
-      // let axiosJWT = createAxios(res.data.newUsers, dispatch, loginSuccess);
-      // dispatch(dataCart(dispatch, res.data.accessToken, axiosJWT));
       const ress = await axios.get(`http://localhost:3000/auth/allCartOneUser`, {
         headers: {
           token: `Bearer ${res.data.accessToken}`,
@@ -66,7 +60,6 @@ export const logoutUser = async (dispatch, id, navigate, token, axiosJWT) => {
     });
     dispatch(loginSuccess());
     dispatch(CartSuccess([]));
-    // dispatch(upmountCart([]))
     navigate("/Login");
     toast.success("Đăng xuất thành công!");
   } catch (error) {

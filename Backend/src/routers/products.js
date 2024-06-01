@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const ProductsControllers = require("../app/Controllers/ProductsCotrollers");
+const uploadCloud = require("../config/cloudinary.config.");
 const upload = require("../middleware/uploadImage");
 const {
   verifyToken,
@@ -11,7 +12,7 @@ const {
 router.post(
   "/uploadProducts",
   verifyTokenAndAdmin,
-  upload.single("Image"),
+  uploadCloud.single("Image"),
   ProductsControllers.updataProducts
 );
 router.get("/allproducts", ProductsControllers.allProducts);

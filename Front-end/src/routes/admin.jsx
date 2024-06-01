@@ -15,12 +15,13 @@ import CategoryAdmin from "../components/admin/Products/CategoryAdmin/CategoryAd
 import CreateCategory from "../components/admin/Products/CategoryAdmin/CreateCategory";
 import UpdateCategory from "../components/admin/Products/CategoryAdmin/updateCategory";
 import NotFound from "../components/NotFound/NotFound";
+import Home from "../components/Home";
 
 const Admin = () => {
-  const location = useLocation();
   return (
     <>
       <Routes>
+        <Route path="/" element={<HomeAdmin />} />
         <Route path="/admin" element={<HomeAdmin />} />
         <Route path="/productadmin" element={<HomeProducts />} />
         <Route path="/createProduct" element={<CreateProduct />} />

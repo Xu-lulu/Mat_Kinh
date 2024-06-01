@@ -176,23 +176,27 @@ const datacartOneUser = asyncHandle(async (req, res) => {
 const logOut = asyncHandle(async (req, res, next) => {
   const cookie = req.cookies.refreshToken;
   if (!cookie) return res.status(401).json("You're not authenticated");
-  // const token = req.headers.authorization?.split(" ")[1];
-  // if (!token)
-  //   return res.status(401).json({ message: "You're not authenticated" });
   const storedToken = await Users.findOne({ refreshToken: cookie });
   if (!storedToken) {
     return res.status(403).json("Refresh token is not valid");
   }
-  // await Users.findOneAndDelete(
-  //   { refreshToken: cookie },
-  //   { $unset: { refreshToken: "" } },
-  //   { new: true }
-  // );
+  await Users.findOneAndUpdate(
+    { refreshToken: cookie },
+    { $unset: { refreshToken: "" } },
+    { new: true }
+  );
   res.clearCookie("refreshToken", {
     httpOnly: true,
     secure: true,
   });
   return res.status(200).json("Logged out successfully!");
+});
+
+const forgotPassword = asyncHandle(async (req, res, next) => {
+  const { email } = req.query;
+  if (!email) throw new Error("Missing email");
+  const user = await Users.findOne({ email });
+  if (!user) throw new Error("User not found");
 });
 module.exports = {
   Register,

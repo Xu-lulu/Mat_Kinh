@@ -33,7 +33,7 @@ const ProductCard = (props) => {
         <div onClick={handleclickDetail}>
           <div className="card_image">
             <img
-              src={`http://localhost:3000/` + Image}
+              src={Image}
               alt={`picture of: ${Name}`}
             />
           </div>

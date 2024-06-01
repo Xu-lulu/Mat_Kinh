@@ -14,6 +14,20 @@
       text-align: center;
       justify-content: center;
       padding-top: 100px;
+      a {
+        color: black !important;
+        text-decoration: none;
+        padding: 0 20px;
+      }
+      a:active {
+        border: 1px black solid;
+      }
+      a:hover,
+      a:focus {
+        border: 1px black solid;
+        border-radius: 5px;
+        outline: none;
+      }
     }
     .product-container {
       display: flex;
@@ -32,7 +46,7 @@
     margin-left: 0;
     margin-right: 0;
   }
-  .Pagination{
+  .Pagination {
     display: flex;
     justify-content: center;
   }

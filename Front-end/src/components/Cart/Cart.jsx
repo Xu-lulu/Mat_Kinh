@@ -11,29 +11,26 @@ import { NavLink, Link } from "react-router-dom";
 import ProductsCart from "../Products/ProductCard";
 import { deleteOneCartItem, upmountCart } from "../../redux/api/apiAddtoCart";
 import {
-  usedataCart,
-  datauser,
-  dataproduct,
-  tokenuser,
-  dataCurrentuser,
+  useDataCart,
+  useDataUser,
+  useDataProduct,
+  useAccessToken,
+  useDataCurrentUser,
 } from "../../common/dataReux";
 import { formatMoney } from "../../common/common";
 import { createAxios } from "../../common/createInstane";
 import { loginSuccess } from "../../redux/authSlice";
 const Cart = () => {
   const dispatch = useDispatch();
-  // const { myCart, addtoCart, total, setTotal, count, setCount } =
-  //   useContext(CartContext);
   const [totalPrice, settotalPrice] = useState(0);
   const [totalCount, settotalCount] = useState(0);
-  const dataCart = usedataCart();
-  console.log(dataCart)
-  const alldataProducts = dataproduct();
-  const user = datauser();
-  const token = tokenuser();
-  const dataCurrent = dataCurrentuser();
+  const dataCart = useDataCart();
+  const alldataProducts = useDataProduct();
+  const user = useDataUser();
+  const token = useAccessToken();
+  const dataCurrent = useDataCurrentUser();
   let axiosJWT = createAxios(dataCurrent, dispatch, loginSuccess);
-  
+
   useEffect(() => {
     if (user && dataCart) {
       const sumPrice = dataCart.reduce(
@@ -158,7 +155,7 @@ const Cart = () => {
                         <th scope="row">
                           <img
                             className="cart-item-img"
-                            src={`http://localhost:3000/` + item.Image}
+                            src={item.Image}
                             alt=""
                           ></img>
                         </th>

@@ -1,5 +1,4 @@
-import axios from "axios";
-import { Link, NavLink, useNavigate } from "react-router-dom";
+import { Link, NavLink, useNavigate, useParams } from "react-router-dom";
 import { Toaster, toast } from "sonner";
 import { useSelector, useDispatch } from "react-redux";
 import "./NavAdmin.scss";
@@ -9,22 +8,27 @@ import Lottie from "lottie-react";
 
 import { useState, useEffect } from "react";
 import { purgeStoredData } from "../../redux/purge";
+import {
+  useAccessToken,
+  useDataCurrentUser,
+  useDataUser,
+} from "../../common/dataReux";
+import { logoutSuccess } from "../../redux/authSlice";
+import { logoutUser } from "../../redux/api/apiRequest";
+import { createAxios } from "../../common/createInstane";
 //
-export const NavbarAdmin = (props) => {
+export const NavbarAdmin = () => {
+  const { id } = useParams();
   const [dataUpdate, setdataUpdate] = useState([]);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const token = useAccessToken();
+  const user = useDataUser();
+  const dataCurrent = useDataCurrentUser();
+  let axiosJWTlogout = createAxios(dataCurrent, dispatch, logoutSuccess);
   const handleClickLogout = () => {
-    dispatch(purgeStoredData());
+    logoutUser(dispatch, id, navigate, token, axiosJWTlogout);
   };
-  const user = useSelector((state) => {
-    // const currentUsers = state.auth.login.currentUser.newUsers;
-    const currentUser = state.auth.login.currentUser;
-    if (currentUser && currentUser.newUsers) {
-      return currentUser.newUsers;
-    }
-    return null;
-  });
   return (
     <>
       <div className="Navbar-Admin">

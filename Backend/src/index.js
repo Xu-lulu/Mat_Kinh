@@ -11,8 +11,8 @@ app.use(cookieParser());
 app.use(bodyParser.json({ limit: "50mb" }));
 app.use(
   cors({
-    origin: "http://localhost:5173", // URL của client
-    credentials: true, // Cho phép gửi cookie
+    origin: "http://localhost:5173",
+    credentials: true,
   })
 );
 app.use(morgan("combined"));

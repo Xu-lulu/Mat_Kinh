@@ -3,19 +3,15 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import "./App.scss";
 import { NavbarFood, FooterFood, NavbarAdminHidden } from "./common/NavFood";
-import axios from "axios";
 import { CartContext } from "./Contexts/CartContext";
 import PublicRoute from "./routes/public";
 import Admin from "./routes/admin";
 import { dataCategorys, dataProducts } from "./redux/api/apiProduct";
 import { Layout, Flex } from "antd";
-import { datarole, datauser } from "./common/dataReux";
+import { useDataRole } from "./common/dataReux";
 import reportWebVitals from "../reportWebVitals";
 const { Header, Footer, Sider, Content } = Layout;
-import { loginSuccess } from "./redux/authSlice";
-import { dataCart } from "./redux/api/apiAddtoCart";
 function App() {
-  // const [allProducts, setallProducts] = useState([]);
   const [myCart, addtoCart] = useState([]);
   const [total, setTotal] = useState(0);
   const [count, setCount] = useState(0);
@@ -35,7 +31,7 @@ function App() {
     dataProducts(dispatch);
     dataCategorys(dispatch);
   }, [dispatch]);
-  const user = datarole();
+  const user = useDataRole();
   return (
     <CartContext.Provider
       value={{
@@ -59,14 +55,6 @@ function App() {
               <Admin />
             </Content>
           </Flex>
-          {/* <div className="admin">
-            <div className="NavbarAdmin">
-              <NavbarAdminHidden />
-            </div>
-            <div className="page-container-admin">
-              <Admin />
-            </div>
-          </div> */}
         </Router>
       ) : (
         <Router>

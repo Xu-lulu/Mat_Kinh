@@ -9,11 +9,11 @@ import { useSelector, useDispatch } from "react-redux";
 import { findCategorys } from "../../redux/api/apiProduct";
 import { addtoCart, upmountCart } from "../../redux/api/apiAddtoCart";
 import {
-  dataCurrentuser,
-  datafindcategory,
-  dataproduct,
-  tokenuser,
-  usedataCart,
+  useDataCurrentUser,
+  useDataFindCategory,
+  useDataProduct,
+  useAccessToken,
+  useDataCart,
 } from "../../common/dataReux";
 import { createAxios } from "../../common/createInstane";
 import { loginSuccess } from "../../redux/authSlice";
@@ -24,18 +24,15 @@ const DetailProduct = () => {
   const [data, setdata] = useState([]);
   const [loading, setloading] = useState(true);
   const navigate = useNavigate();
-
-  // const { myCart, addtoCart, setTotal, count, setCount, datalogin } =
-  //   useContext(CartContext);
-  const alldataProducts = dataproduct();
-  const token = tokenuser();
-  const dataCurrent = dataCurrentuser();
+  const alldataProducts = useDataProduct();
+  const token = useAccessToken();
+  const dataCurrent = useDataCurrentUser();
   let axiosJWT = createAxios(dataCurrent, dispatch, loginSuccess);
   const dataDetail = alldataProducts.find((item) => item._id === id);
   useEffect(() => {
     findCategorys(dispatch, dataDetail.Category, axiosJWT);
   }, [dataDetail.Category]);
-  const datafincategory = datafindcategory();
+  const datafincategory = useDataFindCategory();
   const user = useSelector((state) => {
     const currentUser = state.auth.login.currentUser;
     if (currentUser && currentUser.newUsers) {
@@ -43,7 +40,7 @@ const DetailProduct = () => {
     }
     return null;
   });
-  const dataCartUser = usedataCart();
+  const dataCartUser = useDataCart();
   const handleAdd = async () => {
     if (user) {
       const newItem = {
@@ -136,7 +133,7 @@ const DetailProduct = () => {
           <div className="products-Image-container">
             <img
               className="products-Image"
-              src={`http://localhost:3000/` + dataDetail.Image}
+              src={dataDetail.Image}
               alt={`picture of: ${dataDetail.Name}`}
             />
           </div>

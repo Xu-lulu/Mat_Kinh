@@ -6,12 +6,11 @@ import "../HomeAdmin.scss";
 import "../productsAdmin.scss";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import axios from "axios";
 import { Toaster, toast } from "sonner";
 import { deleteProduct } from "../../../redux/api/apiProductAdmin";
 import { useEffect, useState } from "react";
 import Model from "../../../common/Model";
-// import { dataProductsAdmin } from "../../../redux/api/apiProductAdmin";
+import { useAccessToken, useDataProduct } from "../../../common/dataReux";
 
 const HomeProducts = () => {
   const dispatch = useDispatch();
@@ -19,10 +18,7 @@ const HomeProducts = () => {
   const text = "Bạn có chắc chắn muốn xóa không?";
   const textheader = "Delete";
   const textfooter = "Xóa";
-  const apiUrl = import.meta.env.VITE_REACT_APP_API_URL;
-  const token = useSelector(
-    (state) => state.auth.login.currentUser.accessToken
-  );
+  const token = useAccessToken();
   // const [alldataProducts, setdataProducts] = useState([]);
 
   // useEffect(() => {
@@ -31,15 +27,12 @@ const HomeProducts = () => {
   //   );
   //   setdataProducts(dataProducts);
   // }, [dispatch]);
-  const alldataProducts = useSelector(
-    (state) => state.products.allproduct.dataProducts
-  );
+  const alldataProducts = useDataProduct();
   const handleDelete = async (id) => {
     // event.preventDefault();
 
     deleteProduct(dispatch, id, navigate, token);
   };
-  // console.log("data", alldataProducts);
   return (
     <>
       <div className="Container-Admin-product">
@@ -76,7 +69,7 @@ const HomeProducts = () => {
                     <th scope="row">
                       <img
                         className="admin-item-img"
-                        src={`${apiUrl}/${item.Image}`}
+                        src={`${item.Image}`}
                         alt=""
                       ></img>
                     </th>

@@ -1,7 +1,6 @@
 import { useNavigate, NavLink } from "react-router-dom";
 import "./auth.scss";
 import { useState } from "react";
-import axios from "axios";
 import { useDispatch } from "react-redux";
 import { Toaster, toast } from "sonner";
 import { registerUser } from "../../redux/api/apiRequest";

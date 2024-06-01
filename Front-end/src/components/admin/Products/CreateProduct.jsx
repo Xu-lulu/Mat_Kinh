@@ -10,7 +10,9 @@ import { faImage } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Model from "../../../common/Model";
 import { createProduct } from "../../../redux/api/apiProductAdmin";
-
+import { createAxios } from "../../../common/createInstane";
+import { loginSuccess } from "../../../redux/authSlice";
+import { useDataCurrentUser } from "../../../common/dataReux";
 const CreateProduct = () => {
   const [name, setname] = useState("");
   const [description, setdescription] = useState("");
@@ -18,13 +20,15 @@ const CreateProduct = () => {
   const [count, setcount] = useState("");
   const [urlimg, seturlimg] = useState("");
   const [category, setcategory] = useState("");
-  const [selectedImage, setSelectedImage] = useState(null);
+  const [selectedImage, setSelectedImage] = useState("");
   const text = "Bạn có chắc chắn muốn lưu không?";
   const textheader = "Thêm sản phẩm";
   const textfooter = "Lưu";
+  const dataCurrent = useDataCurrentUser();
+  const dispatch = useDispatch();
+  let axiosJWT = createAxios(dataCurrent, dispatch, loginSuccess);
 
   const navgigate = useNavigate();
-  const dispatch = useDispatch();
   const dataCategory = useSelector(
     (state) => state.products.categorys.dataCategorys
   );
@@ -32,16 +36,28 @@ const CreateProduct = () => {
     (state) => state.auth.login.currentUser.accessToken
   );
   const handleSubmit = async (event) => {
-    const addproducts = {
-      Name: name,
-      Price: price,
-      Description: description,
-      Image: urlimg,
-      count: count,
-      Category: category,
-    };
     event.preventDefault();
-    createProduct(dispatch, navgigate, token, addproducts);
+
+    // const addproducts = {
+    //   Name: name,
+    //   Price: price,
+    //   Description: description,
+    //   image: urlimg,
+    //   count: count,
+    //   Category: category,
+    // };
+    const formData = new FormData();
+    formData.append("Name", name);
+    formData.append("Price", price);
+    formData.append("Description", description);
+    formData.append("Image", urlimg);
+    formData.append("count", count);
+    formData.append("Category", category);
+    createProduct(dispatch, navgigate, token, formData);
+    // createProduct(dispatch, navgigate, token, addproducts);
+    for (let [key, value] of formData.entries()) {
+      console.log(key, value);
+    }
   };
   const handleImageChange = (event) => {
     seturlimg(event.target.files[0]);
@@ -51,7 +67,7 @@ const CreateProduct = () => {
     <>
       <div className="Container-Create-Product">
         <h3>Thêm Món Ăn</h3>
-        <form className="Form-Create-Product">
+        <form className="Form-Create-Product" onSubmit={handleSubmit}>
           <div className="Image-Des">
             <div>
               <label className="form-label" htmlFor="image">
@@ -185,11 +201,7 @@ const CreateProduct = () => {
             </div>
           </div>
           <div className="">
-            <button
-              type="submit"
-              className="btn btn-createProduct"
-              onClick={handleSubmit}
-            >
+            <button type="submit" className="btn btn-createProduct">
               Lưu
             </button>
           </div>

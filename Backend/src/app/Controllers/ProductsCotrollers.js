@@ -1,8 +1,9 @@
+const expressAsyncHandler = require("express-async-handler");
 const products = require("../Models/Products");
-
 class ProductsControllnes {
   async updataProducts(req, res, next) {
     try {
+      console.log('hello')
       const newdata = new products({
         Name: req.body.Name,
         Price: req.body.Price,

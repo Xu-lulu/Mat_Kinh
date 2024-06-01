@@ -7,14 +7,17 @@ import "../HomeAdmin.scss";
 import { useState, useEffect } from "react";
 import { dataProductsAdmin } from "../../../redux/api/apiProductAdmin";
 // import NavbarAdmin from "./NavbarAdmin";
-
+import { createAxios } from "../../../common/createInstane";
+import { loginSuccess } from "../../../redux/authSlice";
+import { useAccessToken, useDataCurrentUser } from "../../../common/dataReux";
 const HomeAdmin = (props) => {
   const [dataUpdate, setdataUpdate] = useState([]);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const token = useSelector(
-    (state) => state.auth.login.currentUser.accessToken
-  );
+  const dataCurrent = useDataCurrentUser();
+  let axiosJWT = createAxios(dataCurrent, dispatch, loginSuccess);
+
+  const token = useAccessToken();
   useEffect(() => {
     dataProductsAdmin(dispatch, token);
   }, [dispatch, token]);

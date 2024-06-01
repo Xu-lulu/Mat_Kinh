@@ -1,7 +1,11 @@
 import TextArea from "antd/es/input/TextArea";
 import "./pay.scss";
 import { Button, Form, Input, Select, Table } from "antd";
-import { datauser, tokenuser, usedataCart } from "../../common/dataReux";
+import {
+  useDataUser,
+  useAccessToken,
+  useDataCart,
+} from "../../common/dataReux";
 import { useEffect, useState } from "react";
 import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
 import { Radio } from "antd";
@@ -19,9 +23,9 @@ const Pay = () => {
   const [valueQR, setvalueQR] = useState(false);
 
   const [form] = Form.useForm();
-  const user = datauser();
-  const dataCart = usedataCart();
-  const token = tokenuser();
+  const user = useDataUser();
+  const dataCart = useDataCart();
+  const token = useAccessToken();
   const [dataBank, setdataBank] = useState([]);
   const [bankNumbers, setbankNumber] = useState([]);
 
@@ -51,7 +55,6 @@ const Pay = () => {
       settotalCount(0);
     }
   }, [dataCart]);
-  const apiUrl = import.meta.env.VITE_REACT_APP_API_URL;
   const columns = [
     {
       title: "",
@@ -59,7 +62,7 @@ const Pay = () => {
       key: "Image",
       render: (text, item) => (
         <img
-          src={`${apiUrl}/${item.Image}`}
+          src={`${item.Image}`}
           alt=""
           style={{ width: 50, height: 40, borderRadius: 10 }}
         />
