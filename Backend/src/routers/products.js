@@ -1,7 +1,7 @@
 const router = require("express").Router();
 const ProductsControllers = require("../app/Controllers/ProductsCotrollers");
 const uploadCloud = require("../config/cloudinary.config.");
-const upload = require("../middleware/uploadImage");
+const upload = require("../utils/cloudinary");
 const {
   verifyToken,
   verifyTokenAndAdmin,
@@ -10,10 +10,10 @@ const {
   verifyTokenAndUserAuthorization,
 } = require("../middleware/verifyToken");
 router.post(
-  "/uploadProducts",
+  "/createProducts",
   verifyTokenAndAdmin,
   uploadCloud.single("Image"),
-  ProductsControllers.updataProducts
+  ProductsControllers.createProducts
 );
 router.get("/allproducts", ProductsControllers.allProducts);
 router.get(

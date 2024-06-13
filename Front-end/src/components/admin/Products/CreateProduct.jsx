@@ -55,9 +55,9 @@ const CreateProduct = () => {
     formData.append("Category", category);
     createProduct(dispatch, navgigate, token, formData);
     // createProduct(dispatch, navgigate, token, addproducts);
-    for (let [key, value] of formData.entries()) {
-      console.log(key, value);
-    }
+    // for (let [key, value] of formData.entries()) {
+    //   console.log(key, value);
+    // }
   };
   const handleImageChange = (event) => {
     seturlimg(event.target.files[0]);
@@ -67,7 +67,11 @@ const CreateProduct = () => {
     <>
       <div className="Container-Create-Product">
         <h3>Thêm Món Ăn</h3>
-        <form className="Form-Create-Product" onSubmit={handleSubmit}>
+        <form
+          className="Form-Create-Product"
+          onSubmit={handleSubmit}
+          encType="multipart/form-data"
+        >
           <div className="Image-Des">
             <div>
               <label className="form-label" htmlFor="image">
@@ -76,11 +80,7 @@ const CreateProduct = () => {
               {selectedImage ? (
                 <>
                   <div>
-                    <label
-                      className="form-label"
-                      name="description"
-                      htmlFor="image"
-                    >
+                    <label className="form-label" name="Image" htmlFor="image">
                       <img
                         src={selectedImage}
                         alt="Selected"
@@ -92,8 +92,8 @@ const CreateProduct = () => {
                       type="file"
                       className="form-control"
                       id="image"
-                      name="image"
-                      accept="image/*"
+                      name="Image"
+                      accept="*/*"
                       onChange={handleImageChange}
                       style={{ display: "none" }}
                     />
@@ -102,7 +102,7 @@ const CreateProduct = () => {
               ) : (
                 <>
                   <div className="mb-3 Image-form" onSubmit={handleSubmit}>
-                    <label className="form-label" htmlFor="image">
+                    <label className="form-label" name="Image" htmlFor="image">
                       <div className="icon-image">
                         <FontAwesomeIcon icon={faImage} />
                       </div>
@@ -112,8 +112,8 @@ const CreateProduct = () => {
                       type="file"
                       className="form-control"
                       id="image"
-                      name="image"
-                      accept="image/*"
+                      name="Image"
+                      accept="*/*"
                       onChange={handleImageChange}
                       style={{ display: "none" }}
                     />

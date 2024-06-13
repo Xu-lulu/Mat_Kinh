@@ -1,24 +1,28 @@
 const expressAsyncHandler = require("express-async-handler");
 const products = require("../Models/Products");
+const { uploadImage } = require("../../config/deleteImageClodinary");
 class ProductsControllnes {
-  async updataProducts(req, res, next) {
+  async createProducts(req, res, next) {
     try {
-      console.log('hello')
-      const newdata = new products({
-        Name: req.body.Name,
-        Price: req.body.Price,
-        Description: req.body.Description,
-        Image: req.body.Image,
-        count: req.body.count,
-        Category: req.body.Category,
-      });
-      if (req.file) {
-        newdata.Image = req.file.path;
-      }
-      newdata.save();
-      res.status(200).json(newdata);
+      // const { Name, Price, Description, Image, count, Category } = req.body;
+      console.log(req.file);
+      // const dataUrl = await uploadImage(req.file.path);
+      // console.log("data", dataUrl.secure_url);
+      // const newdata = new products.create({
+      //   Name,
+      //   Price,
+      //   Description,
+      //   Image: req.file.path,
+      //   count,
+      //   Category,
+      // });
+      res.status(200).json("thanh cong");
     } catch (error) {
-      res.status(500).json(error);
+      console.log("lỗi 500");
+      res.status(500).json({
+        message: "Upload thất bại",
+        error: error.message,
+      });
     }
   }
   async allProducts(req, res, next) {

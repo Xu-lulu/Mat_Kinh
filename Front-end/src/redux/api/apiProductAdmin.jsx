@@ -25,34 +25,31 @@ export const dataProductsAdmin = async (dispatch, token) => {
     toast.error(error.response.data.mes);
   }
 };
-export const createProduct = async (
-  dispatch,
-  navigate,
-  token,
-  data,
-  
-) => {
+export const createProduct = async (dispatch, navigate, token, data) => {
   dispatch(productsAdminStart());
   try {
-    const res = await axios.post(
-      "http://localhost:3000/uploadProducts",
-      data,
-      {
-        headers: {
-          "Content-Type": "multipart/form-data",
-          token: `Bearer ${token}`,
-        },
-      }
-    );
-    
+    const res = await axios.post("http://localhost:3000/createProducts", data, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+        token: `Bearer ${token}`,
+      },
+      timeout: 60000,
+    });
+
     dispatch(productsAdminSuccess());
     dataProductsAdmin(dispatch, token);
     toast.success("Thêm thành công");
-    navigate("/productadmin");
+    // navigate("/productadmin");
   } catch (error) {
-    console.log(error)
+    console.log(error.response.data);
     dispatch(productsAdminFailed());
-    toast.error(error.response.data);
+    if (axios.isCancel(error)) {
+      toast.error("Yêu cầu đã vượt quá thời gian chờ");
+    } else if (error.response && error.response.data) {
+      toast.error(error.response.data); // Hiển thị thông báo lỗi từ phản hồi của server
+    } else {
+      toast.error("Xảy ra lỗi"); // Thông báo lỗi chung
+    }
   }
 };
 export const deleteProduct = async (dispatch, id, navigate, token) => {

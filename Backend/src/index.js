@@ -16,11 +16,12 @@ app.use(
   })
 );
 app.use(morgan("combined"));
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-app.use("/uploads", express.static("uploads"));
+app.use(express.json({ timeout: 300000 }));
+app.use(express.urlencoded({ extended: true }));
+// app.use("/uploads", express.static("uploads"));
 router(app);
 db.connect();
-app.listen(process.env.port, () => {
+const server = app.listen(process.env.port, () => {
   console.log(`Example app listening at http://localhost:${process.env.port}`);
 });
+server.setTimeout(120000);

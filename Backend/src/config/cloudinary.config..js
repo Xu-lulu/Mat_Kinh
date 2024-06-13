@@ -6,6 +6,7 @@ cloudinary.config({
   cloud_name: process.env.CLOUDINARY_NAME,
   api_key: process.env.CLOUDINARY_KEY,
   api_secret: process.env.CLOUDINARY_SECRET,
+  timeout: 120000,
 });
 
 const storage = new CloudinaryStorage({
@@ -17,8 +18,10 @@ const storage = new CloudinaryStorage({
     //   cb(null, file.originalname);
     // },
     format: async (req, file) => "jpg",
-    public_id: (req, file) => file.originalname,
+    public_id: (req, file) =>
+      file.originalname.split(".")[0] + "_" + Date.now(),
   },
+  transformation: [{ with: 500, height: 500, crop: "limit" }],
 });
 const uploadCloud = multer({ storage });
 
