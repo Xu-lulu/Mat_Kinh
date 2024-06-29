@@ -4,19 +4,19 @@ const { uploadImage } = require("../../config/deleteImageClodinary");
 class ProductsControllnes {
   async createProducts(req, res, next) {
     try {
-      // const { Name, Price, Description, Image, count, Category } = req.body;
-      console.log(req.file);
+      const { Name, Price, Description, Image, count, Category } = req.body;
+      // console.log(req.file);
       // const dataUrl = await uploadImage(req.file.path);
       // console.log("data", dataUrl.secure_url);
-      // const newdata = new products.create({
-      //   Name,
-      //   Price,
-      //   Description,
-      //   Image: req.file.path,
-      //   count,
-      //   Category,
-      // });
-      res.status(200).json("thanh cong");
+      const newdata = await products.create({
+        Name,
+        Price,
+        Description,
+        Image: req.file.path,
+        count,
+        Category,
+      });
+      res.status(200).json(newdata);
     } catch (error) {
       console.log("lỗi 500");
       res.status(500).json({
