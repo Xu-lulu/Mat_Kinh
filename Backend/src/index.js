@@ -7,6 +7,9 @@ const cors = require("cors");
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const app = express();
+const http = require("http");
+const socketIo = require("socket.io");
+const port = process.env.PORT || 3000;
 app.use(cookieParser());
 app.use(bodyParser.json({ limit: "50mb" }));
 app.use(
@@ -21,7 +24,15 @@ app.use(express.urlencoded({ extended: true }));
 // app.use("/uploads", express.static("uploads"));
 router(app);
 db.connect();
-const server = app.listen(process.env.port, () => {
-  console.log(`Example app listening at http://localhost:${process.env.port}`);
+const server = http.createServer(app);
+const io = socketIo(server);
+io.on("connection", (socket) => {
+  console.log("New client connected");
+  socket.on("disconnect", () => {
+    console.log("Client disconnected");
+  });
+});
+server.listen(port, () => {
+  console.log(`Example app listening at http://localhost:${port}`);
 });
 server.setTimeout(120000);
