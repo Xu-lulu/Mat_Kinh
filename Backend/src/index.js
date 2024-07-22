@@ -33,6 +33,6 @@ io.on("connection", (socket) => {
   });
 });
 server.listen(port, () => {
-  console.log(`Example app listening at http://localhost:3000`);
+  console.log(`Example app listening at http://localhost:${port}`);
 });
 server.setTimeout(120000);
