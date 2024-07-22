@@ -9,11 +9,17 @@ import {
 import { dataCategorys } from "./apiProduct";
 const axiosJWT = axios.create();
 
-export const createCategory = async (dispatch, navigate, token, data) => {
+export const createCategory = async (
+  dispatch,
+  navigate,
+  token,
+  data,
+  axiosJWT
+) => {
   dispatch(categoryAdminStart());
   try {
     const res = await axiosJWT.post(
-      "http://localhost:3000/updatacategory",
+      "http://localhost:3000/category/updatacategory",
       data,
       {
         headers: {
@@ -31,11 +37,17 @@ export const createCategory = async (dispatch, navigate, token, data) => {
     toast.error(error.response.data.mes);
   }
 };
-export const deleteCategory = async (dispatch, id, navigate, token) => {
+export const deleteCategory = async (
+  dispatch,
+  id,
+  navigate,
+  token,
+  axiosJWT
+) => {
   dispatch(categoryAdminStart());
   try {
     const res = await axiosJWT.delete(
-      `http://localhost:3000/deletecategory/${id}`,
+      `http://localhost:3000/category/deletecategory/${id}`,
       {
         headers: {
           token: `Bearer ${token}`,
@@ -52,11 +64,18 @@ export const deleteCategory = async (dispatch, id, navigate, token) => {
     toast.error(error.response.data.mes);
   }
 };
-export const editCategory = async (dispatch, id, token, data, navigate) => {
+export const editCategory = async (
+  dispatch,
+  id,
+  token,
+  data,
+  navigate,
+  axiosJWT
+) => {
   dispatch(categoryAdminStart());
   try {
     const res = await axiosJWT.put(
-      `http://localhost:3000/editcategory/${id}`,
+      `http://localhost:3000/category/editcategory/${id}`,
       data,
       {
         headers: {

@@ -37,7 +37,7 @@ export const addtoCart = async (dispatch, id, token, data,axiosJWT) => {
   dispatch(CartStart());
   try {
     const res = await axiosJWT.post(
-      `http://localhost:3000/addtoCart/${id}`,
+      `http://localhost:3000/cart/addtoCart/${id}`,
       data,
       {
         headers: {
@@ -58,7 +58,7 @@ export const upmountCart = async (dispatch, id, token, data, axiosJWT) => {
   dispatch(upmountCartStart());
   try {
     const res = await axiosJWT.put(
-      `http://localhost:3000/upmountCart/${id}`,
+      `http://localhost:3000/cart/upmountCart/${id}`,
       data,
       {
         headers: {
@@ -77,7 +77,7 @@ export const deleteOneCartItem = async (dispatch, id, token, axiosJWT) => {
   dispatch(upmountCartStart());
   try {
     const res = await axiosJWT.delete(
-      `http://localhost:3000/deleteOneItem/${id}`,
+      `http://localhost:3000/cart/deleteOneItem/${id}`,
       {
         headers: {
           token: `Bearer ${token}`,

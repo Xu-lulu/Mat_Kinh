@@ -11,57 +11,79 @@ import {
 } from "../productAdmin";
 import { dataProducts } from "./apiProduct";
 
-export const dataProductsAdmin = async (dispatch, token) => {
+export const dataProductsAdmin = async (dispatch, token, axiosJWT) => {
   dispatch(productsAdminStart());
   try {
-    const res = await axios.get("http://localhost:3000/productsadmin", {
-      headers: {
-        token: `Bearer ${token}`,
-      },
-    });
+    const res = await axiosJWT.get(
+      "http://localhost:3000/products/productsadmin",
+      {
+        headers: {
+          token: `Bearer ${token}`,
+        },
+      }
+    );
     dispatch(productsAdminSuccess(res.data));
   } catch (error) {
     dispatch(productsAdminFailed());
     toast.error(error.response.data.mes);
   }
 };
-export const createProduct = async (dispatch, navigate, token, data) => {
+export const createProduct = async (
+  dispatch,
+  navigate,
+  token,
+  data,
+  axiosJWT
+) => {
   dispatch(productsAdminStart());
   try {
-    const res = await axios.post("http://localhost:3000/createProducts", data, {
-      headers: {
-        "Content-Type": "multipart/form-data",
-        token: `Bearer ${token}`,
-      },
-      timeout: 60000,
-    });
+    const res = await axiosJWT.post(
+      "http://localhost:3000/products/createProducts",
+      data,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          token: `Bearer ${token}`,
+        },
+        timeout: 60000,
+      }
+    );
 
     dispatch(productsAdminSuccess());
-    dataProductsAdmin(dispatch, token);
+    await dataProductsAdmin(dispatch, token, axiosJWT);
     toast.success("Thêm thành công");
-    // navigate("/productadmin");
+    navigate("/productadmin");
   } catch (error) {
     console.log(error.response.data);
     dispatch(productsAdminFailed());
     if (axios.isCancel(error)) {
       toast.error("Yêu cầu đã vượt quá thời gian chờ");
     } else if (error.response && error.response.data) {
-      toast.error(error.response.data); // Hiển thị thông báo lỗi từ phản hồi của server
+      toast.error(error.response.data);
     } else {
-      toast.error("Xảy ra lỗi"); // Thông báo lỗi chung
+      toast.error("Xảy ra lỗi");
     }
   }
 };
-export const deleteProduct = async (dispatch, id, navigate, token) => {
+export const deleteProduct = async (
+  dispatch,
+  id,
+  navigate,
+  token,
+  axiosJWT
+) => {
   dispatch(productsAdminStart());
   try {
-    const res = await axios.delete(`http://localhost:3000/delete/${id}`, {
-      headers: {
-        token: `Bearer ${token}`,
-      },
-    });
+    const res = await axiosJWT.delete(
+      `http://localhost:3000/products/delete/${id}`,
+      {
+        headers: {
+          token: `Bearer ${token}`,
+        },
+      }
+    );
     dispatch(productsAdminSuccess());
-    await dataProducts(dispatch);
+    await dataProductsAdmin(dispatch, token, axiosJWT);
     navigate("/productadmin");
     toast.success("Xóa thành công");
   } catch (error) {
@@ -69,16 +91,28 @@ export const deleteProduct = async (dispatch, id, navigate, token) => {
     toast.error(error.response.data.mes);
   }
 };
-export const UpdateProduct = async (dispatch, id, token, data, navigate) => {
+export const UpdateProduct = async (
+  dispatch,
+  id,
+  token,
+  data,
+  navigate,
+  axiosJWT
+) => {
   dispatch(updateProductAdminStart());
   try {
-    const res = await axios.put(`http://localhost:3000/update/${id}`, data, {
-      headers: {
-        "Content-Type": "multipart/form-data",
-        token: `Bearer ${token}`,
-      },
-    });
+    const res = await axiosJWT.put(
+      `http://localhost:3000/products/update/${id}`,
+      data,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          token: `Bearer ${token}`,
+        },
+      }
+    );
     dispatch(updateProductAdminSuccess());
+    await dataProductsAdmin(dispatch, token, axiosJWT);
     toast.success("Sửa thành công");
     navigate("/productadmin");
   } catch (error) {
