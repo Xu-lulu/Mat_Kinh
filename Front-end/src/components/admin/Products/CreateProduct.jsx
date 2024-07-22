@@ -12,7 +12,11 @@ import Model from "../../../common/Model";
 import { createProduct } from "../../../redux/api/apiProductAdmin";
 import { createAxios } from "../../../common/createInstane";
 import { loginSuccess } from "../../../redux/authSlice";
-import { useDataCurrentUser } from "../../../common/dataReux";
+import {
+  useAccessToken,
+  useDataCategory,
+  useDataCurrentUser,
+} from "../../../common/dataReux";
 const CreateProduct = () => {
   const [name, setname] = useState("");
   const [description, setdescription] = useState("");
@@ -29,12 +33,8 @@ const CreateProduct = () => {
   let axiosJWT = createAxios(dataCurrent, dispatch, loginSuccess);
 
   const navgigate = useNavigate();
-  const dataCategory = useSelector(
-    (state) => state.products.categorys.dataCategorys
-  );
-  const token = useSelector(
-    (state) => state.auth.login.currentUser.accessToken
-  );
+  const dataCategory = useDataCategory();
+  const token = useAccessToken();
   const handleSubmit = async (event) => {
     event.preventDefault();
 
@@ -53,11 +53,7 @@ const CreateProduct = () => {
     formData.append("Image", urlimg);
     formData.append("count", count);
     formData.append("Category", category);
-    createProduct(dispatch, navgigate, token, formData);
-    // createProduct(dispatch, navgigate, token, addproducts);
-    // for (let [key, value] of formData.entries()) {
-    //   console.log(key, value);
-    // }
+    createProduct(dispatch, navgigate, token, formData, axiosJWT);
   };
   const handleImageChange = (event) => {
     seturlimg(event.target.files[0]);

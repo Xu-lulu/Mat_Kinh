@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+// import { RouterProvider } from "react-router-dom";
+
 import { useSelector, useDispatch } from "react-redux";
 import "./App.scss";
 import { NavbarFood, FooterFood, NavbarAdminHidden } from "./common/NavFood";
@@ -10,6 +12,9 @@ import { dataCategorys, dataProducts } from "./redux/api/apiProduct";
 import { Layout, Flex } from "antd";
 import { useDataRole } from "./common/dataReux";
 import reportWebVitals from "../reportWebVitals";
+import NotFound from "./components/NotFound/NotFound";
+import { ConfigProvider } from "antd";
+import { router } from "./routes/router";
 const { Header, Footer, Sider, Content } = Layout;
 function App() {
   const [myCart, addtoCart] = useState([]);
@@ -33,6 +38,15 @@ function App() {
   }, [dispatch]);
   const user = useDataRole();
   return (
+    // <>
+    //   <ConfigProvider
+    //     theme={{
+    //       token: { fontFamily: "Inter" },
+    //     }}
+    //   >
+    //     <RouterProvider router={router} />
+    //   </ConfigProvider>
+    // </>
     <CartContext.Provider
       value={{
         myCart,
@@ -47,7 +61,7 @@ function App() {
     >
       {user === "admin" ? (
         <Router>
-          <Flex gap="middle" wrap="wrap">
+          <Flex wrap="wrap">
             <Header>
               <NavbarAdminHidden />
             </Header>
@@ -58,7 +72,7 @@ function App() {
         </Router>
       ) : (
         <Router>
-          <Flex gap="middle" wrap="wrap">
+          <Flex wrap="wrap">
             <Header>
               <NavbarFood />
             </Header>

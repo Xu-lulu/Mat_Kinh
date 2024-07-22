@@ -9,6 +9,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useState } from "react";
 import Model from "../../../../common/Model";
 import { deleteCategory } from "../../../../redux/api/apiCategoryAdmin";
+import {
+  useAccessToken,
+  useDataCategory,
+  useDataCurrentUser,
+} from "../../../../common/dataReux";
+import { loginSuccess } from "../../../../redux/authSlice";
 
 const CategoryAdmin = () => {
   const dispatch = useDispatch();
@@ -16,15 +22,13 @@ const CategoryAdmin = () => {
   const text = "Bạn có chắc chắn muốn xóa không?";
   const textheader = "Delete";
   const textfooter = "Xóa";
-  const token = useSelector(
-    (state) => state.auth.login.currentUser.accessToken
-  );
-  const alldataCategorys = useSelector(
-    (state) => state.products.categorys.dataCategorys
-  );
+  const token = useAccessToken();
+  const alldataCategorys = useDataCategory();
+  const dataCurrent = useDataCurrentUser();
+  let axiosJWT = createAxios(dataCurrent, dispatch, loginSuccess);
 
   const handleDelete = async (id) => {
-    deleteCategory(dispatch, id, navigate, token);
+    deleteCategory(dispatch, id, navigate, token, axiosJWT);
   };
   return (
     <>
@@ -58,21 +62,24 @@ const CategoryAdmin = () => {
                     </td>
                     <td>
                       <div className="Admin-item">
-                        <Link className="admin-edit" to={`/editcategory/${item._id}`}>
+                        <Link
+                          className="admin-edit"
+                          to={`/editcategory/${item._id}`}
+                        >
                           Edit
                         </Link>
                       </div>
                     </td>
                     <td>
                       {/* <div className="admin-delete-btn"> */}
-                        <Model
-                          className="Create-submit"
-                          handleSubmit={handleDelete}
-                          textheader={textheader}
-                          textbody={text}
-                          textfooter={textfooter}
-                          id={item._id}
-                        />
+                      <Model
+                        className="Create-submit"
+                        handleSubmit={handleDelete}
+                        textheader={textheader}
+                        textbody={text}
+                        textfooter={textfooter}
+                        id={item._id}
+                      />
                       {/* </div> */}
                     </td>
                   </tr>

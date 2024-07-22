@@ -8,6 +8,15 @@ export const useDataProduct = () => {
     return null;
   });
 };
+export const useDataProductAdmin = () => {
+  return useSelector((state) => {
+    const dataproductuser = state?.admin?.allproductAdmin;
+    if (dataproductuser && dataproductuser?.dataProductsAdmin) {
+      return dataproductuser?.dataProductsAdmin;
+    }
+    return null;
+  });
+};
 export const useDataCategory = () => {
   return useSelector((state) => {
     const datacategoryuser = state?.products.categorys;

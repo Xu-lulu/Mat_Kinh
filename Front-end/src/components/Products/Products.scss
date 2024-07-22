@@ -1,9 +1,11 @@
 .Product-page {
   display: inline;
   .Products-baner {
-    margin-top: 20%;
-    justify-content: center;
+    display: flex;
+    margin-top: 4%;
+    justify-content: space-between;
     margin-left: 10%;
+    
   }
   .product {
     display: inline;

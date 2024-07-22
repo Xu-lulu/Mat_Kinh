@@ -7,6 +7,11 @@ import { faImage } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { UpdateProduct } from "../../../redux/api/apiProductAdmin";
 import { useDispatch, useSelector } from "react-redux";
+import {
+  useAccessToken,
+  useDataCategory,
+  useDataProduct,
+} from "../../../common/dataReux";
 const Update = (props) => {
   const { id } = useParams();
   // const { allProducts, dataup } = props;
@@ -20,15 +25,11 @@ const Update = (props) => {
   const navgigate = useNavigate();
   const dispatch = useDispatch();
   const [selectedImage, setSelectedImage] = useState(null);
-  const token = useSelector(
-    (state) => state.auth.login.currentUser.accessToken
-  );
+  const token = useAccessToken();
   // dataUpdateProduct(dispatch, id, token);
   // console.log('id',id)
   // console.log("token", token);
-  const alldataProducts = useSelector(
-    (state) => state.admin.allproductAdmin.dataProductsAdmin
-  );
+  const alldataProducts = useDataProduct();
   const dataupdate = alldataProducts.find((item) => item._id === id);
   // const dataUpdate = useSelector(
   //   (state) => state.admin.UpdateProductAdmin.dataUpdateProductAdmin
@@ -40,34 +41,7 @@ const Update = (props) => {
     setcategory(dataupdate.Category);
     setcount(dataupdate.count);
   }, [dataupdate]);
-  const dataCategory = useSelector(
-    (state) => state.products.categorys.dataCategorys
-  );
-
-  // console.log("dataCategory", dataCategory);
-  // useEffect(() => {
-  //   async function getDatas() {
-  //     const res = await axios.post(
-  //       "http://localhost:3000/dataupdate/" + `${id}`
-  //     );
-  //     return res;
-  //   }
-  //   getDatas().then((res) => {
-  //     setname(res.data.Name);
-  //     setprice(res.data.Price);
-  //     setdescription(res.data.Description);
-  //     setcategory(res.data.Category);
-  //   });
-  //   getDatas().catch((err) => console.log(err));
-  // }, []);
-  // useEffect(() => {
-  //   async function getData() {
-  //     const res = await axios.get("http://localhost:3000/allCategory");
-  //     return res;
-  //   }
-  //   getData().then((res) => setdataCategory(res.data));
-  //   getData().catch((err) => console.log(err));
-  // }, []);
+  const dataCategory = useDataCategory();
   const handleSubmit = async (event) => {
     event.preventDefault();
     const addproducts = {
@@ -78,13 +52,7 @@ const Update = (props) => {
       count: count,
       Category: category,
     };
-    // await axios.put("http://localhost:3000/update/" + `${id}`, addproducts, {
-    //   headers: {
-    //     "Content-Type": "multipart/form-data",
-    //   },
-    // });
-    // toast.success("Sửa thành công");
-    UpdateProduct(dispatch, id, token, addproducts,navgigate);
+    UpdateProduct(dispatch, id, token, addproducts, navgigate);
   };
   const handleImageChange = (event) => {
     seturlimg(event.target.files[0]);

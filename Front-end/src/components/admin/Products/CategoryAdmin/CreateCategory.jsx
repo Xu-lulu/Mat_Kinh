@@ -7,24 +7,29 @@ import "../../productsAdmin.scss";
 import { faImage } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { createCategory } from "../../../../redux/api/apiCategoryAdmin";
+import {
+  useAccessToken,
+  useDataCategory,
+  useDataCurrentUser,
+} from "../../../../common/dataReux";
+import { createAxios } from "../../../../common/createInstane";
+import { loginSuccess } from "../../../../redux/authSlice";
 
 const CreateCategory = () => {
   const [name, setname] = useState("");
 
   const navgigate = useNavigate();
   const dispatch = useDispatch();
-  const dataCategory = useSelector(
-    (state) => state.products.categorys.dataCategorys
-  );
-  const token = useSelector(
-    (state) => state.auth.login.currentUser.accessToken
-  );
+  const dataCategory = useDataCategory();
+  const token = useAccessToken();
+  const dataCurrent = useDataCurrentUser();
+  let axiosJWT = createAxios(dataCurrent, dispatch, loginSuccess);
   const handleSubmit = async (event) => {
     const addcategory = {
       Namecategory: name,
     };
     event.preventDefault();
-    createCategory(dispatch, navgigate, token, addcategory);
+    createCategory(dispatch, navgigate, token, addcategory, axiosJWT);
   };
   return (
     <>

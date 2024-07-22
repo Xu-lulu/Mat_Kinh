@@ -6,7 +6,7 @@ import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
 const Footer = () => {
   return (
     <>
-      <div className="footer">
+      {/* <div className="footer">
         <h1>Our social media</h1>
         <div className="icon-container">
           <FontAwesomeIcon
@@ -26,7 +26,7 @@ const Footer = () => {
           />
         </div>
         <h2>Copyright 2024 FoodLove</h2>
-      </div>
+      </div> */}
     </>
   );
 };

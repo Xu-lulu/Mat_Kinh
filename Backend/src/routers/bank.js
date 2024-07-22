@@ -7,9 +7,9 @@ const {
 } = require("../middleware/verifyToken");
 const router = require("express").Router();
 router.get(
-  "/bank/allBank",
+  "/allBank",
   verifyTokenAndUserAuthorization,
   BankController.alldataBank
 );
-router.post("/bank/createBank", verifyTokenAndAdmin, BankController.CreateBank);
+router.post("/createBank", verifyTokenAndAdmin, BankController.CreateBank);
 module.exports = router;

@@ -10,7 +10,14 @@ import { Toaster, toast } from "sonner";
 import { deleteProduct } from "../../../redux/api/apiProductAdmin";
 import { useEffect, useState } from "react";
 import Model from "../../../common/Model";
-import { useAccessToken, useDataProduct } from "../../../common/dataReux";
+import {
+  useAccessToken,
+  useDataCurrentUser,
+  useDataProduct,
+  useDataProductAdmin,
+} from "../../../common/dataReux";
+import { createAxios } from "../../../common/createInstane";
+import { loginSuccess } from "../../../redux/authSlice";
 
 const HomeProducts = () => {
   const dispatch = useDispatch();
@@ -19,19 +26,12 @@ const HomeProducts = () => {
   const textheader = "Delete";
   const textfooter = "Xóa";
   const token = useAccessToken();
-  // const [alldataProducts, setdataProducts] = useState([]);
+  const alldataProducts = useDataProductAdmin();
+  const dataCurrent = useDataCurrentUser();
+  let axiosJWT = createAxios(dataCurrent, dispatch, loginSuccess);
 
-  // useEffect(() => {
-  //   const dataProducts = useSelector(
-  //     (state) => state.admin.allproductAdmin.dataProductsAdmin
-  //   );
-  //   setdataProducts(dataProducts);
-  // }, [dispatch]);
-  const alldataProducts = useDataProduct();
   const handleDelete = async (id) => {
-    // event.preventDefault();
-
-    deleteProduct(dispatch, id, navigate, token);
+    deleteProduct(dispatch, id, navigate, token, axiosJWT);
   };
   return (
     <>

@@ -7,10 +7,7 @@ import {
   faCartArrowDown,
   faHeart,
 } from "@fortawesome/free-solid-svg-icons";
-import logo from "../../assets/Group 11/image 20.png";
-import { Toaster, toast } from "sonner";
 import { useSelector, useDispatch } from "react-redux";
-import { purgeStoredData } from "../../redux/purge";
 import { dataCart } from "../../redux/api/apiAddtoCart";
 import { Badge, Avatar } from "antd";
 import { ShoppingCartOutlined } from "@ant-design/icons";
@@ -29,9 +26,11 @@ import { Dropdown } from "antd";
 import { logoutUser } from "../../redux/api/apiRequest";
 import { loginSuccess, logoutSuccess } from "../../redux/authSlice";
 import { createAxios } from "../../common/createInstane";
+import { IonIcon } from "@ionic/react";
+import { searchOutline } from "ionicons/icons";
 const Navbars = () => {
   const { id } = useParams();
-  const [dataCategory, setdataCategory] = useState([]);
+  const [searchActive, setSearchActive] = useState(false);
   const [show, setshow] = useState(false);
   const navigate = useNavigate();
   const [totalMount, settotalMount] = useState(0);
@@ -55,7 +54,7 @@ const Navbars = () => {
   }, [dispatch, token, axiosJWT]);
 
   const dataCartUser = useDataCart();
-  console.log(dataCartUser)
+  console.log(dataCartUser);
   useEffect(() => {
     if (user && dataCartUser) {
       const sumMount = dataCartUser.reduce((acc, currentItem) => acc + 1, 0);
@@ -117,16 +116,31 @@ const Navbars = () => {
       <div className="nav-container">
         <a className="logo">
           {/* <img src={logo} alt="logo"></img> */}
+
           <div className="logo__animation">
             <Lottie animationData={Bank} loop={true} />
           </div>
           {/* <Animation data={Bank} /> */}
           <div className="logo__text">
-            <h1>Food Love</h1>
-            <h1>Food Love</h1>
-            <h1>Food Love</h1>
+            <h1>Xululu</h1>
+            <h1>Xululu</h1>
+            <h1>Xululu</h1>
           </div>
         </a>
+        <div
+          className={`nav-container__search ${searchActive ? "active" : ""}`}
+        >
+          <IonIcon
+            className="nav-container__search__icon"
+            icon={searchOutline}
+            onClick={() => setSearchActive(!searchActive)}
+          />
+          <input
+            className="nav-container__search__input"
+            type="text"
+            placeholder="Tìm kiếm"
+          />
+        </div>
         <nav className="Navbar">
           {role === "user" || role === null ? (
             <>

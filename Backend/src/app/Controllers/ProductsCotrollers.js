@@ -5,7 +5,7 @@ class ProductsControllnes {
   async createProducts(req, res, next) {
     try {
       const { Name, Price, Description, Image, count, Category } = req.body;
-      // console.log(req.file);
+      console.log(req.file.path);
       // const dataUrl = await uploadImage(req.file.path);
       // console.log("data", dataUrl.secure_url);
       const newdata = await products.create({

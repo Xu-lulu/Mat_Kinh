@@ -7,6 +7,8 @@ import { Provider } from "react-redux";
 import { Toaster, toast } from "sonner";
 import { store, persistor } from "./redux/store.jsx";
 import { PersistGate } from "redux-persist/integration/react";
+// import { reportWebVitals } from "../reportWebVitals";
+
 ReactDOM.createRoot(document.getElementById("root")).render(
   <Provider store={store}>
     <PersistGate loading={null} persistor={persistor}>
@@ -16,3 +18,4 @@ ReactDOM.createRoot(document.getElementById("root")).render(
     </PersistGate>
   </Provider>
 );
+// reportWebVitals();

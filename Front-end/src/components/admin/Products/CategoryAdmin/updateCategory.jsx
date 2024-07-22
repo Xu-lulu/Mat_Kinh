@@ -7,17 +7,22 @@ import { faImage } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useDispatch, useSelector } from "react-redux";
 import { editCategory } from "../../../../redux/api/apiCategoryAdmin";
+import {
+  useAccessToken,
+  useDataCategory,
+  useDataCurrentUser,
+} from "../../../../common/dataReux";
+import { createAxios } from "../../../../common/createInstane";
+import { loginSuccess } from "../../../../redux/authSlice";
 const UpdateCategory = () => {
   const { id } = useParams();
   const [name, setname] = useState("");
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const token = useSelector(
-    (state) => state.auth.login.currentUser.accessToken
-  );
-  const alldataCategorys = useSelector(
-    (state) => state.products.categorys.dataCategorys
-  );
+  const token = useAccessToken();
+  const alldataCategorys = useDataCategory();
+  const dataCurrent = useDataCurrentUser();
+  let axiosJWT = createAxios(dataCurrent, dispatch, loginSuccess);
   const dataupdate = alldataCategorys.find((item) => item._id === id);
   useEffect(() => {
     setname(dataupdate.Namecategory);
@@ -27,7 +32,7 @@ const UpdateCategory = () => {
     const addproducts = {
       Namecategory: name,
     };
-    editCategory(dispatch, id, token, addproducts, navigate);
+    editCategory(dispatch, id, token, addproducts, navigate, axiosJWT);
   };
   return (
     <>

@@ -19,7 +19,7 @@ const HomeAdmin = (props) => {
 
   const token = useAccessToken();
   useEffect(() => {
-    dataProductsAdmin(dispatch, token);
+    dataProductsAdmin(dispatch, token, axiosJWT);
   }, [dispatch, token]);
   return (
     <>

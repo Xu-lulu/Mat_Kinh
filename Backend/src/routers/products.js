@@ -35,6 +35,6 @@ router.post(
   ProductsControllers.dataupdate
 );
 router.post("/search/:name", ProductsControllers.findProducts);
-router.post("/products/category/:name", ProductsControllers.findCategory);
+router.post("/category/:name", ProductsControllers.findCategory);
 
 module.exports = router;
