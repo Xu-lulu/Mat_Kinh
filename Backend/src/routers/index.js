@@ -6,16 +6,18 @@ const cart = require("./cart");
 const bank = require("./bank");
 const seller = require("./seller");
 const { notFound, errHandle } = require("../middleware/errHandle");
+
 const route = (app) => {
   app.use("/", home);
   app.use("/auth", auth);
-  app.use("/", products);
-  app.use("/", category);
-  app.use("/", cart);
-  app.use("/", bank);
-  app.use("/", seller);
+  app.use("/products", products);
+  app.use("/category", category);
+  app.use("/cart", cart);
+  app.use("/bank", bank);
+  app.use("/seller", seller);
 
   app.use(notFound);
   app.use(errHandle);
 };
+
 module.exports = route;
