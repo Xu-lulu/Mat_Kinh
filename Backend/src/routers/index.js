@@ -1,4 +1,3 @@
-
 const home = require("./home");
 const auth = require("./auth");
 const products = require("./products");

@@ -22,6 +22,10 @@ app.use(morgan("combined"));
 app.use(express.json({ timeout: 300000 }));
 app.use(express.urlencoded({ extended: true }));
 // app.use("/uploads", express.static("uploads"));
+app.use((req, res, next) => {
+  console.log(`Request URL: ${req.url}`);
+  next();
+});
 router(app);
 db.connect();
 const server = http.createServer(app);

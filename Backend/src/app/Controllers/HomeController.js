@@ -198,6 +198,9 @@ const forgotPassword = asyncHandle(async (req, res, next) => {
   const user = await Users.findOne({ email });
   if (!user) throw new Error("User not found");
 });
+const home = asyncHandle(async (req, res, next) => {
+  return res.status(200).json("server chay!");
+});
 module.exports = {
   Register,
   Login,
@@ -206,4 +209,5 @@ module.exports = {
   allUser,
   datacartOneUser,
   requestRefereshToken,
+  home,
 };
