@@ -24,7 +24,7 @@ export const dataProducts = async (dispatch) => {
 export const dataCategorys = async (dispatch) => {
   dispatch(categoryStart());
   try {
-    const res = await axios.get("http://localhost:3000/products/allCategory");
+    const res = await axios.get("http://localhost:3000/category/allCategory");
     dispatch(categorySuccess(res.data));
   } catch (error) {
     dispatch(categoryFailed());
