@@ -1,24 +1,20 @@
 .Navbar-Admin {
   position: relative;
   &__Account {
-    // position: absolute;
-    width: 70%;
+    position: absolute;
+    width: 100%;
     display: flex;
     justify-content: flex-end;
     align-items: center;
     text-align: center;
     padding: 1% 2% 1% 0;
-    background-color:  white;
-    float: right;
+    background-color: silver;
   }
-  &__Menu { 
-    height: calc(100% - 30px);
+  &__Menu {
+    height: 100%;
+    position: fixed;
     width: 20%;
     background-color: white;
-    // margin: 20px;
-    height: 100%;
-    border-radius: 10px;
-    position: fixed;
     &__Logo {
       .logo {
         display: flex;
@@ -28,7 +24,7 @@
         text-align: center;
         &__animation {
           display: flex;
-          width: 30%;
+          width: 40%;
           height: 100%;
           margin-bottom: 40px;
         }
@@ -39,7 +35,7 @@
         position: absolute;
         border-bottom: 2px solid black;
         height: 10px;
-        top: 78px;
+        top: 58px;
         width: 100%;
       }
     }

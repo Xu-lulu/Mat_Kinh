@@ -12,10 +12,7 @@ const {
 router.post(
   "/createProducts",
   verifyTokenAndAdmin,
-  uploadCloud.fields([
-    { name: "Image", maxCount: 1 }, // Trường 1 ảnh
-    { name: "setFileList", maxCount: 5 }, // Trường mảng ảnh (giả sử tối đa 5 ảnh)
-  ]),
+  uploadCloud.single("Image"),
   ProductsControllers.createProducts
 );
 router.get("/allproducts", ProductsControllers.allProducts);
@@ -29,7 +26,7 @@ router.delete("/delete/:id", verifyTokenAndAdmin, ProductsControllers.delete);
 router.put(
   "/update/:id",
   verifyTokenAndAdmin,
-  uploadCloud.single("Image"),
+  upload.single("Image"),
   ProductsControllers.update
 );
 router.post(

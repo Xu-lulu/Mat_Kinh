@@ -15,7 +15,6 @@ import {
   useDataCurrentUser,
 } from "../../../../common/dataReux";
 import { loginSuccess } from "../../../../redux/authSlice";
-import { createAxios } from "../../../../common/createInstane";
 
 const CategoryAdmin = () => {
   const dispatch = useDispatch();
@@ -27,6 +26,7 @@ const CategoryAdmin = () => {
   const alldataCategorys = useDataCategory();
   const dataCurrent = useDataCurrentUser();
   let axiosJWT = createAxios(dataCurrent, dispatch, loginSuccess);
+
   const handleDelete = async (id) => {
     deleteCategory(dispatch, id, navigate, token, axiosJWT);
   };

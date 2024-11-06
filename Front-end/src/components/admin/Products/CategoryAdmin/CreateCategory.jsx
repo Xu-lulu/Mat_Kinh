@@ -24,7 +24,6 @@ const CreateCategory = () => {
   const token = useAccessToken();
   const dataCurrent = useDataCurrentUser();
   let axiosJWT = createAxios(dataCurrent, dispatch, loginSuccess);
-
   const handleSubmit = async (event) => {
     const addcategory = {
       Namecategory: name,

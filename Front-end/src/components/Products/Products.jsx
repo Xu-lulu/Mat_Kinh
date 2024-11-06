@@ -53,6 +53,7 @@ const Products = () => {
     <>
       <div className="Product-page">
         <div className="Products-baner">
+          <div></div>
           <BanNer />
         </div>
         <div className="product">

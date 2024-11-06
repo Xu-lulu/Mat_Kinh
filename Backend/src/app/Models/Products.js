@@ -6,10 +6,6 @@ const Products = new mongoose.Schema(
       type: String,
       require: true,
     },
-    Brand: {
-      type: String,
-      require: true,
-    },
     Price: {
       type: String,
       require: true,
@@ -18,34 +14,15 @@ const Products = new mongoose.Schema(
       type: String,
       require: true,
     },
-    variants: [
-      {
-        color: {
-          type: String,
-          required: true,
-        },
-        imageUrl: {
-          type: String,
-          required: true,
-        },
-      },
-    ],
-    ImageMain: {
+    Image: {
       type: String,
       require: true,
     },
-    Images: {
-      type: Array,
-    },
-    Count: {
+    count: {
       type: String,
       require: true,
     },
     Category: {
-      type: String,
-      require: true,
-    },
-    Status: {
       type: String,
       require: true,
     },
