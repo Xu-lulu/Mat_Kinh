@@ -1,22 +1,28 @@
 const expressAsyncHandler = require("express-async-handler");
 const products = require("../Models/Products");
-const { uploadImage } = require("../../config/deleteImageClodinary");
+const { uploadImage, deleteImage } = require("../../config/ImageClodinary");
+const getPublicIdFromUrl = require("../../config/pathPublicid");
 class ProductsControllnes {
   async createProducts(req, res, next) {
     try {
-      const { Name, Price, Description, Image, count, Category } = req.body;
-      console.log(req.file.path);
+      // const { Name, Price, Description, Image, count, Category } = req.body;
+      const image = req.files["Image"] ? req.files["Image"][0] : null; // Ảnh chính
+      const setFileList = req.files["setFileList"] || []; // Mảng ảnh chi tiết
+
       // const dataUrl = await uploadImage(req.file.path);
       // console.log("data", dataUrl.secure_url);
-      const newdata = await products.create({
-        Name,
-        Price,
-        Description,
-        Image: req.file.path,
-        count,
-        Category,
+      // const newdata = await products.create({
+      //   Name,
+      //   Price,
+      //   Description,
+      //   Image: req.file.path,
+      //   count,
+      //   Category,
+      // });
+      // res.status(200).json(newdata);
+      res.status(200).json({
+        message: "Upload thành công",
       });
-      res.status(200).json(newdata);
     } catch (error) {
       console.log("lỗi 500");
       res.status(500).json({
@@ -53,6 +59,9 @@ class ProductsControllnes {
   async delete(req, res, next) {
     try {
       const id = req.params.id;
+      const dataproducts = await products.findById({ _id: id });
+      const publicId = getPublicIdFromUrl(dataproducts.Image);
+      const deleImage = await deleteImage(publicId);
       const data = await products.findOneAndDelete({ _id: id });
       res.status(200).json(data);
     } catch (error) {
@@ -62,17 +71,17 @@ class ProductsControllnes {
   async update(req, res, next) {
     try {
       const id = req.params.id;
+      const dataproducts = await products.findById({ _id: id });
+      const publicId = getPublicIdFromUrl(dataproducts.Image);
+      const deleImage = await deleteImage(publicId);
       const updatedData = {
         Name: req.body.Name,
         Price: req.body.Price,
         Description: req.body.Description,
-        Image: req.body.Image,
+        Image: req.file.path,
         count: req.body.count,
         Category: req.body.Category,
       };
-      if (req.file) {
-        updatedData.Image = req.file.path;
-      }
       const data = await products.findOneAndUpdate({ _id: id }, updatedData, {
         new: true,
       });

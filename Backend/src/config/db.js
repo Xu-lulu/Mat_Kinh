@@ -5,7 +5,7 @@ const env = require('dotenv').config();
 async function connect(){
     try{
         await mongoose.connect(
-          `mongodb+srv://${process.env.DataName}:${process.env.DataPass}@shop.ckuzmf0.mongodb.net/Shop?retryWrites=true&w=majority&appName=Shop`,
+          `mongodb+srv://${process.env.DataName}:${process.env.DataPass}@matkinh.w3cyv.mongodb.net/MatKinh?retryWrites=true&w=majority&appName=MatKinh`,
           {
             // useNewUrlParser: true,
             // useCreateIndex: true,

@@ -18,6 +18,9 @@ import {
 } from "../../../common/dataReux";
 import { createAxios } from "../../../common/createInstane";
 import { loginSuccess } from "../../../redux/authSlice";
+import LogoNodata from "../../../assets/animation/Nodata.json";
+import Lottie from "lottie-react";
+
 
 const HomeProducts = () => {
   const dispatch = useDispatch();
@@ -47,76 +50,85 @@ const HomeProducts = () => {
           </NavLink>
         </div>
 
-        <div className="admin-container-table">
-          <table className="table">
-            <thead>
-              <tr>
-                <th scope="col">Ảnh</th>
-                <th scope="col">Tên sản phẩm</th>
-                <th scope="col">Giá tiền</th>
-                <th scope="col">Chi tiết sản phẩm</th>
-                <th className="category" scope="col">
-                  Danh mục
-                </th>
-                <th scope="col"></th>
-                <th scope="col"></th>
-              </tr>
-            </thead>
-            {alldataProducts.map((item, index) => {
-              return (
-                <tbody key={index}>
-                  <tr>
-                    <th scope="row">
-                      <img
-                        className="admin-item-img"
-                        src={`${item.Image}`}
-                        alt=""
-                      ></img>
-                    </th>
-                    <td>
-                      <p className="Admin-item">{item.Name}</p>
-                    </td>
-                    <td>
-                      <p className="Admin-item">{item.Price} VNĐ</p>
-                    </td>
-                    <td>
-                      <p className="Admin-item">{item.Description}</p>
-                    </td>
-                    <td>
-                      <p className="Admin-item">{item.Category}</p>
-                    </td>
-                    <td>
-                      <div className="Admin-item">
-                        {/* <button
+        {alldataProducts && alldataProducts.length > 0 ? (
+          <div className="admin-container-table">
+            <table className="table">
+              <thead>
+                <tr>
+                  <th scope="col">Ảnh</th>
+                  <th scope="col">Tên sản phẩm</th>
+                  <th scope="col">Giá tiền</th>
+                  <th scope="col">Chi tiết sản phẩm</th>
+                  <th className="category" scope="col">
+                    Danh mục
+                  </th>
+                  <th scope="col"></th>
+                  <th scope="col"></th>
+                </tr>
+              </thead>
+              {alldataProducts.map((item, index) => {
+                return (
+                  <tbody key={index}>
+                    <tr>
+                      <th scope="row">
+                        <img
+                          className="admin-item-img"
+                          src={`${item.Image}`}
+                          alt=""
+                        ></img>
+                      </th>
+                      <td>
+                        <p className="Admin-item">{item.Name}</p>
+                      </td>
+                      <td>
+                        <p className="Admin-item">{item.Price} VNĐ</p>
+                      </td>
+                      <td>
+                        <p className="Admin-item">{item.Description}</p>
+                      </td>
+                      <td>
+                        <p className="Admin-item">{item.Category}</p>
+                      </td>
+                      <td>
+                        <div className="Admin-item">
+                          {/* <button
                           className="amount-btn"
                           // onClick={() => handcleclinkRemove(item._id)}
                         >
                           {/* <FontAwesomeIcon icon={faTrashCan} /> */}
-                        {/* Edit */}
-                        {/* </button> */}
-                        <Link className="admin-edit" to={`/edit/${item._id}`}>
-                          Edit
-                        </Link>
-                      </div>
-                    </td>
-                    <td>
-                      {/* <div className="admin-delete-btn"> */}
-                      <Model
-                        className="Create-submit"
-                        handleSubmit={handleDelete}
-                        textheader={textheader}
-                        textbody={text}
-                        textfooter={textfooter}
-                        id={item._id}
-                      />
-                      {/* </div> */}
-                    </td>
-                  </tr>
-                </tbody>
-              );
-            })}
-          </table>
-        </div>
+                          {/* Edit */}
+                          {/* </button> */}
+                          <Link className="admin-edit" to={`/edit/${item._id}`}>
+                            Edit
+                          </Link>
+                        </div>
+                      </td>
+                      <td>
+                        {/* <div className="admin-delete-btn"> */}
+                        <Model
+                          className="Create-submit"
+                          handleSubmit={handleDelete}
+                          textheader={textheader}
+                          textbody={text}
+                          textfooter={textfooter}
+                          id={item._id}
+                        />
+                        {/* </div> */}
+                      </td>
+                    </tr>
+                  </tbody>
+                );
+              })}
+            </table>
+          </div>
+        ) : (
+          <>
+            {" "}
+            <div className="Nodata">
+              <Lottie animationData={LogoNodata} loop={true} />
+            </div>
+          </>
+        )}
       </div>
     </>
   );

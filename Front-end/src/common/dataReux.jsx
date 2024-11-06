@@ -26,6 +26,15 @@ export const useDataCategory = () => {
     return null;
   });
 };
+export const useDataCategoryadmin = () => {
+  return useSelector((state) => {
+    const datacategoryuser = state?.products.categorys;
+    if (datacategoryuser && datacategoryuser?.dataCategorys) {
+      return datacategoryuser?.dataCategorys;
+    }
+    return null;
+  });
+};
 export const useDataFindCategory = () => {
   return useSelector((state) => {
     const data = state?.products.findcategorys;

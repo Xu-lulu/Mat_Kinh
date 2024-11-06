@@ -8,7 +8,7 @@ import {
 import NotFound from "../components/NotFound/NotFound";
 
 import Register from "../components/auth/Register";
-import Blog from "../components/auth/test";
+// import Blog from "../components/auth/test";
 const AuthRoute = () => {
   return (
     <>

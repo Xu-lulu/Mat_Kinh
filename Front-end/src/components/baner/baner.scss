@@ -1,16 +1,31 @@
+.ant-carousel .slick-prev, .ant-carousel .slick-next {
+    display: block !important;
+    z-index: 1;
+    opacity: 1;
+}
+
 .Banner {
-  width: 800px;
-  justify-content: center;
-  .item-image {
-    img {
-      height:300px;
-      width: 84%;
-    }
-  }
-  .ant-carousel {
-    align-items: center;
+  position: relative;
+  margin-top: 5%;
+  &__right {
+    position: absolute;
+    width: 800px;
     justify-content: center;
-    text-align: center;
+    float: left;
+    .item-image {
+        height: 260px;
+        lineHeight: 260px;
+        textAlign: center;
+      img {
+        // height: 300px;
+        // width: 84%;
+      }
+    }
+    .ant-carousel {
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
   }
 }
 @keyframes slideRight {

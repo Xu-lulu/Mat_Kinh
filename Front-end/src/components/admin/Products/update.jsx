@@ -10,37 +10,35 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   useAccessToken,
   useDataCategory,
+  useDataCurrentUser,
   useDataProduct,
+  useDataProductAdmin,
 } from "../../../common/dataReux";
-const Update = (props) => {
+import { createAxios } from "../../../common/createInstane";
+import { loginSuccess } from "../../../redux/authSlice";
+const Update = () => {
   const { id } = useParams();
-  // const { allProducts, dataup } = props;
   const [name, setname] = useState("");
   const [description, setdescription] = useState("");
   const [price, setprice] = useState("");
   const [count, setcount] = useState("");
   const [urlimg, seturlimg] = useState("");
   const [category, setcategory] = useState("");
-  // const [dataCategory, setdataCategory] = useState([]);
   const navgigate = useNavigate();
   const dispatch = useDispatch();
   const [selectedImage, setSelectedImage] = useState(null);
   const token = useAccessToken();
-  // dataUpdateProduct(dispatch, id, token);
-  // console.log('id',id)
-  // console.log("token", token);
-  const alldataProducts = useDataProduct();
+  const alldataProducts = useDataProductAdmin();
+  const dataCurrent = useDataCurrentUser();
+  let axiosJWT = createAxios(dataCurrent, dispatch, loginSuccess);
   const dataupdate = alldataProducts.find((item) => item._id === id);
-  // const dataUpdate = useSelector(
-  //   (state) => state.admin.UpdateProductAdmin.dataUpdateProductAdmin
-  // );
   useEffect(() => {
     setdescription(dataupdate.Description);
     setname(dataupdate.Name);
     setprice(dataupdate.Price);
     setcategory(dataupdate.Category);
     setcount(dataupdate.count);
-  }, [dataupdate]);
+  }, []);
   const dataCategory = useDataCategory();
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -52,7 +50,7 @@ const Update = (props) => {
       count: count,
       Category: category,
     };
-    UpdateProduct(dispatch, id, token, addproducts, navgigate);
+    UpdateProduct(dispatch, id, token, addproducts, navgigate, axiosJWT);
   };
   const handleImageChange = (event) => {
     seturlimg(event.target.files[0]);
@@ -98,7 +96,7 @@ const Update = (props) => {
                     <label className="form-label" htmlFor="image">
                       <img
                         className="selected-image"
-                        src={`http://localhost:3000/` + dataupdate.Image}
+                        src={dataupdate.Image}
                         alt=""
                       ></img>
                     </label>

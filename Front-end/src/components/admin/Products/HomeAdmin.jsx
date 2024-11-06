@@ -25,7 +25,7 @@ const HomeAdmin = (props) => {
     <>
       <div className="HomePage-admin">
         <div className="Container-admin">
-          <div>Home Admin Container</div>
+          <p>Home Admin Container</p>
         </div>
       </div>
     </>

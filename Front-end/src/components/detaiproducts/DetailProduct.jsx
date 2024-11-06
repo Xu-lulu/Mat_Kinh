@@ -30,7 +30,7 @@ const DetailProduct = () => {
   let axiosJWT = createAxios(dataCurrent, dispatch, loginSuccess);
   const dataDetail = alldataProducts.find((item) => item._id === id);
   useEffect(() => {
-    findCategorys(dispatch, dataDetail.Category, axiosJWT);
+    findCategorys(dispatch, dataDetail.Category);
   }, [dataDetail.Category]);
   const datafincategory = useDataFindCategory();
   const user = useSelector((state) => {
