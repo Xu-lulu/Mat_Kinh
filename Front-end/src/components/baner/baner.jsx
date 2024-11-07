@@ -15,35 +15,18 @@ useEffect(()=>{
   return (
     <>
       <div className="Banner">
-        <div className="Banner__right">
-          <Carousel
-            autoplay
-            draggable={true}
-            arrows
-            infinite={true}
-            autoplaySpeed={3500}
-            dotPosition="bottom"
-          >
-            {allBanner.map((item, index) => {
-              return (
+        <Carousel autoplay autoplaySpeed={2500} dotPosition="bottom">
+          {allBanner.map((item, index) => {
+            return (
                 <div key={index} className="item-image">
                   <img src={item} alt={`Banner ${index + 1}`}></img>
                 </div>
-              );
-            })}
-            {/* <div>
+            );
+          })}
+          {/* <div>
             <img src={baner1} alt="banner1"></img>
           </div> */}
-          </Carousel>
-        </div>
-        <div className="Banner__left">
-          <div className="Banner__left__voucher-first">
-            <img></img>
-          </div>
-          <div className="Banner__left_voucher-second">
-            <img></img>
-          </div>
-        </div>
+        </Carousel>
       </div>
     </>
   );

@@ -9,7 +9,7 @@ const { notFound, errHandle } = require("../middleware/errHandle");
 
 const route = (app) => {
   app.use("/", home);
-  app.use("/", auth);
+  app.use("/auth", auth);
   app.use("/products", products);
   app.use("/category", category);
   app.use("/cart", cart);

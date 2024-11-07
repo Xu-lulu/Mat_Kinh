@@ -11,12 +11,11 @@ import {
   Route,
 } from "react-router-dom";
 import Register from "../components/auth/Register";
+import Blog from "../components/auth/test";
 
 import Pay from "../components/Pay/pay";
 import NotFound from "../components/NotFound/NotFound";
 import Seller from "../components/seller/seller";
-// import Blog from "../components/auth/test";
-
 const PublicRoute = () => {
   return (
     <>
@@ -30,7 +29,7 @@ const PublicRoute = () => {
         <Route path="/pay" element={<Pay />} />
         <Route path="/Login" element={<Login />} />
         <Route path="/Register" element={<Register />} />
-        {/* <Route path="/blog" element={<Blog />} /> */}
+        <Route path="/blog" element={<Blog />} />
 
         <Route path="*" element={<NotFound />} />
       </Routes>
