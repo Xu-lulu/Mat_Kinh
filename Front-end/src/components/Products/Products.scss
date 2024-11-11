@@ -1,15 +1,14 @@
 .Product-page {
-  display: flex;
-  flex-direction: column;
+  display: inline;
   .Products-baner {
     display: flex;
     margin-top: 4%;
     justify-content: space-between;
-    margin-left: 5%;
+    margin-left: 10%;
+    
   }
   .product {
     display: inline;
-    margin-top: 10%;
     .navbarpro {
       width: 100%;
       display: flex;

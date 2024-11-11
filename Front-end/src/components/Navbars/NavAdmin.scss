@@ -2,13 +2,18 @@
   position: relative;
   display: grid;
   &__Account {
+<<<<<<< HEAD
     // position: absolute;
+=======
+    position: absolute;
+>>>>>>> 9ddca220376579a1e0bafd0142627836ea037c73
     width: 100%;
     display: flex;
     justify-content: flex-end;
     // align-items: center;
     // text-align: center;
     padding: 1% 2% 1% 0;
+<<<<<<< HEAD
     background-color: white;
     float: right;
     .icon_Navlink_end{
@@ -25,6 +30,15 @@
     height: 100%;
     border-radius: 10px;
     position: fixed;
+=======
+    background-color: silver;
+  }
+  &__Menu {
+    height: 100%;
+    position: fixed;
+    width: 20%;
+    background-color: white;
+>>>>>>> 9ddca220376579a1e0bafd0142627836ea037c73
     &__Logo {
       .logo {
         display: flex;
@@ -34,7 +48,7 @@
         text-align: center;
         &__animation {
           display: flex;
-          width: 30%;
+          width: 40%;
           height: 100%;
           margin-bottom: 40px;
         }
@@ -45,7 +59,7 @@
         position: absolute;
         border-bottom: 2px solid black;
         height: 10px;
-        top: 78px;
+        top: 58px;
         width: 100%;
       }
       .flex-column {

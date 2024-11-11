@@ -3,7 +3,7 @@ import { Toaster, toast } from "sonner";
 import { useSelector, useDispatch } from "react-redux";
 import "./NavAdmin.scss";
 import logo from "../../assets/Group 11/image 20.png";
-import LogoMatKing from "../../assets/animation/Matkinh.json";
+import Bank from "../../assets/animation/Bank.json";
 import Lottie from "lottie-react";
 
 import { useState, useEffect } from "react";
@@ -47,11 +47,13 @@ export const NavbarAdmin = () => {
         <div className="Navbar-Admin__Menu">
           <div className="Navbar-Admin__Menu__Logo">
             <a className="logo">
+              {/* <img src={logo} alt="logo"></img> */}
               <div className="logo__animation">
-                <Lottie animationData={LogoMatKing} loop={true} />
+                <Lottie animationData={Bank} loop={true} />
               </div>
-              <p>Kính Mắt</p>
+              <p>Food Love</p>
             </a>
+<<<<<<< HEAD
             <div>
               <div className="nav flex-column">
                 <div>
@@ -106,6 +108,29 @@ export const NavbarAdmin = () => {
                   Đăng Xuất
                 </NavLink>
               </div>
+=======
+            <div className="nav flex-column">
+              <NavLink
+                className="nav-link active btn"
+                aria-current="page"
+                href="#"
+                to="/admin"
+              >
+                Trang chủ
+              </NavLink>
+              <NavLink to="/productadmin" className="nav-link btn" href="#">
+                Sản Phẩm
+              </NavLink>
+              <NavLink to="/categoryadmin" className="nav-link btn" href="#">
+                Danh mục
+              </NavLink>
+              <NavLink className="nav-link btn" href="#">
+                Khách hàng
+              </NavLink>
+              <NavLink className="nav-link btn" aria-disabled="true">
+                Hóa đơn
+              </NavLink>
+>>>>>>> 9ddca220376579a1e0bafd0142627836ea037c73
             </div>
           </div>
         </div>

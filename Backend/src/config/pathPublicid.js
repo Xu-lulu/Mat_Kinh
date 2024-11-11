@@ -1,4 +1,5 @@
 const getPublicIdFromUrl = (url) => {
+<<<<<<< HEAD
   // Decode URL để loại bỏ các ký tự mã hóa như %20
   const decodedUrl = decodeURIComponent(url);
 
@@ -11,6 +12,11 @@ const getPublicIdFromUrl = (url) => {
   // Xóa phần mở rộng của tệp (nếu có) khỏi `public_id`
   const publicId = publicIdWithExtension.replace(/\.[^/.]+$/, "");
 
+=======
+  const parts = url.split("/");
+  const publicIdWithExtension = parts.slice(7).join("/");
+  const publicId = publicIdWithExtension.replace(/\.[^/.]+$/, ""); 
+>>>>>>> 9ddca220376579a1e0bafd0142627836ea037c73
   return publicId;
 };
 

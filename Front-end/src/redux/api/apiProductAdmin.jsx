@@ -56,8 +56,13 @@ export const createProduct = async (
   } catch (error) {
     console.log(error.response.data);
     dispatch(productsAdminFailed());
-    toast.error(error.response.data.mes);
-    // toast.error("Thêm không thành công!");
+    if (axios.isCancel(error)) {
+      toast.error("Yêu cầu đã vượt quá thời gian chờ");
+    } else if (error.response && error.response.data) {
+      toast.error(error.response.data);
+    } else {
+      toast.error("Xảy ra lỗi");
+    }
   }
 };
 export const deleteProduct = async (
@@ -79,13 +84,10 @@ export const deleteProduct = async (
     );
     dispatch(productsAdminSuccess());
     await dataProductsAdmin(dispatch, token, axiosJWT);
-
     navigate("/productadmin");
     toast.success("Xóa thành công");
   } catch (error) {
     dispatch(productsAdminFailed());
-    // toast.error("Xóa Không Thành Công");
-
     toast.error(error.response.data.mes);
   }
 };
@@ -115,8 +117,6 @@ export const UpdateProduct = async (
     navigate("/productadmin");
   } catch (error) {
     dispatch(updateProductAdminFailed());
-    // toast.error("Sửa không thành công");
-
     toast.error(error.response.data.mes);
   }
 };

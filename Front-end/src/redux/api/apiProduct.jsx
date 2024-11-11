@@ -30,10 +30,10 @@ export const dataCategorys = async (dispatch) => {
     dispatch(categoryFailed());
   }
 };
-export const findCategorys = async (dispatch, id) => {
+export const findCategorys = async (dispatch, id, axiosJWT) => {
   dispatch(findcategoryStart());
   try {
-    const res = await axios.post(
+    const res = await axiosJWT.post(
       "http://localhost:3000/products/category/" + `${id}`
     );
     dispatch(findcategorySuccess(res.data));

@@ -18,7 +18,7 @@ import {
   useDataCart,
   useAccessToken,
 } from "../../common/dataReux";
-import Matkinh from "../../assets/animation/Matkinh.json";
+import Bank from "../../assets/animation/Bank.json";
 import account from "../../assets/animation/account.json";
 import Lottie from "lottie-react";
 import { UserOutlined } from "@ant-design/icons";
@@ -118,13 +118,13 @@ const Navbars = () => {
           {/* <img src={logo} alt="logo"></img> */}
 
           <div className="logo__animation">
-            <Lottie animationData={Matkinh} loop={true} />
+            <Lottie animationData={Bank} loop={true} />
           </div>
           {/* <Animation data={Bank} /> */}
           <div className="logo__text">
-            <h1>Kính mắt</h1>
-            <h1>Kính mắt</h1>
-            <h1>Kính mắt</h1>
+            <h1>Xululu</h1>
+            <h1>Xululu</h1>
+            <h1>Xululu</h1>
           </div>
         </a>
         <div
