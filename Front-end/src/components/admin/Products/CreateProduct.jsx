@@ -33,7 +33,7 @@ const CreateProduct = () => {
   const [category, setcategory] = useState("");
   const [selectedImage, setSelectedImage] = useState("");
   const [selectedImages, setSelectedImages] = useState([]);
-  const [fileList, setFileList] = useState([]);
+  const [fileList, setFileListImage] = useState([]);
   const text = "Bạn có chắc chắn muốn lưu không?";
   const textheader = "Thêm sản phẩm";
   const textfooter = "Lưu";
@@ -74,11 +74,11 @@ const CreateProduct = () => {
     formData.append("Count", count);
     formData.append("Category", category);
     formData.append("Status", status);
-    formData.append("setFileList", fileList);
+    formData.append("setFileListImage", fileList);
 
     createProduct(dispatch, navgigate, token, formData, axiosJWT);
   };
-  console.log(name,brand,price,description,urlimg,count,category,status,fileList)
+  // console.log(name,brand,price,description,urlimg,count,category,status,fileList)
   const handleImageChange = (event) => {
     seturlimg(event.target.files[0]);
     setSelectedImage(URL.createObjectURL(event.target.files[0]));
@@ -106,13 +106,13 @@ const CreateProduct = () => {
 
   const handleFileChange = ({ fileList: newFileList }) => {
     if (Array.isArray(newFileList) && newFileList.length <= 5) {
-      setFileList(newFileList);
+      setFileListImage(newFileList);
     } else {
       toast.error("Bạn chỉ có thể tải lên tối đa 5 ảnh.");
     }
   };
 
-  console.log(fileList);
+  // console.log(fileList);
   return (
     <>
       <div className="Container-Create-Product">

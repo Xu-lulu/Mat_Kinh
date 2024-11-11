@@ -30,11 +30,11 @@ const Products = new mongoose.Schema(
         },
       },
     ],
-    ImageMain: {
+    Image: {
       type: String,
       require: true,
     },
-    Images: {
+    setFileListImage: {
       type: Array,
     },
     Count: {

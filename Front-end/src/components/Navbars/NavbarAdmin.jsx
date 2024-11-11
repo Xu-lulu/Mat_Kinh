@@ -16,6 +16,7 @@ import {
 import { logoutSuccess } from "../../redux/authSlice";
 import { logoutUser } from "../../redux/api/apiRequest";
 import { createAxios } from "../../common/createInstane";
+import { HomeOutlined } from "@ant-design/icons";
 //
 export const NavbarAdmin = () => {
   const { id } = useParams();
@@ -33,9 +34,14 @@ export const NavbarAdmin = () => {
     <>
       <div className="Navbar-Admin">
         <div className="Navbar-Admin__Account">
-          <NavLink className="btn">{user.username}</NavLink>
+          <NavLink className="btn">
+            <i class="fa-regular fa-user icon_Navlink"></i>
+            {user.username}
+          </NavLink>
+
           <NavLink to="/Login" className="btn" onClick={handleClickLogout}>
             Đăng Xuất
+            <i className="fa-solid fa-arrow-right-from-bracket icon_Navlink_end" />
           </NavLink>
         </div>
         <div className="Navbar-Admin__Menu">
@@ -46,27 +52,60 @@ export const NavbarAdmin = () => {
               </div>
               <p>Kính Mắt</p>
             </a>
-            <div className="nav flex-column">
-              <NavLink
-                className="nav-link active btn"
-                aria-current="page"
-                // href="#"
-                to="/admin"
-              >
-                Trang chủ
-              </NavLink>
-              <NavLink to="/productadmin" className="nav-link btn" href="#">
-                Sản Phẩm
-              </NavLink>
-              <NavLink to="/categoryadmin" className="nav-link btn" href="#">
-                Danh mục
-              </NavLink>
-              <NavLink className="nav-link btn" href="#">
-                Khách hàng
-              </NavLink>
-              <NavLink className="nav-link btn" aria-disabled="true">
-                Hóa đơn
-              </NavLink>
+            <div>
+              <div className="nav flex-column">
+                <div>
+                  <NavLink
+                    className="nav-link active btn"
+                    aria-current="page"
+                    // href="#"
+                    to="/admin"
+                  >
+                    <HomeOutlined className="icon_Navlink" />
+                    Trang chủ
+                  </NavLink>
+                </div>
+                <div className="">
+                  <NavLink to="/productadmin" className="nav-link btn" href="#">
+                    <i class="fa-solid fa-glasses icon_Navlink"></i>
+                    Sản Phẩm
+                  </NavLink>
+                </div>
+
+                <div className="">
+                  <NavLink
+                    to="/categoryadmin"
+                    className="nav-link btn"
+                    href="#"
+                  >
+                    <i class="fa-solid fa-list icon_Navlink"></i>
+                    Danh mục
+                  </NavLink>
+                </div>
+
+                <div className="">
+                  <NavLink className="nav-link btn" href="#">
+                    <i class="fa-solid fa-users icon_Navlink"></i>
+                    Khách hàng
+                  </NavLink>
+                </div>
+
+                <div className="icon_Navlink">
+                  <NavLink className="nav-link btn" aria-disabled="true">
+                    Hóa đơn
+                  </NavLink>
+                </div>
+              </div>
+              <div className="Logout">
+                <NavLink
+                  to="/Login"
+                  className="btn"
+                  onClick={handleClickLogout}
+                >
+                  <i className="fa-solid fa-arrow-right-from-bracket icon_Navlink" />
+                  Đăng Xuất
+                </NavLink>
+              </div>
             </div>
           </div>
         </div>
