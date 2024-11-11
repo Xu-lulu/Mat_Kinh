@@ -6,10 +6,6 @@ const Products = new mongoose.Schema(
       type: String,
       require: true,
     },
-    Brand: {
-      type: String,
-      require: true,
-    },
     Price: {
       type: String,
       require: true,
@@ -18,6 +14,7 @@ const Products = new mongoose.Schema(
       type: String,
       require: true,
     },
+<<<<<<< HEAD
     variants: [
       {
         color: {
@@ -30,22 +27,24 @@ const Products = new mongoose.Schema(
         },
       },
     ],
+=======
+>>>>>>> 9ddca220376579a1e0bafd0142627836ea037c73
     Image: {
       type: String,
       require: true,
     },
+<<<<<<< HEAD
     setFileListImage: {
       type: Array,
     },
     Count: {
+=======
+    count: {
+>>>>>>> 9ddca220376579a1e0bafd0142627836ea037c73
       type: String,
       require: true,
     },
     Category: {
-      type: String,
-      require: true,
-    },
-    Status: {
       type: String,
       require: true,
     },

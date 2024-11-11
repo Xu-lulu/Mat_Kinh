@@ -10,17 +10,20 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   useAccessToken,
   useDataCategory,
-  useDataCurrentUser,
   useDataProduct,
-  useDataProductAdmin,
 } from "../../../common/dataReux";
+<<<<<<< HEAD
 import { createAxios } from "../../../common/createInstane";
 import { loginSuccess } from "../../../redux/authSlice";
 import { Upload } from "antd";
 import ImgCrop from "antd-img-crop";
 
 const Update = () => {
+=======
+const Update = (props) => {
+>>>>>>> 9ddca220376579a1e0bafd0142627836ea037c73
   const { id } = useParams();
+  // const { allProducts, dataup } = props;
   const [name, setname] = useState("");
   const [brand, setbrand] = useState("");
   const [status, setstatus] = useState("");
@@ -30,16 +33,24 @@ const Update = () => {
   const [count, setcount] = useState("");
   const [urlimg, seturlimg] = useState("");
   const [category, setcategory] = useState("");
+<<<<<<< HEAD
   const [selectedImage, setSelectedImage] = useState("");
   const [selectedImages, setSelectedImages] = useState([]);
   const [fileList, setFileListImage] = useState([]);
+=======
+  // const [dataCategory, setdataCategory] = useState([]);
+>>>>>>> 9ddca220376579a1e0bafd0142627836ea037c73
   const navgigate = useNavigate();
   const dispatch = useDispatch();
   const token = useAccessToken();
-  const alldataProducts = useDataProductAdmin();
-  const dataCurrent = useDataCurrentUser();
-  let axiosJWT = createAxios(dataCurrent, dispatch, loginSuccess);
+  // dataUpdateProduct(dispatch, id, token);
+  // console.log('id',id)
+  // console.log("token", token);
+  const alldataProducts = useDataProduct();
   const dataupdate = alldataProducts.find((item) => item._id === id);
+  // const dataUpdate = useSelector(
+  //   (state) => state.admin.UpdateProductAdmin.dataUpdateProductAdmin
+  // );
   useEffect(() => {
     setdescription(dataupdate.Description);
     setname(dataupdate.Name);
@@ -47,6 +58,7 @@ const Update = () => {
     setbrand(dataupdate.Brand);
     setprice(dataupdate.Price);
     setcategory(dataupdate.Category);
+<<<<<<< HEAD
     setcount(dataupdate.Count);
     setstatus(dataupdate.Status);
     if (dataupdate.setFileListImage) {
@@ -84,6 +96,22 @@ const Update = () => {
     formData.append("setFileListImage", fileList);
 
     UpdateProduct(dispatch, id, token, formData, navgigate, axiosJWT);
+=======
+    setcount(dataupdate.count);
+  }, [dataupdate]);
+  const dataCategory = useDataCategory();
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    const addproducts = {
+      Name: name,
+      Price: price,
+      Description: description,
+      Image: urlimg,
+      count: count,
+      Category: category,
+    };
+    UpdateProduct(dispatch, id, token, addproducts, navgigate);
+>>>>>>> 9ddca220376579a1e0bafd0142627836ea037c73
   };
   const handleImageChange = (event) => {
     seturlimg(event.target.files[0]);
@@ -201,7 +229,13 @@ const Update = () => {
                         src={selectedImage}
                         alt="Selected"
                         className="selected-image"
+<<<<<<< HEAD
                       />
+=======
+                        src={`http://localhost:3000/` + dataupdate.Image}
+                        alt=""
+                      ></img>
+>>>>>>> 9ddca220376579a1e0bafd0142627836ea037c73
                     </label>
                     <input
                       type="file"
